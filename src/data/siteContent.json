@@ -1,0 +1,536 @@
+{
+  "general": {
+    "siteName": "Codube.",
+    "tagline": "Software Development Studio",
+    "contactEmail": "hello@codube.com",
+    "notificationEmail": "hello@codube.com",
+    "phone": "+91 96726 60338",
+    "whatsappNumber": "9672660338",
+    "customLogo": "/uploads/1793900682262_codube-icon-80px.png",
+    "logoDisplayMode": "full",
+    "marqueeText": [
+      {
+        "text": "NEXT-GEN WEB APPS",
+        "highlight": true
+      },
+      {
+        "text": "AI AGENTS & LLM AUTOMATION",
+        "highlight": false
+      },
+      {
+        "text": "SCALABLE SAAS ARCHITECTURE",
+        "highlight": true
+      },
+      {
+        "text": "PIXEL-PERFECT 60FPS UI/UX",
+        "highlight": false
+      },
+      {
+        "text": "99% ON-TIME DELIVERY",
+        "highlight": true
+      },
+      {
+        "text": "MOBILE-FIRST RESPONSIVE",
+        "highlight": false
+      },
+      {
+        "text": "HIGH-PERFORMANCE NEXT.JS",
+        "highlight": true
+      },
+      {
+        "text": "ZERO LEGACY TECH DEBT",
+        "highlight": false
+      }
+    ]
+  },
+  "hero": {
+    "badge": "Software Development Studio",
+    "titleLine1": "We Build Digital",
+    "titleLine2": "Products That",
+    "titleHighlight": "Real Impact.",
+    "subtitle": "From idea to launch, we design, develop and scale modern web, mobile and SaaS products for businesses, startups and creators.",
+    "primaryCta": "Start Your Project",
+    "secondaryCta": "Watch Our Work",
+    "heroImage": "/images/hero-laptop.png",
+    "pills": [
+      {
+        "icon": "zap",
+        "text": "Product Development"
+      },
+      {
+        "icon": "phone",
+        "text": "Mobile Apps"
+      },
+      {
+        "icon": "cloud",
+        "text": "SaaS Platforms"
+      },
+      {
+        "icon": "bot",
+        "text": "AI Solutions"
+      },
+      {
+        "icon": "layers",
+        "text": "Custom Software"
+      }
+    ],
+    "floatingCards": [
+      {
+        "title": "Build Products",
+        "icon": "code",
+        "position": "top-left"
+      },
+      {
+        "title": "Modern Tech",
+        "icon": "cpu",
+        "position": "bottom-left"
+      },
+      {
+        "title": "Scale Business",
+        "icon": "rocket",
+        "position": "top-right"
+      },
+      {
+        "title": "Long Term Growth",
+        "icon": "trending-up",
+        "position": "bottom-right"
+      }
+    ]
+  },
+  "services": {
+    "badge": "Our Services",
+    "heading": "End-to-End Technology Solutions",
+    "headingHighlight": "Technology",
+    "subheading": "From websites to complex software and AI automation — we build, integrate and scale technology for your business.",
+    "handwrittenNote": "Everything you need to build, automate and grow.",
+    "items": [
+      {
+        "id": "web-dev",
+        "title": "Web Development",
+        "icon": "monitor",
+        "description": "High-performing, modern websites that convert visitors into customers.",
+        "badge": "Popular",
+        "featured": true,
+        "features": [
+          "React & Next.js",
+          "Ultra-fast Page Speed",
+          "Responsive Design",
+          "SEO Ready"
+        ]
+      },
+      {
+        "id": "custom-software",
+        "title": "Custom Software",
+        "icon": "layers",
+        "description": "Business software, CRM, ERP and admin systems tailored to your needs.",
+        "badge": "Scalable",
+        "featured": false,
+        "features": [
+          "Bespoke Architecture",
+          "Role-based Access",
+          "API Integrations",
+          "Database Design"
+        ]
+      },
+      {
+        "id": "ai-dev",
+        "title": "AI Development",
+        "icon": "sparkles",
+        "description": "AI agents, smart assistants and intelligent automation solutions.",
+        "badge": "Next-Gen",
+        "featured": false,
+        "features": [
+          "LLM & Agent Pipelines",
+          "Custom RAG & Search",
+          "Voice & Chat Assistants",
+          "Process Automation"
+        ]
+      },
+      {
+        "id": "business-automation",
+        "title": "Business Automation",
+        "icon": "message-circle",
+        "description": "WhatsApp automation, lead management and workflow systems.",
+        "badge": "High ROI",
+        "featured": false,
+        "features": [
+          "WhatsApp Business API",
+          "Automated CRM Sync",
+          "Instant Lead Alerts",
+          "Zero Manual Overhead"
+        ]
+      },
+      {
+        "id": "saas-dev",
+        "title": "SaaS Development",
+        "icon": "cloud",
+        "description": "From idea to launch — scalable, secure and product-ready SaaS platforms.",
+        "badge": "Full Stack",
+        "featured": false,
+        "features": [
+          "Subscription & Billing",
+          "Multi-Tenant Cloud",
+          "Auth & Permissions",
+          "High-Volume Ready"
+        ]
+      }
+    ]
+  },
+  "techStack": {
+    "badge": "Our Tech Stack",
+    "title": "Modern Tools for Real-World Impact",
+    "tools": [
+      {
+        "name": "React",
+        "role": "Frontend",
+        "color": "#06b6d4"
+      },
+      {
+        "name": "Node.js",
+        "role": "Backend",
+        "color": "#22c55e"
+      },
+      {
+        "name": "Java",
+        "role": "Enterprise",
+        "color": "#ef4444"
+      },
+      {
+        "name": "Spring Boot",
+        "role": "Microservices",
+        "color": "#84cc16"
+      },
+      {
+        "name": "MongoDB",
+        "role": "NoSQL DB",
+        "color": "#10b981"
+      },
+      {
+        "name": "PostgreSQL",
+        "role": "SQL Database",
+        "color": "#3b82f6"
+      },
+      {
+        "name": "AWS",
+        "role": "Cloud Infra",
+        "color": "#f97316"
+      },
+      {
+        "name": "AI/LLM",
+        "role": "Gemini & GPT",
+        "color": "#a855f7"
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "10+",
+      "label": "Projects Delivered",
+      "icon": "users"
+    },
+    {
+      "value": "8+",
+      "label": "Businesses Trust Us",
+      "icon": "handshake"
+    },
+    {
+      "value": "99%",
+      "label": "On-Time Delivery",
+      "icon": "rocket"
+    },
+    {
+      "value": "24/7",
+      "label": "Technical Support",
+      "icon": "clock"
+    }
+  ],
+  "projects": [
+    {
+      "id": "scantaker",
+      "number": "01",
+      "badge": "FEATURED PROJECT 01",
+      "status": "Live Product",
+      "name": "ScanTaker",
+      "tagline": "A complete diagnostic booking platform for MRI & CT scans.",
+      "description": "A real-world healthcare platform that simplifies MRI and CT scan booking, center management and appointment operations.",
+      "image": "/images/scantaker-mockup.png",
+      "liveUrl": "https://scantaker.com",
+      "caseStudyUrl": "#",
+      "tags": [
+        "Patient Portal",
+        "Admin Panel",
+        "Centre Portal",
+        "Real-time Booking",
+        "Reports & Notifications"
+      ],
+      "results": [
+        {
+          "title": "Faster Booking Flow",
+          "icon": "trending-up"
+        },
+        {
+          "title": "Better Centre Management",
+          "icon": "users"
+        },
+        {
+          "title": "Improved Patient Experience",
+          "icon": "shield-check"
+        }
+      ],
+      "industries": [
+        "Healthcare",
+        "Diagnostics",
+        "Booking Engine"
+      ]
+    },
+    {
+      "id": "medlearnings",
+      "number": "02",
+      "badge": "FEATURED PROJECT 02",
+      "status": "Live Product",
+      "name": "MedLearnings",
+      "tagline": "A medical education platform for healthcare professionals.",
+      "description": "Learn, train and upskill with expert-led courses, webinars and hands-on workshops in medical imaging and patient care.",
+      "image": "/images/medlearnings-mockup.png",
+      "liveUrl": "https://medlearnings.com",
+      "caseStudyUrl": "#",
+      "tags": [
+        "Online Courses",
+        "Webinars & Workshops",
+        "Certificates & Enrollment",
+        "Learning Management (LMS)"
+      ],
+      "results": [
+        {
+          "title": "Multiple Medical Courses",
+          "icon": "layers"
+        },
+        {
+          "title": "Live Webinars & Workshops",
+          "icon": "users"
+        },
+        {
+          "title": "Certified Learning Programs",
+          "icon": "award"
+        }
+      ],
+      "industries": [
+        "Healthcare",
+        "Education",
+        "Diagnostics",
+        "Growing Businesses"
+      ]
+    }
+  ],
+  "process": {
+    "badge": "OUR PROCESS",
+    "heading": "From Idea to Launch",
+    "headingHighlight": "Launch",
+    "subheading": "A simple, transparent and result-driven development process that turns your idea into a real, scalable product.",
+    "badges": [
+      "Clear & Structured",
+      "Collaborative",
+      "Fast & Reliable"
+    ],
+    "heroImage": "/images/process-laptop.png",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Discovery & Planning",
+        "description": "Understand your goals, users and requirements to create a clear roadmap.",
+        "icon": "lightbulb",
+        "duration": "1 - 2 Weeks"
+      },
+      {
+        "number": "02",
+        "title": "Design & Prototype",
+        "description": "Turn the idea into a clean, modern and user-friendly design.",
+        "icon": "layout",
+        "duration": "2 - 3 Weeks"
+      },
+      {
+        "number": "03",
+        "title": "Development",
+        "description": "Build a robust, scalable and secure solution using the right technologies.",
+        "icon": "code-2",
+        "duration": "4 - 8 Weeks"
+      },
+      {
+        "number": "04",
+        "title": "Testing & Quality Check",
+        "description": "Ensure a smooth, bug-free and high-performance experience.",
+        "icon": "check-square",
+        "duration": "1 - 2 Weeks"
+      },
+      {
+        "number": "05",
+        "title": "Deployment",
+        "description": "Launch your product on a secure and reliable infrastructure (e.g. AWS, Vercel).",
+        "icon": "rocket",
+        "duration": "3 - 5 Days"
+      },
+      {
+        "number": "06",
+        "title": "Support & Growth",
+        "description": "Ongoing support, updates and feature enhancements to help you scale.",
+        "icon": "trending-up",
+        "duration": "Continuous"
+      }
+    ]
+  },
+  "whyUs": {
+    "badge": "WHY CHOOSE CODUBE",
+    "heading": "Why Businesses Choose Codube?",
+    "headingHighlight": "Codube?",
+    "features": [
+      {
+        "icon": "zap",
+        "title": "Real-World Experience",
+        "description": "Live products like ScanTaker & MedLearnings proven in the market."
+      },
+      {
+        "icon": "users",
+        "title": "Business-First Approach",
+        "description": "Focus on your goals, user conversion and real business impact."
+      },
+      {
+        "icon": "refresh-cw",
+        "title": "End-to-End Solutions",
+        "description": "From idea to design, rapid development and seamless launch."
+      },
+      {
+        "icon": "shield-check",
+        "title": "Quality & Reliability",
+        "description": "Clean, secure, type-safe and performance-optimized codebase."
+      },
+      {
+        "icon": "rocket",
+        "title": "Scalable & Future-Ready",
+        "description": "Built with modern tech stacks to grow effortlessly with your business."
+      }
+    ],
+    "metricsBanner": [
+      {
+        "number": "2+",
+        "label": "Live Products",
+        "icon": "code"
+      },
+      {
+        "number": "1+",
+        "label": "Core Team",
+        "icon": "users"
+      },
+      {
+        "number": "100%",
+        "label": "Project Commitment",
+        "icon": "award"
+      },
+      {
+        "number": "Long Term",
+        "label": "Support & Maintenance",
+        "icon": "clock"
+      }
+    ]
+  },
+  "founder": {
+    "name": "Abhishek Jain",
+    "role": "Founder & Lead Software Architect",
+    "badge": "1st Rank Holder — High-Competition Coding Hackathons",
+    "headline": "Engineering High-Impact Products With Competitive Precision",
+    "bio": "I am Abhishek Jain, founder of Codube and a software developer. 1st rank holder in highly competitive coding hackathons. I build modern, high-performance digital products that don't just look visually breathtaking, but create real business impact, scale smoothly, and convert visitors into loyal customers.",
+    "photo": "/uploads/1793963606859_IMG_20230203_084050_131.jpg",
+    "achievements": [
+      {
+        "icon": "trophy",
+        "title": "1st Rank Winner",
+        "desc": "High-Competition Coding Hackathons"
+      },
+      {
+        "icon": "code-2",
+        "title": "Full-Stack Architect",
+        "desc": "Next.js, Cloud & Distributed Systems"
+      },
+      {
+        "icon": "zap",
+        "title": "10+ Live Systems",
+        "desc": "Production-tested & Scalable"
+      },
+      {
+        "icon": "award",
+        "title": "100% Commitment",
+        "desc": "Clean Code & Zero Tech Debt"
+      }
+    ],
+    "quote": "In competitive hackathons, you learn that speed and precision can never be compromised. At Codube, we bring that exact championship-level rigor to every client product we engineer.",
+    "socials": {
+      "linkedin": "https://linkedin.com",
+      "twitter": "https://twitter.com",
+      "github": "https://github.com"
+    }
+  },
+  "testimonials": [
+    {
+      "id": "1",
+      "name": "Dr. Vikram Singhania",
+      "role": "Director & Radiologist",
+      "company": "ScanTaker Healthcare Network",
+      "avatar": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "text": "Codube completely transformed our diagnostic booking system. Turnaround time dropped by 70%, and our Jaipur MRI & CT scan centers are running at peak appointment efficiency.",
+      "project": "ScanTaker Platform"
+    },
+    {
+      "id": "2",
+      "name": "Dr. Ananya Deshmukh",
+      "role": "Dean of Clinical Education",
+      "company": "MedLearnings Academy",
+      "avatar": "https://images.unsplash.com/photo-1594824813590-b89565553702?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "text": "Abhishek Jain and his team engineered an LMS that handles 5,000+ healthcare professionals streaming high-definition medical webinars without a single glitch. Fast, secure, and world-class.",
+      "project": "MedLearnings LMS"
+    },
+    {
+      "id": "3",
+      "name": "Rohan Mehta",
+      "role": "Co-Founder & VP Tech",
+      "company": "HealthTech Solutions",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "text": "Working with a 1st rank hackathon winner shows in the code quality. Zero legacy bloat, sub-second load times on mobile, and 99% on-time milestone delivery.",
+      "project": "Enterprise Web Portal"
+    },
+    {
+      "id": "4",
+      "name": "Pooja Agarwal",
+      "role": "Head of Growth",
+      "company": "AutomateNow SaaS",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "text": "The WhatsApp automation & CRM integration built by Codube eliminated 80% of our manual sales overhead. Client inquiries convert twice as fast now.",
+      "project": "Business Automation"
+    },
+    {
+      "id": "5",
+      "name": "Kunal Verma",
+      "role": "CTO",
+      "company": "Pulse Diagnostic Labs",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "rating": 5,
+      "text": "The dark neon theme with 60fps animations blew our clients away. The best agency experience we've had in 5 years of building software.",
+      "project": "Custom Software Suite"
+    }
+  ],
+  "cta": {
+    "title": "Have an Idea or Project in Mind?",
+    "subtitle": "Let's discuss and turn it into a powerful digital product together.",
+    "buttonText": "Let's Talk",
+    "buttonUrl": "/contact"
+  },
+  "smtp": {
+    "host": "smtp.zoho.in",
+    "port": 587,
+    "user": "hello@codube.com",
+    "pass": "XM5vwAQ7k9wW",
+    "recipientEmail": "hello@codube.com"
+  }
+}

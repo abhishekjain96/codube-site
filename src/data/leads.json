@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Rahul Sharma",
+    "email": "rahul@example.com",
+    "phone": "9876543210",
+    "service": "AI Automation",
+    "budget": "-",
+    "message": "Need automated customer support agent",
+    "id": "lead_1794022424229_sz57r",
+    "createdAt": "2026-11-07T03:33:44.229Z",
+    "status": "new"
+  },
+  {
+    "name": "Test Client",
+    "email": "client@example.com",
+    "phone": "",
+    "service": "SaaS Development",
+    "budget": "\\,000 - \\,000",
+    "message": "Looking to build a medical diagnostic system.",
+    "id": "lead_1793900450629_ztkb0",
+    "createdAt": "2026-11-05T17:40:50.629Z",
+    "status": "new"
+  },
+  {
+    "name": "Abhishek Jain",
+    "email": "abhishek.24mcan0326@jecrcu.edu.in",
+    "phone": "+919672660338",
+    "service": "Web Development",
+    "budget": "₹75k - ₹2 Lakh (Standard)",
+    "message": "need web",
+    "id": "lead_1793892114355_2czcb",
+    "createdAt": "2026-11-05T15:21:54.355Z",
+    "status": "new"
+  },
+  {
+    "name": "Rahul Sharma",
+    "email": "rahul@codube.io",
+    "phone": "+91 98765 43210",
+    "service": "Web Development",
+    "budget": "₹75k - ₹2 Lakh",
+    "message": "We want to build a high-performance web app with neon theme.",
+    "id": "lead_1793891496347_dnk3j",
+    "createdAt": "2026-11-05T15:11:36.347Z",
+    "status": "new"
+  }
+]
