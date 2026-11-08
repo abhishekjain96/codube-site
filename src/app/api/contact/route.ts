@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addLead, getSiteContent } from "@/lib/storage";
 import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
@@ -14,44 +13,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 1. Save lead to local storage file so it's safely recorded & viewable in Admin Panel
-    const savedLead = addLead({
-      name,
-      email,
-      phone: phone || "",
-      service: service || "General Inquiry",
-      budget: budget || "Not specified",
-      message,
-    });
-
-    // 2. Determine notification recipient email & SMTP credentials
-    const siteContent = getSiteContent();
-    const recipientEmail =
-      process.env.CONTACT_NOTIFICATION_EMAIL ||
-      siteContent?.smtp?.recipientEmail ||
-      siteContent?.general?.notificationEmail ||
-      siteContent?.general?.contactEmail ||
-      "hello@codube.com";
-
-    const smtpHost =
-      process.env.SMTP_HOST || siteContent?.smtp?.host || "smtp.gmail.com";
-    const smtpPort =
-      Number(process.env.SMTP_PORT || siteContent?.smtp?.port) || 587;
-    const smtpUser =
-      process.env.SMTP_USER || siteContent?.smtp?.user || "";
-    const smtpPass =
-      process.env.SMTP_PASS || siteContent?.smtp?.pass || "";
+    // Determine notification recipient email & SMTP credentials
+    // (Agar aap .env.local mein SMTP details nahi daalna chahte, toh yahan direct bhi daal sakte hain)
+    const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "hello@codube.com";
+    const smtpHost = process.env.SMTP_HOST || "smtp.zoho.in";
+    const smtpPort = Number(process.env.SMTP_PORT) || 465;
+    const smtpUser = process.env.SMTP_USER || "";
+    const smtpPass = process.env.SMTP_PASS || "";
 
     let emailSent = false;
     let mailErrorMsg = "";
 
-    // 3. Attempt email delivery via nodemailer if SMTP credentials exist
+    // Attempt email delivery via nodemailer if SMTP credentials exist
     if (smtpHost && smtpUser && smtpPass) {
       try {
         const transporter = nodemailer.createTransport({
           host: smtpHost,
           port: smtpPort,
-          secure: smtpPort === 465,
+          secure: smtpPort === 465, // true for 465, false for other ports
           auth: {
             user: smtpUser,
             pass: smtpPass,
@@ -117,7 +96,7 @@ export async function POST(req: NextRequest) {
 
               <!-- Footer -->
               <div style="padding: 20px; background-color: #030604; border-top: 1px solid rgba(255, 255, 255, 0.06); text-align: center; font-size: 11px; color: #52525b;">
-                Received on CODUBE Production Website • Lead ID: ${savedLead.id} • Target: ${recipientEmail}
+                Received on CODUBE Production Website • Target: ${recipientEmail}
               </div>
             </div>
           </body>
@@ -138,15 +117,13 @@ export async function POST(req: NextRequest) {
         mailErrorMsg = mailError.message || "Failed to dispatch email via SMTP";
       }
     } else {
-      console.log(
-        `[CODUBE Lead Stored] Name: ${name}, Email: ${email}. To deliver live emails to ${recipientEmail}, configure SMTP settings in Admin Studio (/admin) or .env.local.`
-      );
+       console.log("SMTP credentials missing in Environment Variables.");
+       mailErrorMsg = "SMTP credentials missing";
     }
 
     return NextResponse.json({
       success: true,
       message: "Your message has been received! We will contact you within 2 hours.",
-      leadId: savedLead.id,
       emailSent,
       recipient: recipientEmail,
       smtpConfigured: Boolean(smtpHost && smtpUser && smtpPass),
