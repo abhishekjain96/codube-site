@@ -91,14 +91,14 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pin === "codube2026" || pin === "123456" || pin === "admin") {
+    if (pin === "codube2026") {
       setIsAuthenticated(true);
       sessionStorage.setItem("codube_admin_auth", "true");
       setAuthError("");
       fetchContent();
       fetchLeads();
     } else {
-      setAuthError("Invalid Admin PIN. (Default PIN: codube2026)");
+      setAuthError("Invalid Admin PIN. Access denied.");
     }
   };
 
@@ -252,7 +252,11 @@ export default function AdminPage() {
         if (key === "logo") {
           updatedContent.general = { ...updatedContent.general, customLogo: data.url };
         } else if (key === "founder") {
-          updatedContent.founder = { ...updatedContent.founder, photo: data.url };
+          updatedContent.founder = {
+            ...updatedContent.founder,
+            photo: data.url,
+            image: data.url,
+          };
         } else if (key === "hero") {
           updatedContent.hero = { ...updatedContent.hero, heroImage: data.url };
         } else if (key === "process") {
@@ -513,7 +517,7 @@ export default function AdminPage() {
               type="password"
               value={pin}
               onChange={(e) => setPin(e.target.value)}
-              placeholder="Enter PIN (Default: codube2026)"
+              placeholder="Enter Master PIN"
               className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-center text-lg tracking-widest text-white focus:outline-none focus:border-[#B8FF00] focus:ring-1 focus:ring-[#B8FF00]"
               autoFocus
             />
@@ -525,10 +529,6 @@ export default function AdminPage() {
               Unlock Admin Panel
             </button>
           </form>
-
-          <p className="text-[11px] text-zinc-500">
-            Tip: Default PIN is <code className="text-[#B8FF00]">codube2026</code>
-          </p>
         </div>
       </div>
     );
@@ -1276,18 +1276,27 @@ export default function AdminPage() {
                     <span className="text-xs text-zinc-400">or enter image path / URL:</span>
                   </div>
 
-                  <input
-                    type="text"
-                    value={content?.general?.customLogo || ""}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        general: { ...content.general, customLogo: e.target.value },
-                      })
-                    }
-                    placeholder="/uploads/your_logo.png or https://example.com/logo.png"
-                    className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#B8FF00]"
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={content?.general?.customLogo || ""}
+                      onChange={(e) =>
+                        setContent({
+                          ...content,
+                          general: { ...content.general, customLogo: e.target.value },
+                        })
+                      }
+                      placeholder="/uploads/your_logo.png or https://example.com/logo.png"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#B8FF00]"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleSaveContent}
+                      className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#B8FF00] hover:text-black text-xs font-bold text-white transition-all shrink-0"
+                    >
+                      Apply &amp; Save
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1308,10 +1317,10 @@ export default function AdminPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                <div className="md:col-span-4 h-44 rounded-2xl bg-black/60 border border-white/10 flex items-center justify-center p-2 relative overflow-hidden">
-                  {content?.founder?.photo ? (
+                <div className="md:col-span-4 h-56 rounded-2xl bg-black/60 border border-white/10 flex items-center justify-center p-2 relative overflow-hidden">
+                  {(content?.founder?.photo || content?.founder?.image) ? (
                     <Image
-                      src={content.founder.photo}
+                      src={content.founder.photo || content.founder.image}
                       alt="Abhishek Jain"
                       fill
                       unoptimized
@@ -1338,18 +1347,31 @@ export default function AdminPage() {
                     </label>
                   </div>
 
-                  <input
-                    type="text"
-                    value={content?.founder?.photo || ""}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        founder: { ...content.founder, photo: e.target.value },
-                      })
-                    }
-                    placeholder="/uploads/your_photo.jpg"
-                    className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#B8FF00]"
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={content?.founder?.photo || content?.founder?.image || ""}
+                      onChange={(e) =>
+                        setContent({
+                          ...content,
+                          founder: {
+                            ...content.founder,
+                            photo: e.target.value,
+                            image: e.target.value,
+                          },
+                        })
+                      }
+                      placeholder="/uploads/your_photo.jpg"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#B8FF00]"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleSaveContent}
+                      className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#B8FF00] hover:text-black text-xs font-bold text-white transition-all shrink-0"
+                    >
+                      Apply &amp; Save
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

@@ -41,7 +41,9 @@
         "text": "ZERO LEGACY TECH DEBT",
         "highlight": false
       }
-    ]
+    ],
+    "linkedin": "https://www.linkedin.com/in/abhishek-jain96/",
+    "instagram": "https://www.instagram.com/codube.ai/"
   },
   "hero": {
     "badge": "Software Development Studio",
@@ -438,7 +440,7 @@
     "badge": "1st Rank Holder — High-Competition Coding Hackathons",
     "headline": "Engineering High-Impact Products With Competitive Precision",
     "bio": "I am Abhishek Jain, founder of Codube and a software developer. 1st rank holder in highly competitive coding hackathons. I build modern, high-performance digital products that don't just look visually breathtaking, but create real business impact, scale smoothly, and convert visitors into loyal customers.",
-    "photo": "/uploads/1793963606859_IMG_20230203_084050_131.jpg",
+    "photo": "/uploads/1794310118913_founder_photo_aj.png",
     "achievements": [
       {
         "icon": "trophy",
@@ -463,10 +465,10 @@
     ],
     "quote": "In competitive hackathons, you learn that speed and precision can never be compromised. At Codube, we bring that exact championship-level rigor to every client product we engineer.",
     "socials": {
-      "linkedin": "https://linkedin.com",
-      "twitter": "https://twitter.com",
-      "github": "https://github.com"
-    }
+      "linkedin": "https://www.linkedin.com/in/abhishek-jain96/",
+      "instagram": "https://www.instagram.com/codube.ai/"
+    },
+    "image": "/uploads/1794310118913_founder_photo_aj.png"
   },
   "testimonials": [
     {

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Linkedin, Instagram, Youtube, Twitter, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Linkedin, Instagram, ArrowRight, CheckCircle2 } from "lucide-react";
 import CodubeLogo from "./CodubeLogo";
 
 export default function Footer() {
@@ -47,40 +47,24 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/abhishek-jain96/"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#bbfb26] hover:border-[#bbfb26]/50 hover:bg-[#bbfb26]/10 transition-all duration-200"
+                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#B8FF00] hover:border-[#B8FF00]/50 hover:bg-[#B8FF00]/10 transition-all duration-200"
                 aria-label="LinkedIn"
+                title="Abhishek Jain LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/codube.ai/"
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#bbfb26] hover:border-[#bbfb26]/50 hover:bg-[#bbfb26]/10 transition-all duration-200"
+                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#B8FF00] hover:border-[#B8FF00]/50 hover:bg-[#B8FF00]/10 transition-all duration-200"
                 aria-label="Instagram"
+                title="Codube Instagram @codube.ai"
               >
                 <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#bbfb26] hover:border-[#bbfb26]/50 hover:bg-[#bbfb26]/10 transition-all duration-200"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-[#bbfb26] hover:border-[#bbfb26]/50 hover:bg-[#bbfb26]/10 transition-all duration-200"
-                aria-label="Twitter / X"
-              >
-                <Twitter className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -129,11 +113,6 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="hover:text-[#bbfb26] transition-colors">
                   Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin" className="hover:text-[#bbfb26] transition-colors text-zinc-500">
-                  Admin Login
                 </Link>
               </li>
             </ul>

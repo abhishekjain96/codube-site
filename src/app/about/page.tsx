@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     "We turn ambitious ideas into powerful digital products. Led by Abhishek Jain (1st Rank Hackathon Winner), CODUBE engineers scalable software, modern web apps, and intelligent AI automation.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function AboutPage() {
   const content = getSiteContent();
 
