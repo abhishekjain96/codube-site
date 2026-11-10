@@ -232,12 +232,63 @@ export default function AdminPage() {
     }
   };
 
+  const compressImage = async (file: File): Promise<File> => {
+    if (!file.type.startsWith("image/") || file.size < 600 * 1024) return file;
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new window.Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 1600;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx?.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                resolve(new File([blob], file.name.replace(/\.[^.]+$/, ".jpg"), { type: "image/jpeg" }));
+              } else {
+                resolve(file);
+              }
+            },
+            "image/jpeg",
+            0.88
+          );
+        };
+        img.onerror = () => resolve(file);
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = () => resolve(file);
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     if (!file) return;
 
     try {
       setUploadingKey(key);
+      setSaveError("");
+
+      // Auto-compress large photos client-side for ultra-fast upload & serverless resilience
+      if (file.type.startsWith("image/") && file.size > 600 * 1024) {
+        file = await compressImage(file);
+      }
+
       const formData = new FormData();
       formData.append("file", file);
 
@@ -247,47 +298,56 @@ export default function AdminPage() {
       });
 
       const data = await res.json();
-      if (data.url) {
-        const updatedContent = JSON.parse(JSON.stringify(content));
-        if (key === "logo") {
-          updatedContent.general = { ...updatedContent.general, customLogo: data.url };
-        } else if (key === "founder") {
-          updatedContent.founder = {
-            ...updatedContent.founder,
-            photo: data.url,
-            image: data.url,
-          };
-        } else if (key === "hero") {
-          updatedContent.hero = { ...updatedContent.hero, heroImage: data.url };
-        } else if (key === "process") {
-          updatedContent.process = { ...updatedContent.process, heroImage: data.url };
-        } else if (key.startsWith("project_")) {
-          const index = parseInt(key.replace("project_", ""), 10);
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Failed to upload image file");
+      }
+
+      const updatedContent = JSON.parse(JSON.stringify(content || {}));
+      if (key === "logo") {
+        updatedContent.general = { ...updatedContent.general, customLogo: data.url };
+      } else if (key === "founder") {
+        updatedContent.founder = {
+          ...updatedContent.founder,
+          photo: data.url,
+          image: data.url,
+        };
+      } else if (key === "hero") {
+        updatedContent.hero = { ...updatedContent.hero, heroImage: data.url };
+      } else if (key === "process") {
+        updatedContent.process = { ...updatedContent.process, heroImage: data.url };
+      } else if (key.startsWith("project_")) {
+        const index = parseInt(key.replace("project_", ""), 10);
+        if (updatedContent.projects && updatedContent.projects[index]) {
           updatedContent.projects[index] = {
             ...updatedContent.projects[index],
             image: data.url,
           };
         }
-
-        setContent(updatedContent);
-
-        await fetch("/api/admin/content", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ content: updatedContent }),
-        });
-
-        setSaveSuccess(true);
-        confetti({
-          particleCount: 45,
-          spread: 55,
-          colors: ["#bbfb26", "#22c55e", "#ffffff"],
-        });
-        setTimeout(() => setSaveSuccess(false), 3500);
       }
-    } catch (err) {
-      console.error("Upload error:", err);
-      setSaveError("Upload failed. Please try again.");
+
+      setContent(updatedContent);
+
+      const saveRes = await fetch("/api/admin/content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: updatedContent }),
+      });
+
+      const saveData = await saveRes.json();
+      if (!saveRes.ok) {
+        throw new Error(saveData.error || "Failed to save updated content");
+      }
+
+      setSaveSuccess(true);
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        colors: ["#bbfb26", "#22c55e", "#ffffff"],
+      });
+      setTimeout(() => setSaveSuccess(false), 3500);
+    } catch (err: any) {
+      console.error("Upload & Save error:", err);
+      setSaveError(err.message || "Upload failed. Please try again.");
     } finally {
       setUploadingKey(null);
       e.target.value = "";
@@ -341,11 +401,17 @@ export default function AdminPage() {
   };
 
   const handleProjectImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     if (!file) return;
 
     try {
       setUploadingKey("project_modal_upload");
+      setSaveError("");
+
+      if (file.type.startsWith("image/") && file.size > 600 * 1024) {
+        file = await compressImage(file);
+      }
+
       const formData = new FormData();
       formData.append("file", file);
 
@@ -355,14 +421,16 @@ export default function AdminPage() {
       });
 
       const data = await res.json();
-      if (data.url) {
-        setProjectForm((prev) => ({ ...prev, image: data.url }));
-        setSaveSuccess(true);
-        setTimeout(() => setSaveSuccess(false), 2500);
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Failed to upload project image");
       }
-    } catch (err) {
+
+      setProjectForm((prev) => ({ ...prev, image: data.url }));
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 2500);
+    } catch (err: any) {
       console.error("Project image upload error:", err);
-      setSaveError("Failed to upload project image.");
+      setSaveError(err.message || "Failed to upload project image.");
     } finally {
       setUploadingKey(null);
       e.target.value = "";

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSiteContent, saveSiteContent } from "@/lib/storage";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const content = getSiteContent();
   return NextResponse.json({ success: true, content });
@@ -20,8 +22,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Failed to write content" }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true, message: "Site content updated successfully!" });
-  } catch (error) {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json({
+      success: true,
+      message: "Site content updated successfully!",
+      content: getSiteContent(),
+    });
+  } catch (error: any) {
+    console.error("Content API error:", error);
+    return NextResponse.json({ error: error?.message || "Internal server error" }, { status: 500 });
   }
 }
