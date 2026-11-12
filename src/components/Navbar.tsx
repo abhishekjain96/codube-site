@@ -8,9 +8,10 @@ import CodubeLogo from "./CodubeLogo";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Services", href: "/services" },
+  { name: "AI Demo", href: "/#ai-simulator" },
+  { name: "Pricing", href: "/#pricing" },
   { name: "Work", href: "/work" },
-  { name: "Process", href: "/process" },
+  { name: "Services", href: "/services" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];

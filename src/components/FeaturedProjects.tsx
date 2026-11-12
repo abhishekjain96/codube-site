@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import WalkthroughModal from "./WalkthroughModal";
 import {
   ArrowUpRight,
   Play,
@@ -22,6 +23,8 @@ interface FeaturedProjectsProps {
 }
 
 export default function FeaturedProjects({ content }: FeaturedProjectsProps) {
+  const [selectedWalkthrough, setSelectedWalkthrough] = useState<any | null>(null);
+
   const defaultProjects = [
     {
       id: "scantaker",
@@ -224,36 +227,45 @@ export default function FeaturedProjects({ content }: FeaturedProjectsProps) {
                   )}
 
                   {/* Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-4 pt-4">
+                  <div className="flex flex-wrap items-center gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedWalkthrough(proj)}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] hover:shadow-[0_0_25px_rgba(184,255,0,0.5)] transition-all group cursor-pointer"
+                    >
+                      <Play className="w-4 h-4 fill-current" />
+                      <span>Watch 60s Live Walkthrough</span>
+                    </button>
+
                     {proj.liveUrl && proj.liveUrl !== "#" && (
                       <a
                         href={proj.liveUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] hover:shadow-[0_0_20px_rgba(184,255,0,0.4)] transition-all group"
+                        className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-semibold text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 hover:border-[#B8FF00]/50 transition-all backdrop-blur-md group"
                       >
-                        <span>Visit Live Project</span>
+                        <span>Visit Live Product</span>
                         <ArrowUpRight className="w-4 h-4 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </a>
                     )}
 
                     <Link
                       href={`/work/${proj.id}`}
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-semibold text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-[#B8FF00]/50 transition-all backdrop-blur-md group"
+                      className="inline-flex items-center gap-1.5 px-4 py-3 rounded-full text-xs font-medium text-zinc-300 hover:text-white transition-colors"
                     >
-                      <Play className="w-3.5 h-3.5 fill-current text-[#B8FF00]" />
-                      <span>Deep Dive Case Study</span>
+                      <span>Case Study</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
 
-                {/* Right: Mockup Image */}
+                {/* Right: Mockup Image with Play Walkthrough Overlay */}
                 <div className="lg:col-span-6 relative flex items-center justify-center">
                   <div className="absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-[radial-gradient(circle,rgba(184,255,0,0.18)_0%,transparent_70%)] blur-2xl" />
 
-                  <Link
-                    href={`/work/${proj.id}`}
-                    className="relative z-10 w-full block group cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-2 hover:border-[#B8FF00]/50 transition-all duration-300"
+                  <div
+                    onClick={() => setSelectedWalkthrough(proj)}
+                    className="relative z-10 w-full block group cursor-pointer overflow-hidden rounded-2xl border border-white/15 bg-black/40 p-2 hover:border-[#B8FF00] transition-all duration-300"
                   >
                     <Image
                       src={proj.image}
@@ -263,7 +275,17 @@ export default function FeaturedProjects({ content }: FeaturedProjectsProps) {
                       unoptimized
                       className="w-full h-auto object-cover rounded-xl transition-transform duration-500 group-hover:scale-[1.02]"
                     />
-                  </Link>
+
+                    {/* Subtle Floating Video Demo Overlay Pill */}
+                    <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                      <div className="px-4 py-2.5 rounded-full bg-black/85 border border-[#B8FF00]/60 backdrop-blur-xl flex items-center gap-2 text-xs font-bold text-[#B8FF00] shadow-[0_0_25px_rgba(184,255,0,0.35)] transform group-hover:scale-105 transition-transform">
+                        <span className="w-6 h-6 rounded-full bg-[#B8FF00] text-black flex items-center justify-center">
+                          <Play className="w-3 h-3 fill-current ml-0.5" />
+                        </span>
+                        <span>Watch 60s Live Demo</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -293,6 +315,14 @@ export default function FeaturedProjects({ content }: FeaturedProjectsProps) {
           ))}
         </div>
       </div>
+
+      {/* 60s Live Walkthrough Video Modal */}
+      {selectedWalkthrough && (
+        <WalkthroughModal
+          project={selectedWalkthrough}
+          onClose={() => setSelectedWalkthrough(null)}
+        />
+      )}
     </section>
   );
 }

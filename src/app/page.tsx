@@ -1,18 +1,20 @@
 import React from "react";
 import HeroSection from "@/components/HeroSection";
+import WhatsAppSimulator from "@/components/WhatsAppSimulator";
 import MarqueeBanner from "@/components/MarqueeBanner";
+import PricingSection from "@/components/PricingSection";
 import ServicesSection from "@/components/ServicesSection";
 import TechStackGrid from "@/components/TechStackGrid";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import FounderSection from "@/components/FounderSection";
 import ProcessFlow from "@/components/ProcessFlow";
-
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqSection from "@/components/FaqSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import CtaBanner from "@/components/CtaBanner";
 import { getSiteContent } from "@/lib/storage";
 
+export const dynamic = "force-dynamic";
 export const revalidate = 0; // Dynamic for instant admin updates
 
 export default function HomePage() {
@@ -20,40 +22,43 @@ export default function HomePage() {
 
   return (
     <div className="relative">
-      {/* 1. Hero Section (Clean modern presentation) */}
+      {/* 1. Outcome-Driven Hero Section */}
       <HeroSection content={content} />
 
-      {/* 2. Infinite Neon Marquee Banner with Programming Languages Loop */}
+      {/* 2. Interactive Live WhatsApp AI Receptionist Simulator */}
+      <WhatsAppSimulator />
+
+      {/* 3. Infinite Neon Marquee Banner */}
       <MarqueeBanner customItems={content?.general?.marqueeText} />
 
-      {/* 3. What We Build For You (Services) */}
-      <ServicesSection content={content} />
+      {/* 4. Transparent Productized Pricing & Packages */}
+      <PricingSection />
 
-      {/* 4. Tech Stack & High-Impact Stats */}
-      <TechStackGrid content={content} />
-
-      {/* 5. Featured Projects (ScanTaker & MedLearnings) */}
+      {/* 5. Featured Healthcare & SaaS Case Studies + 60s Live Walkthrough */}
       <FeaturedProjects content={content} />
 
-      {/* 6. Founder Showcase: Abhishek Jain (1st Rank Hackathon Winner) */}
-      <FounderSection content={content} />
-
-      {/* 7. Interactive Project Cost & Timeline Estimator (Alag Level Feature) */}
-
-
-      {/* 8. From Idea to Launch (Process Flow) */}
-      <ProcessFlow content={content} showHeroGraphic={false} />
-
-      {/* 9. Infinite Animated Testimonials Loop */}
+      {/* 6. Authenticated Proof Pillars & Agency Comparison */}
       <TestimonialsSection content={content} />
 
-      {/* 10. Frequently Asked Questions (Accordion) */}
-      <FaqSection />
+      {/* 7. Founder Spotlight: Abhishek Jain (1st Rank Hackathon Winner) */}
+      <FounderSection content={content} />
 
-      {/* 11. Why Businesses Choose Codube? */}
+      {/* 8. What We Build For You (Services Console) */}
+      <ServicesSection content={content} />
+
+      {/* 9. Tech Stack & Impact Stats */}
+      <TechStackGrid content={content} />
+
+      {/* 10. From Idea to Launch in 7 Days (Process Flow) */}
+      <ProcessFlow content={content} showHeroGraphic={false} />
+
+      {/* 11. Why Codube Technical Architecture Breakdown */}
       <WhyChooseUs content={content} />
 
-      {/* 12. Bottom CTA Banner */}
+      {/* 12. Frequently Asked Questions */}
+      <FaqSection />
+
+      {/* 13. Bottom Conversion CTA Banner */}
       <CtaBanner content={content} />
     </div>
   );

@@ -74,23 +74,28 @@ export default function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">Quick Links</h4>
             <ul className="space-y-2.5 text-sm text-zinc-400">
               <li>
-                <Link href="/" className="hover:text-[#bbfb26] transition-colors">
+                <Link href="/" className="hover:text-[#B8FF00] transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#bbfb26] transition-colors">
-                  About
+                <Link href="/#ai-simulator" className="hover:text-[#B8FF00] transition-colors">
+                  AI Demo
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-[#bbfb26] transition-colors">
-                  Services
+                <Link href="/#pricing" className="hover:text-[#B8FF00] transition-colors">
+                  Pricing (₹19,999 Kit)
                 </Link>
               </li>
               <li>
-                <Link href="/work" className="hover:text-[#bbfb26] transition-colors">
+                <Link href="/work" className="hover:text-[#B8FF00] transition-colors">
                   Work
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-[#B8FF00] transition-colors">
+                  Services
                 </Link>
               </li>
             </ul>

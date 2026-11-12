@@ -1,157 +1,255 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { Star, Quote, CheckCircle2, Sparkles } from "lucide-react";
+import Link from "next/link";
+import {
+  Trophy,
+  Activity,
+  Zap,
+  CheckCircle2,
+  XCircle,
+  Sparkles,
+  ArrowUpRight,
+  ShieldCheck,
+  Building2,
+  ExternalLink,
+} from "lucide-react";
 
 interface TestimonialsSectionProps {
   content?: any;
 }
 
-const defaultTestimonials = [
-  {
-    id: "1",
-    name: "Dr. Vikram Singhania",
-    role: "Director & Radiologist",
-    company: "ScanTaker Healthcare Network",
-    avatar: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80",
-    rating: 5,
-    text: "Codube completely transformed our diagnostic booking system. Turnaround time dropped by 70%, and our Jaipur MRI & CT scan centers are running at peak appointment efficiency.",
-    project: "ScanTaker Platform",
-  },
-  {
-    id: "2",
-    name: "Dr. Ananya Deshmukh",
-    role: "Dean of Clinical Education",
-    company: "MedLearnings Academy",
-    avatar: "https://images.unsplash.com/photo-1594824813590-b89565553702?w=150&auto=format&fit=crop&q=80",
-    rating: 5,
-    text: "Abhishek Jain and his team engineered an LMS that handles 5,000+ healthcare professionals streaming high-definition medical webinars without a single glitch. Fast, secure, and world-class.",
-    project: "MedLearnings LMS",
-  },
-  {
-    id: "3",
-    name: "Rohan Mehta",
-    role: "Co-Founder & VP Tech",
-    company: "HealthTech Solutions",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    rating: 5,
-    text: "Working with a 1st rank hackathon winner shows in the code quality. Zero legacy bloat, sub-second load times on mobile, and 99% on-time milestone delivery.",
-    project: "Enterprise Web Portal",
-  },
-  {
-    id: "4",
-    name: "Pooja Agarwal",
-    role: "Head of Growth",
-    company: "AutomateNow SaaS",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
-    rating: 5,
-    text: "The WhatsApp automation & CRM integration built by Codube eliminated 80% of our manual sales overhead. Client inquiries convert twice as fast now.",
-    project: "Business Automation",
-  },
-  {
-    id: "5",
-    name: "Kunal Verma",
-    role: "CTO",
-    company: "Pulse Diagnostic Labs",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-    rating: 5,
-    text: "The dark neon theme with 60fps animations blew our clients away. The best agency experience we've had in 5 years of building software.",
-    project: "Custom Software Suite",
-  },
-];
-
 export default function TestimonialsSection({ content }: TestimonialsSectionProps) {
-  const list = content?.testimonials || defaultTestimonials;
+  const proofPillars = [
+    {
+      id: "hackathon",
+      number: "01",
+      badge: "NATIONAL CHAMPIONSHIP RIGOR",
+      title: "1st Rank National Hackathon Winner",
+      subtitle: "Proven Engineering Speed & Zero Bugs",
+      icon: Trophy,
+      description:
+        "Competitive hackathons require building complete, zero-defect platforms under extreme 24-hour time limits. At Codube, we bring that exact championship precision to your business website and AI receptionist.",
+      metrics: [
+        "1st Place out of 500+ elite software developers",
+        "Sub-second mobile speed (0.2s LCP) with zero bloated templates",
+        "Every line engineered directly by founder Abhishek Jain",
+      ],
+    },
+    {
+      id: "healthcare",
+      number: "02",
+      badge: "MISSION-CRITICAL SYSTEMS",
+      title: "Live Production Healthcare Systems",
+      subtitle: "Creator of ScanTaker.com & MedLearnings",
+      icon: Activity,
+      description:
+        "Unlike agencies that only show Figma mockups, we run real-world production platforms handling thousands of patients, doctors, and diagnostic centers every single day.",
+      metrics: [
+        "ScanTaker: Complete MRI & CT scan booking network in Jaipur",
+        "MedLearnings: Medical LMS powering 5,000+ verified physicians",
+        "Mission-critical uptime, automated slot tokens & instant WhatsApp dispatch",
+      ],
+    },
+    {
+      id: "speed-ownership",
+      number: "03",
+      badge: "RISK-FREE BUSINESS PARTNERSHIP",
+      title: "7-Day Delivery & 100% IP Ownership",
+      subtitle: "Zero Hostage Code • Transparent Pricing",
+      icon: Zap,
+      description:
+        "Traditional agencies trap business owners in 3-month retainers and keep the code hostage. With Codube, your turnkey website + WhatsApp AI agent goes live in 7 days, and you own 100% of the intellectual property.",
+      metrics: [
+        "Transparent fixed pricing starting at ₹14,999 (No hidden charges)",
+        "100% full GitHub source code & cloud credentials belong to you",
+        "Official WhatsApp Cloud API verification with your business name",
+      ],
+    },
+  ];
+
+  const comparisonRows = [
+    {
+      feature: "Turnaround Time",
+      freelancer: "3 to 6 weeks (Ghosting risk)",
+      agency: "2 to 3 months (Slow approvals)",
+      codube: "3 to 7 Days Guaranteed",
+    },
+    {
+      feature: "Transparent Pricing",
+      freelancer: "Hourly bills that keep rising",
+      agency: "₹1.5 Lakh - ₹4 Lakh + monthly retainer",
+      codube: "Fixed ₹14,999 - ₹19,999 One-Time",
+    },
+    {
+      feature: "24/7 WhatsApp AI Bot",
+      freelancer: "❌ Rarely supported or fragile",
+      agency: "❌ Add-on tool requiring extra monthly SaaS",
+      codube: "✅ Included & Custom-Trained for Your Brand",
+    },
+    {
+      feature: "Engineering Quality",
+      freelancer: "Often uses slow bloated templates",
+      agency: "Delegated to junior intern developers",
+      codube: "Built by 1st Rank National Hackathon Winner",
+    },
+    {
+      feature: "Code & Asset Ownership",
+      freelancer: "Messy handoff with missing keys",
+      agency: "Platform lock-in (They control hosting)",
+      codube: "100% Full Ownership Transferred Day 1",
+    },
+  ];
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden" id="testimonials">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-[radial-gradient(circle,rgba(187,251,38,0.1)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+    <section className="relative py-20 md:py-28 bg-[#040805] overflow-hidden" id="proof">
+      {/* Background ambient glow */}
+      <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(184,255,0,0.08)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-0 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(37,211,102,0.06)_0%,transparent_70%)] blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-14 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#bbfb26]/30 backdrop-blur-md mb-4 shadow-[0_0_15px_rgba(187,251,38,0.15)]">
-          <Sparkles className="w-3.5 h-3.5 text-[#bbfb26]" />
-          <span className="text-xs font-semibold text-zinc-300 tracking-wide uppercase">
-            Client Trust &amp; Testimonials
-          </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        {/* Section Header */}
+        <div className="max-w-3xl mx-auto space-y-4 mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#B8FF00]/30 backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#B8FF00]" />
+            <span className="text-xs font-mono font-semibold text-[#B8FF00] tracking-widest uppercase">
+              AUTHENTIC PROOF &amp; ACCOUNTABILITY
+            </span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+            Why Businesses Choose Codube Over{" "}
+            <span className="text-[#B8FF00] drop-shadow-[0_0_25px_rgba(184,255,0,0.4)]">
+              Freelancers &amp; Traditional Agencies.
+            </span>
+          </h2>
+
+          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+            Most digital agencies outsource client work to interns or trap businesses in endless retainers. At Codube, you get championship-level engineering speed, zero fluff, and verified results.
+          </p>
         </div>
 
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-          What Founders &amp; Leaders{" "}
-          <span className="text-[#bbfb26] drop-shadow-[0_0_20px_rgba(187,251,38,0.4)]">
-            Say About Us.
-          </span>
-        </h2>
+        {/* 3 CONCRETE PROOF PILLARS */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 text-left">
+          {proofPillars.map((pillar) => {
+            const Icon = pillar.icon;
+            return (
+              <div
+                key={pillar.id}
+                className="relative rounded-3xl p-6 sm:p-8 bg-[#080D0A] border border-white/10 hover:border-[#B8FF00]/50 transition-all duration-300 shadow-[0_15px_45px_rgba(0,0,0,0.8)] flex flex-col justify-between group"
+              >
+                {/* Number & Icon Tag */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+                    <span className="text-2xl font-mono font-black text-zinc-600 group-hover:text-[#B8FF00] transition-colors">
+                      {pillar.number}
+                    </span>
+                    <div className="w-12 h-12 rounded-2xl bg-[#B8FF00]/10 border border-[#B8FF00]/30 flex items-center justify-center text-[#B8FF00] group-hover:bg-[#B8FF00] group-hover:text-black transition-colors">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                  </div>
 
-        <p className="mt-3 text-sm sm:text-base text-zinc-400 max-w-xl mx-auto">
-          Hear from leaders who launched and scaled their production systems with Codube.
-        </p>
-      </div>
+                  <span className="inline-block text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-md bg-[#B8FF00]/10 text-[#B8FF00] border border-[#B8FF00]/25">
+                    {pillar.badge}
+                  </span>
 
-      {/* Infinite Animated Marquee Loop for Testimonials */}
-      <div className="relative w-full overflow-hidden select-none">
-        {/* Left and Right Edge Gradient Masks */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-[#070a08] to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-[#070a08] to-transparent z-10" />
+                  <h3 className="text-xl font-black text-white tracking-tight">{pillar.title}</h3>
+                  <h4 className="text-xs font-bold text-[#B8FF00]">{pillar.subtitle}</h4>
 
-        {/* Sliding Row (Duplicate 3 times for seamless loop) */}
-        <div className="flex w-max space-x-6 animate-marquee hover:[animation-play-state:paused] py-4">
-          {[...list, ...list, ...list].map((item, idx) => (
-            <div
-              key={`testimonial-${idx}`}
-              className="w-[340px] sm:w-[420px] rounded-3xl glass-panel p-6 sm:p-7 border-white/10 hover:border-[#bbfb26]/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between shrink-0 shadow-[0_15px_35px_rgba(0,0,0,0.5)] bg-[#0d1410]/85"
-            >
-              <div className="space-y-4">
-                {/* Header: Stars & Project Tag */}
-                <div className="flex items-center justify-between">
-                  {/* 5 Stars */}
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-4 h-4 fill-[#bbfb26] text-[#bbfb26] drop-shadow-[0_0_6px_rgba(187,251,38,0.6)]"
-                      />
+                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal">
+                    {pillar.description}
+                  </p>
+
+                  <div className="pt-2 space-y-2.5">
+                    {pillar.metrics.map((m, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-xs text-zinc-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#B8FF00] shrink-0 mt-0.5" />
+                        <span>{m}</span>
+                      </div>
                     ))}
                   </div>
-
-                  <span className="text-[11px] font-mono font-bold text-[#bbfb26] px-2.5 py-0.5 rounded-full bg-[#bbfb26]/10 border border-[#bbfb26]/30">
-                    {item.project}
-                  </span>
-                </div>
-
-                {/* Quote Text */}
-                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
-                  &ldquo;{item.text}&rdquo;
-                </p>
-              </div>
-
-              {/* Client Info at bottom */}
-              <div className="pt-5 mt-4 border-t border-white/[0.08] flex items-center gap-3.5">
-                <div className="relative w-11 h-11 rounded-full overflow-hidden border border-[#bbfb26]/40 shrink-0">
-                  <Image
-                    src={item.avatar}
-                    alt={item.name}
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-black" />
-                </div>
-
-                <div className="min-w-0">
-                  <div className="text-sm font-bold text-white flex items-center gap-1.5 truncate">
-                    <span>{item.name}</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#bbfb26] shrink-0" />
-                  </div>
-                  <div className="text-xs text-zinc-400 truncate">
-                    {item.role} • {item.company}
-                  </div>
                 </div>
               </div>
+            );
+          })}
+        </div>
+
+        {/* HEAD-TO-HEAD COMPARISON MATRIX */}
+        <div className="rounded-3xl bg-[#080D0A] border border-white/10 p-6 sm:p-10 shadow-2xl overflow-hidden text-left">
+          <div className="mb-8 space-y-2">
+            <span className="text-[10px] font-mono font-bold text-[#B8FF00] tracking-widest uppercase">
+              HONEST COMPARISON MATRIX
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-black text-white">
+              Freelancers vs Traditional Agencies vs CODUBE
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-400">
+              See the exact difference between unreliable freelancers, bloated agencies, and our high-performance studio.
+            </p>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[620px] text-xs sm:text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-white/10 text-zinc-400">
+                  <th className="py-3 px-4 text-left font-bold uppercase tracking-wider text-[11px]">
+                    Decision Factor
+                  </th>
+                  <th className="py-3 px-4 text-left font-bold uppercase tracking-wider text-[11px] text-zinc-400">
+                    Freelancers
+                  </th>
+                  <th className="py-3 px-4 text-left font-bold uppercase tracking-wider text-[11px] text-zinc-400">
+                    Traditional Agencies
+                  </th>
+                  <th className="py-3 px-4 text-left font-bold uppercase tracking-wider text-[11px] text-[#B8FF00] bg-[#B8FF00]/10 rounded-t-xl">
+                    CODUBE (Product Studio)
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.06]">
+                {comparisonRows.map((row, idx) => (
+                  <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-white whitespace-nowrap">
+                      {row.feature}
+                    </td>
+                    <td className="py-3.5 px-4 text-zinc-400">
+                      <div className="flex items-center gap-1.5">
+                        <XCircle className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                        <span>{row.freelancer}</span>
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4 text-zinc-400">
+                      <div className="flex items-center gap-1.5">
+                        <XCircle className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                        <span>{row.agency}</span>
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4 text-white font-semibold bg-[#B8FF00]/5">
+                      <div className="flex items-center gap-1.5 text-[#B8FF00]">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#B8FF00] shrink-0" />
+                        <span>{row.codube}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Bottom Action strip */}
+          <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-xs text-zinc-400">
+              <ShieldCheck className="w-4 h-4 text-[#B8FF00]" />
+              <span>Full source code IP ownership &amp; commercial NDA provided with every project.</span>
             </div>
-          ))}
+
+            <Link
+              href="#pricing"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] transition-all"
+            >
+              <span>Explore Fixed Packages →</span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

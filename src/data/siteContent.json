@@ -10,35 +10,35 @@
     "logoDisplayMode": "full",
     "marqueeText": [
       {
-        "text": "NEXT-GEN WEB APPS",
+        "text": "3X MORE PATIENT & CLIENT BOOKINGS",
         "highlight": true
       },
       {
-        "text": "AI AGENTS & LLM AUTOMATION",
+        "text": "24/7 WHATSAPP AI RECEPTIONIST",
         "highlight": false
       },
       {
-        "text": "SCALABLE SAAS ARCHITECTURE",
+        "text": "7-DAY GUARANTEED LAUNCH",
         "highlight": true
       },
       {
-        "text": "PIXEL-PERFECT 60FPS UI/UX",
+        "text": "FOR CLINICS, REAL ESTATE & LOCAL BUSINESS",
         "highlight": false
       },
       {
-        "text": "99% ON-TIME DELIVERY",
+        "text": "100% FULL CODE OWNERSHIP",
         "highlight": true
       },
       {
-        "text": "MOBILE-FIRST RESPONSIVE",
+        "text": "ZERO MONTHLY AGENCY RETAINERS",
         "highlight": false
       },
       {
-        "text": "HIGH-PERFORMANCE NEXT.JS",
+        "text": "₹19,999 COMPLETE BUSINESS GROWTH KIT",
         "highlight": true
       },
       {
-        "text": "ZERO LEGACY TECH DEBT",
+        "text": "BUILT BY 1ST RANK HACKATHON WINNER",
         "highlight": false
       }
     ],
@@ -46,58 +46,12 @@
     "instagram": "https://www.instagram.com/codube.ai/"
   },
   "hero": {
-    "badge": "Software Development Studio",
-    "titleLine1": "We Build Digital",
-    "titleLine2": "Products That",
-    "titleHighlight": "Real Impact.",
-    "subtitle": "From idea to launch, we design, develop and scale modern web, mobile and SaaS products for businesses, startups and creators.",
-    "primaryCta": "Start Your Project",
-    "secondaryCta": "Watch Our Work",
-    "heroImage": "/images/hero-laptop.png",
-    "pills": [
-      {
-        "icon": "zap",
-        "text": "Product Development"
-      },
-      {
-        "icon": "phone",
-        "text": "Mobile Apps"
-      },
-      {
-        "icon": "cloud",
-        "text": "SaaS Platforms"
-      },
-      {
-        "icon": "bot",
-        "text": "AI Solutions"
-      },
-      {
-        "icon": "layers",
-        "text": "Custom Software"
-      }
-    ],
-    "floatingCards": [
-      {
-        "title": "Build Products",
-        "icon": "code",
-        "position": "top-left"
-      },
-      {
-        "title": "Modern Tech",
-        "icon": "cpu",
-        "position": "bottom-left"
-      },
-      {
-        "title": "Scale Business",
-        "icon": "rocket",
-        "position": "top-right"
-      },
-      {
-        "title": "Long Term Growth",
-        "icon": "trending-up",
-        "position": "bottom-right"
-      }
-    ]
+    "badge": "FOR CLINICS, REAL ESTATE & GROWING BUSINESSES",
+    "titleLine1": "Turn Visitors Into Paying Customers with",
+    "titleHighlight": "High-Speed Websites & 24/7 WhatsApp AI Agents.",
+    "subtitle": "Stop losing leads to slow replies. We build conversion-engineered websites and automated WhatsApp AI receptionists that book appointments and capture leads while you sleep — delivered in 7 days.",
+    "primaryCta": "Get Your Free AI Demo",
+    "secondaryCta": "View ₹19,999 Growth Package"
   },
   "services": {
     "badge": "Our Services",
