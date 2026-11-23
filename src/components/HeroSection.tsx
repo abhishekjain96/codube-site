@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
   Bot,
@@ -17,8 +17,24 @@ interface HeroSectionProps {
   content?: any;
 }
 
+const rotatingPhrases = [
+  "High-Speed Websites & 24/7 WhatsApp AI Agents.",
+  "Automated AI Receptionists That Book Appointments.",
+  "Turnkey Digital Platforms Delivered in 7 Days.",
+  "Zero-Retainer Systems That 3x Your Bookings.",
+];
+
 export default function HeroSection({ content }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [phraseIndex, setPhraseIndex] = useState(0);
+
+  // Animated text loop effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPhraseIndex((prev) => (prev + 1) % rotatingPhrases.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
 
   // Scroll-driven animation hooks
   const { scrollYProgress } = useScroll({
@@ -26,11 +42,8 @@ export default function HeroSection({ content }: HeroSectionProps) {
     offset: ["start start", "end start"],
   });
 
-  // Dynamic scroll response: video scales and fades slightly as you scroll down
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
-  const videoOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [0.85, 0.4, 0.1]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -90]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const scrollToSection = (sectionId: string) => {
     const el = document.getElementById(sectionId);
@@ -42,71 +55,70 @@ export default function HeroSection({ content }: HeroSectionProps) {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030604] pt-24 pb-12"
+      className="relative min-h-[92vh] sm:min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030604] pt-28 sm:pt-32 pb-14 px-4"
     >
-      {/* 1. FULL-SCREEN 3D CINEMATIC VIDEO BACKGROUND */}
-      <motion.div
-        style={{ scale: videoScale, opacity: videoOpacity }}
-        className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden"
-      >
-        <video
-          src="/media/hero/codube_3d_brand_animation.mp4"
-          poster="/images/hero-laptop.png"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover object-center filter brightness-105 contrast-110"
+      {/* 1. FUTURISTIC AMBIENT CYBER LIGHTING (HIGH PERFORMANCE & INSTANT LOAD) */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        {/* Top Radial Neon Aura */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] sm:w-[1100px] h-[550px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(184,255,0,0.16),transparent_70%)] blur-2xl" />
+
+        {/* Ambient Center Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[750px] h-[400px] bg-[radial-gradient(circle,rgba(37,211,102,0.08)_0%,transparent_70%)] blur-3xl" />
+
+        {/* Bottom Dark Gradient Fade */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030604]/40 to-[#030604]" />
+
+        {/* Subtle Fine Cyber Grid Overlay for Texture */}
+        <div
+          className="absolute inset-0 opacity-[0.05] pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(#B8FF00 1px, transparent 1px), linear-gradient(90deg, #B8FF00 1px, transparent 1px)`,
+            backgroundSize: "52px 52px",
+          }}
         />
-
-        {/* Cinematic Vignette & Ambient Radial Glow Overlays */}
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#030604]/55 to-[#030604] pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030604] via-transparent to-[#030604]/75 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030604]/85 via-transparent to-[#030604] pointer-events-none" />
-
-        {/* Ambient Lime Cyber Aura in Center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[radial-gradient(circle,rgba(184,255,0,0.18)_0%,transparent_70%)] blur-3xl pointer-events-none" />
-      </motion.div>
-
-      {/* Subtle fine cyber grid overlay for texture */}
-      <div
-        className="absolute inset-0 opacity-[0.07] pointer-events-none z-0"
-        style={{
-          backgroundImage: `linear-gradient(#B8FF00 1px, transparent 1px), linear-gradient(90deg, #B8FF00 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
+      </div>
 
       {/* 2. FOREGROUND CONTENT — OUTCOME-DRIVEN HIGH-CONVERTING HERO */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-6 pb-12 space-y-7"
+        className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-7"
       >
         {/* Target Audience Badge */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#080D0A]/90 border border-[#B8FF00]/40 backdrop-blur-xl shadow-[0_0_25px_rgba(184,255,0,0.25)] select-none"
+          className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#080D0A]/90 border border-[#B8FF00]/40 backdrop-blur-xl shadow-[0_0_25px_rgba(184,255,0,0.25)] select-none max-w-full"
         >
-          <span className="w-2.5 h-2.5 rounded-full bg-[#B8FF00] animate-pulse shadow-[0_0_10px_#B8FF00]" />
-          <span className="text-[11px] sm:text-xs font-mono font-bold text-[#B8FF00] tracking-[0.18em] uppercase">
+          <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#B8FF00] animate-pulse shadow-[0_0_10px_#B8FF00] shrink-0" />
+          <span className="text-[10px] sm:text-xs font-mono font-bold text-[#B8FF00] tracking-[0.14em] sm:tracking-[0.18em] uppercase truncate">
             FOR CLINICS, REAL ESTATE &amp; GROWING BUSINESSES
           </span>
-          <Sparkles className="w-3.5 h-3.5 text-[#B8FF00] hidden sm:inline" />
+          <Sparkles className="w-3.5 h-3.5 text-[#B8FF00] hidden sm:inline shrink-0" />
         </motion.div>
 
-        {/* Outcome-Driven H1 Headline */}
+        {/* Outcome-Driven H1 Headline with Smooth Animated Rotating Phrases */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-2"
         >
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-black tracking-tight text-white leading-[1.08] drop-shadow-[0_10px_30px_rgba(0,0,0,0.85)]">
-            Turn Visitors Into Paying Customers with{" "}
-            <span className="text-[#B8FF00] drop-shadow-[0_0_35px_rgba(184,255,0,0.5)]">
-              High-Speed Websites &amp; 24/7 WhatsApp AI Agents.
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-black tracking-tight text-white leading-[1.2] sm:leading-[1.12] drop-shadow-[0_10px_30px_rgba(0,0,0,0.85)] flex flex-col justify-center items-center">
+            <span>Turn Visitors Into Paying Customers with</span>
+            <span className="relative inline-block text-[#B8FF00] drop-shadow-[0_0_35px_rgba(184,255,0,0.5)] mt-1.5 min-h-[64px] sm:min-h-[82px] md:min-h-[96px] lg:min-h-[105px] flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={phraseIndex}
+                  initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -16, filter: "blur(6px)" }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block"
+                >
+                  {rotatingPhrases[phraseIndex]}
+                </motion.span>
+              </AnimatePresence>
             </span>
           </h1>
         </motion.div>
@@ -116,7 +128,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-sm sm:text-lg md:text-xl text-zinc-300 max-w-3xl mx-auto leading-relaxed font-normal drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]"
+          className="text-xs sm:text-base md:text-lg lg:text-xl text-zinc-300 max-w-3xl mx-auto leading-relaxed font-normal px-2"
         >
           Stop losing leads to slow replies. We build conversion-engineered websites and automated WhatsApp AI receptionists that book appointments and capture leads while you sleep —{" "}
           <span className="text-white font-semibold underline decoration-[#B8FF00] decoration-2 underline-offset-4">
@@ -129,12 +141,12 @@ export default function HeroSection({ content }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-3"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 pt-2 w-full max-w-md sm:max-w-none mx-auto"
         >
           <button
             type="button"
             onClick={() => scrollToSection("ai-simulator")}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-sm font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] hover:shadow-[0_0_35px_rgba(184,255,0,0.65)] transition-all duration-300 active:scale-95 group cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full text-xs sm:text-sm font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] hover:shadow-[0_0_35px_rgba(184,255,0,0.65)] transition-all duration-300 active:scale-95 group cursor-pointer"
           >
             <Bot className="w-4 h-4 stroke-[2.5]" />
             <span>Get Your Free AI Demo</span>
@@ -144,7 +156,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
           <button
             type="button"
             onClick={() => scrollToSection("pricing")}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-sm font-semibold text-white bg-[#080D0A]/90 hover:bg-white/10 border border-white/20 hover:border-[#B8FF00]/60 transition-all backdrop-blur-xl group cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-full text-xs sm:text-sm font-semibold text-white bg-[#080D0A]/90 hover:bg-white/10 border border-white/20 hover:border-[#B8FF00]/60 transition-all backdrop-blur-xl group cursor-pointer"
           >
             <Zap className="w-4 h-4 text-[#B8FF00]" />
             <span>View $999 Growth Package</span>
@@ -156,32 +168,32 @@ export default function HeroSection({ content }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="pt-5"
+          className="pt-4 sm:pt-5"
         >
-          <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-7 py-3.5 px-6 sm:px-8 rounded-2xl bg-[#080D0A]/85 border border-white/[0.1] backdrop-blur-xl text-xs sm:text-sm text-zinc-200 shadow-2xl">
+          <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-7 py-2.5 sm:py-3.5 px-4 sm:px-8 rounded-2xl bg-[#080D0A]/85 border border-white/[0.1] backdrop-blur-xl text-xs sm:text-sm text-zinc-200 shadow-2xl max-w-full">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-[#B8FF00]/15 flex items-center justify-center">
-                <TrendingUp className="w-3.5 h-3.5 text-[#B8FF00]" />
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#B8FF00]/15 flex items-center justify-center shrink-0">
+                <TrendingUp className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#B8FF00]" />
               </div>
-              <span className="font-bold text-white">3x More Bookings</span>
+              <span className="font-semibold text-white whitespace-nowrap">3x More Bookings</span>
             </div>
 
             <span className="text-zinc-700 hidden sm:inline">|</span>
 
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-[#B8FF00]/15 flex items-center justify-center">
-                <MessageCircle className="w-3.5 h-3.5 text-[#B8FF00]" />
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#25D366]/15 flex items-center justify-center shrink-0">
+                <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#25D366]" />
               </div>
-              <span className="font-bold text-white">24/7 Instant WhatsApp Reply</span>
+              <span className="font-semibold text-white whitespace-nowrap">24/7 Instant WhatsApp Reply</span>
             </div>
 
             <span className="text-zinc-700 hidden sm:inline">|</span>
 
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-[#B8FF00]/15 flex items-center justify-center">
-                <Clock className="w-3.5 h-3.5 text-[#B8FF00]" />
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#B8FF00]/15 flex items-center justify-center shrink-0">
+                <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#B8FF00]" />
               </div>
-              <span className="font-bold text-white">7-Day Launch</span>
+              <span className="font-semibold text-white whitespace-nowrap">7-Day Turnaround</span>
             </div>
           </div>
         </motion.div>

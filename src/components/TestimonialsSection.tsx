@@ -188,7 +188,11 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
             </p>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="sm:hidden mb-2 text-right">
+            <span className="text-[10px] text-zinc-500 font-mono">← Swipe table to compare →</span>
+          </div>
+
+          <div className="overflow-x-auto -mx-2 sm:mx-0">
             <table className="w-full min-w-[620px] text-xs sm:text-sm border-collapse">
               <thead>
                 <tr className="border-b border-white/10 text-zinc-400">

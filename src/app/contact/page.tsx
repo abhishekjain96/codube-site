@@ -26,10 +26,10 @@ const servicesOptions = [
 ];
 
 const budgetOptions = [
-  "₹30k - ₹75k (Starter MVP)",
-  "₹75k - ₹2 Lakh (Standard)",
-  "₹2 Lakh - ₹5 Lakh (Scale)",
-  "₹5 Lakh+ (Enterprise)",
+  "$499 - $999 (Starter / AI WhatsApp Bot)",
+  "$999 - $2,500 (Complete Growth Kit)",
+  "$2,500 - $5,000 (Custom SaaS / Multi-Branch)",
+  "$5,000+ (Enterprise Platform)",
 ];
 
 export default function ContactPage() {
@@ -38,7 +38,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     service: "Custom Software Development",
-    budget: "₹75k - ₹2 Lakh (Standard)",
+    budget: "$999 - $2,500 (Complete Growth Kit)",
     message: "",
   });
 
@@ -239,7 +239,7 @@ Message: ${formData.message}`
                         email: "",
                         phone: "",
                         service: "Custom Software Development",
-                        budget: "₹75k - ₹2 Lakh (Standard)",
+                        budget: "$999 - $2,500 (Complete Growth Kit)",
                         message: "",
                       });
                     }}

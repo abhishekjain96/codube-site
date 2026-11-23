@@ -3,19 +3,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   MessageCircle,
-  Send,
   Phone,
   Video,
-  MoreVertical,
-  CheckCheck,
+  Send,
   Sparkles,
-  ArrowRight,
-  RotateCcw,
   Bot,
-  Building2,
+  RotateCcw,
+  CheckCheck,
   Stethoscope,
+  Building2,
   Smile,
   Paperclip,
+  ArrowRight,
+  ShieldCheck,
+  MoreVertical,
+  ChevronLeft,
 } from "lucide-react";
 
 type PersonaKey = "clinic" | "realestate";
@@ -25,16 +27,16 @@ interface Message {
   sender: "bot" | "user";
   text: string;
   time: string;
-  isQuickReply?: boolean;
 }
 
 const personaConfigs = {
   clinic: {
-    name: "Dr. Rajesh Sharma Clinic",
+    name: "Dr. Joy Clinic Network",
     subtitle: "Verified Healthcare AI • Instant Booking",
-    avatar: "🏥",
+    avatarIcon: "🏥",
+    verified: true,
     initialGreeting:
-      "Namaste! 🙏 Welcome to Dr. Rajesh Sharma Multispeciality Clinic.\n\nI am the 24/7 AI Receptionist. I can help you check doctor timings, consult fees, or book an appointment in 30 seconds. How can I help you today?",
+      "Hello! Welcome to Dr. Joy Dental & Medical Clinic. 🏥✨\n\nI am the 24/7 AI Receptionist. I can help you check doctor timings, consultation fees, or confirm an appointment slot in 30 seconds. How can I help you today?",
     quickReplies: [
       "📅 Book an Appointment",
       "⏰ What are the timings & fees?",
@@ -43,40 +45,41 @@ const personaConfigs = {
     ],
     responses: {
       "📅 Book an Appointment":
-        "✅ I'd be happy to book that for you! Dr. Rajesh Sharma has 2 slots available today:\n\n1️⃣ 05:30 PM (Evening)\n2️⃣ 07:15 PM (Evening)\n\nConsultation Fee: ₹500.\nReply with your preferred slot number and patient name to lock your priority token instantly!",
+        "✅ I'd be happy to book that for you! Dr. Rajesh Sharma has 2 slots available today:\n\n1️⃣ 04:30 PM (Evening)\n2️⃣ 06:45 PM (Evening)\n\n💰 Consultation Fee: $50.\nReply with your preferred slot number and patient name to lock your priority booking instantly!",
       "⏰ What are the timings & fees?":
-        "🕒 Clinic OPD Timings:\n• Morning: 10:00 AM - 01:30 PM\n• Evening: 05:00 PM - 08:30 PM\n• Sunday: 10:00 AM - 01:00 PM (Emergency only)\n\n💰 Consultation Fee: ₹500 (Follow-up within 7 days is FREE).\n\nWould you like me to reserve a slot for you?",
+        "🕒 Clinic OPD Timings:\n• Mon - Fri: 09:00 AM - 07:30 PM\n• Saturday: 10:00 AM - 04:00 PM\n• Sunday: Emergency & Prior Bookings Only\n\n💰 Consultation Fee: $50 (Follow-up visit within 7 days is FREE).\n\nWould you like me to reserve a priority token for you?",
       "📍 Send Clinic Location":
-        "📍 Apex Healthcare Centre:\nPlot 18, Tonk Road, Near SMS Hospital, Jaipur, Rajasthan 302015.\n\n🗺️ Google Maps: https://maps.google.com/?q=ApexClinicJaipur\n🚗 Free patient parking available on-site.\n\nShall I book an appointment for your visit?",
+        "📍 Downtown Medical Centre:\nSuite 402, Healthcare Plaza, Downtown Medical District.\n\n🗺️ Google Maps: https://maps.google.com/?q=DowntownMedicalCentre\n🚗 Free patient valet parking available on-site.\n\nShall I book an appointment for your visit?",
       "🩺 Available Specialists Today":
-        "👨‍⚕️ Specialists on duty today:\n1. Dr. Rajesh Sharma — Senior General Physician & Cardiologist\n2. Dr. Priya Verma — Dermatologist & Cosmetologist\n3. Dr. Ankit Jain — Orthopedic Surgeon\n\nWhich doctor would you like to consult?",
+        "👨‍⚕️ Specialists on duty today:\n1. Dr. Rajesh Sharma — Senior General Physician & Cardiologist\n2. Dr. Sarah Miller — Senior Dental Surgeon & Implantologist\n3. Dr. Ankit Jain — Orthopedic Specialist\n\nWhich doctor would you like to consult?",
       default:
-        "Thank you for your message! Our clinic AI has recorded your request. For urgent medical queries, please call emergency reception or book an immediate OPD slot. Would you like to confirm an appointment?",
+        "Thank you for your message! Our clinic AI has recorded your query. Would you like me to book an appointment slot or check doctor availability?",
     },
   },
   realestate: {
     name: "Skyline Luxury Residences",
     subtitle: "Official Sales AI Assistant • 24/7 Active",
-    avatar: "🏢",
+    avatarIcon: "🏢",
+    verified: true,
     initialGreeting:
-      "Hello! Welcome to Skyline Heights Luxury Residences, Jaipur. 🏢✨\n\nLooking for ready-to-move 2 BHK, 3 BHK luxury flats, or exclusive penthouses? I can send you the brochure, price list, or schedule a VIP site visit. What would you like to know?",
+      "Hello! Welcome to Skyline Luxury Residences. 🏢✨\n\nLooking for ready-to-move 2 Bedroom, 3 Bedroom luxury units, or exclusive penthouses? I can send you the brochure, price sheet, or schedule a VIP site visit. What would you like to know?",
     quickReplies: [
       "📑 Send Brochure & Pricing",
       "🏡 Schedule Site Visit this Weekend",
-      "🔑 Available 2 BHK & 3 BHK Layouts",
+      "🔑 Available Unit Layouts",
       "💰 Bank Loan & Payment Plans",
     ],
     responses: {
       "📑 Send Brochure & Pricing":
-        "📑 Here are the current pricing and unit details for Skyline Heights:\n\n• 2 BHK Luxury (1,280 sq.ft) — ₹68.5 Lakhs*\n• 3 BHK Premium (1,820 sq.ft) — ₹98.0 Lakhs*\n• 4 BHK Royal Penthouse — ₹1.65 Cr*\n\n📄 Official Brochure: https://skyline.codube.client/brochure.pdf\n\nWould you like a sample floor plan or a site tour?",
+        "📑 Current pricing and unit availability for Skyline Residences:\n\n• 2 Bedroom Luxury (1,280 sq.ft) — $350,000*\n• 3 Bedroom Premium (1,820 sq.ft) — $520,000*\n• 4 Bedroom Sky Penthouse (3,400 sq.ft) — $950,000*\n\n📄 Official Brochure: https://skyline.codube.client/brochure.pdf\n\nWould you like to schedule a private site visit?",
       "🏡 Schedule Site Visit this Weekend":
-        "🎉 Your VIP Site Visit is almost set!\n\n📅 Date: This Saturday / Sunday\n⏰ Preferred Time: 11:30 AM or 04:30 PM\n📍 Location: Skyline Towers, Airport Road, Jagatpura, Jaipur\n\nOur Senior Sales Consultant Amit will keep the sample flat ready. What time suits you best?",
-      "🔑 Available 2 BHK & 3 BHK Layouts":
-        "📐 Unit Features & Configurations:\n• 100% Vastu Compliant with modular kitchen\n• 2 Large Balconies with Aravalli hills view\n• Clubhouse with Rooftop Infinity Pool & Gym\n• Only 8 units left under inaugural pre-launch discount!\n\nShall I schedule your site visit to view the sample flat?",
+        "🎉 Your VIP Site Visit is almost set!\n\n📅 Date: This Saturday / Sunday\n⏰ Preferred Time: 11:30 AM or 04:30 PM\n📍 Location: Skyline Towers, Prime Avenue\n\nOur Senior Property Consultant will keep the sample luxury suite ready. What time suits you best?",
+      "🔑 Available Unit Layouts":
+        "📐 Unit Features & Configurations:\n• High-ceiling panoramic glass windows with skyline views\n• Designer Italian modular kitchen & smart home automation\n• Rooftop Infinity Pool, Private Gym & Concierge\n• Exclusive pre-launch incentives currently active!\n\nShall I schedule your site visit to view the sample suite?",
       "💰 Bank Loan & Payment Plans":
-        "🏦 Financial Details & Flexible Plans:\n• Pre-approved by SBI, HDFC, and ICICI Bank with 8.4% interest\n• 10% Down Payment • 80% Bank Loan • 10% on Possession\n• Zero Brokerage • Direct Developer Booking\n\nWould you like our loan officer to contact you?",
+        "🏦 Financial Details & Flexible Plans:\n• Pre-approved by leading international and tier-1 banks\n• Flexible 20/80 Construction-Linked Payment Plan\n• Zero Brokerage • Direct Developer Booking\n\nWould you like our private wealth officer to reach out?",
       default:
-        "Thank you! Our Real Estate AI has noted your request. Would you like me to connect you with our project relationship manager directly on call or send the layout brochure?",
+        "Thank you! Our Real Estate AI has noted your request. Would you like me to connect you with our project director on WhatsApp or send the full digital floor plan?",
     },
   },
 };
@@ -86,12 +89,19 @@ export default function WhatsAppSimulator() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const config = personaConfigs[activePersona];
 
+  // Helper for timestamp
+  function getCurrentTime() {
+    const d = new Date();
+    return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+
   // Initialize chat when persona changes
   useEffect(() => {
+    setIsTyping(false);
     setMessages([
       {
         id: "m0",
@@ -102,15 +112,12 @@ export default function WhatsAppSimulator() {
     ]);
   }, [activePersona]);
 
-  // Auto-scroll chat to bottom
+  // Internal-only chat scroll (NEVER scrolls the window)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isTyping]);
-
-  function getCurrentTime() {
-    const d = new Date();
-    return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  }
 
   const handleSendMessage = (textToSend: string) => {
     if (!textToSend.trim() || isTyping) return;
@@ -126,7 +133,7 @@ export default function WhatsAppSimulator() {
     setInputText("");
     setIsTyping(true);
 
-    // Simulate realistic AI typing delay
+    // Realistic AI reply delay
     setTimeout(() => {
       const botResponseText =
         config.responses[textToSend as keyof typeof config.responses] ||
@@ -141,7 +148,7 @@ export default function WhatsAppSimulator() {
 
       setMessages((prev) => [...prev, botMsg]);
       setIsTyping(false);
-    }, 850);
+    }, 800);
   };
 
   const handleReset = () => {
@@ -163,94 +170,148 @@ export default function WhatsAppSimulator() {
   )}`;
 
   return (
-    <section className="relative py-20 md:py-28 bg-[#040805] overflow-hidden" id="ai-simulator">
-      {/* Background radial aura */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(37,211,102,0.1)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+    <section className="relative py-16 sm:py-24 md:py-28 bg-[#040805] overflow-hidden" id="ai-simulator">
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] sm:w-[900px] h-[550px] bg-[radial-gradient(circle,rgba(37,211,102,0.08)_0%,transparent_70%)] blur-3xl pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 text-center">
         {/* Header Eyebrow & Headline */}
-        <div className="max-w-3xl mx-auto space-y-4 mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#25D366]/10 border border-[#25D366]/40 text-[#25D366] text-xs font-mono font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(37,211,102,0.25)]">
-            <Bot className="w-4 h-4 text-[#25D366]" />
+        <div className="max-w-3xl mx-auto space-y-3.5 sm:space-y-4 mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#25D366]/10 border border-[#25D366]/40 text-[#25D366] text-xs font-mono font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(37,211,102,0.25)]">
+            <Bot className="w-3.5 h-3.5 text-[#25D366]" />
             <span>PLAYABLE INTERACTIVE DEMO</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
             Test Our 24/7 WhatsApp AI{" "}
             <span className="text-[#25D366] drop-shadow-[0_0_25px_rgba(37,211,102,0.45)]">
               Receptionist Live.
             </span>
           </h2>
 
-          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Click any question below to see how our AI receptionist answers pricing, checks availability, and books appointments instantly — zero staff required.
+          <p className="text-xs sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed px-2">
+            Click any question below to see how our AI receptionist answers pricing, checks availability, and confirms bookings instantly in real-time.
           </p>
 
           {/* Persona Switcher Tabs */}
-          <div className="inline-flex p-1.5 rounded-2xl bg-[#080D0A] border border-white/10 shadow-xl mt-4">
+          <div className="inline-flex p-1 rounded-2xl bg-[#080D0A] border border-white/10 shadow-xl mt-3 max-w-full overflow-x-auto">
             <button
               type="button"
               onClick={() => setActivePersona("clinic")}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activePersona === "clinic"
                   ? "bg-[#25D366] text-black shadow-[0_0_20px_rgba(37,211,102,0.5)]"
                   : "text-zinc-400 hover:text-white"
               }`}
             >
-              <Stethoscope className="w-4 h-4" />
+              <Stethoscope className="w-4 h-4 shrink-0" />
               <span>🏥 Clinic / Doctor Bot</span>
             </button>
 
             <button
               type="button"
               onClick={() => setActivePersona("realestate")}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activePersona === "realestate"
                   ? "bg-[#25D366] text-black shadow-[0_0_20px_rgba(37,211,102,0.5)]"
                   : "text-zinc-400 hover:text-white"
               }`}
             >
-              <Building2 className="w-4 h-4" />
+              <Building2 className="w-4 h-4 shrink-0" />
               <span>🏢 Real Estate / Business Bot</span>
             </button>
           </div>
         </div>
 
-        {/* PHONE MOCKUP CONTAINER */}
-        <div className="max-w-md mx-auto relative">
+        {/* REALISTIC iPHONE MOCKUP CONTAINER */}
+        <div className="w-full max-w-[360px] sm:max-w-[410px] md:max-w-[430px] mx-auto relative select-none">
           {/* Subtle Outer Neon Aura */}
-          <div className="absolute -inset-2 bg-gradient-to-tr from-[#25D366]/30 via-[#B8FF00]/15 to-transparent blur-2xl opacity-75 rounded-[48px]" />
+          <div className="absolute -inset-2 bg-gradient-to-tr from-[#25D366]/25 via-[#B8FF00]/10 to-transparent blur-2xl opacity-75 rounded-[56px] pointer-events-none" />
 
-          {/* Phone Frame Chassis */}
-          <div className="relative rounded-[40px] p-3 sm:p-3.5 bg-gradient-to-b from-zinc-700 via-zinc-900 to-black shadow-[0_25px_70px_rgba(0,0,0,0.95)] border-2 border-white/15">
-            {/* Phone Screen Area */}
-            <div className="rounded-[32px] overflow-hidden bg-[#0B141A] flex flex-col h-[580px] sm:h-[620px] border border-white/[0.08] relative">
+          {/* Hardware Side Buttons */}
+          <div className="absolute -left-[5px] top-24 w-[3px] h-9 bg-zinc-600 rounded-l-sm hidden sm:block" />
+          <div className="absolute -left-[5px] top-36 w-[3px] h-12 bg-zinc-600 rounded-l-sm hidden sm:block" />
+          <div className="absolute -left-[5px] top-52 w-[3px] h-12 bg-zinc-600 rounded-l-sm hidden sm:block" />
+          <div className="absolute -right-[5px] top-32 w-[3px] h-16 bg-zinc-600 rounded-r-sm hidden sm:block" />
+
+          {/* Titanium iPhone Outer Chassis */}
+          <div className="relative rounded-[46px] sm:rounded-[52px] p-[8px] sm:p-[10px] bg-gradient-to-b from-[#353A40] via-[#1E2226] to-[#0E1012] shadow-[0_25px_80px_rgba(0,0,0,0.95),0_0_40px_rgba(37,211,102,0.15)] border border-zinc-600/70">
+            {/* iPhone Glass Screen */}
+            <div className="rounded-[38px] sm:rounded-[44px] overflow-hidden bg-[#0B141A] flex flex-col h-[560px] sm:h-[620px] border border-black/90 relative">
               
-              {/* WhatsApp App Header */}
-              <div className="bg-[#1F2C34] px-4 py-3 text-white flex items-center justify-between shadow-md z-10">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#128C7E] flex items-center justify-center text-lg shadow-inner">
-                    {config.avatar}
+              {/* TOP iOS STATUS BAR & DYNAMIC ISLAND */}
+              <div className="bg-[#1F2C34] pt-2 pb-1.5 px-5 flex items-center justify-between text-white text-[11px] font-semibold tracking-tight relative z-20">
+                {/* Time */}
+                <span className="w-12 text-left font-mono">9:41</span>
+
+                {/* iPhone Dynamic Island */}
+                <div className="w-24 sm:w-28 h-5 sm:h-5.5 bg-black rounded-full flex items-center justify-between px-2.5 shadow-inner">
+                  <div className="w-2 h-2 rounded-full bg-[#10141d] border border-zinc-800" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#051e11]" />
+                </div>
+
+                {/* iOS Icons: Signal, 5G, Battery */}
+                <div className="w-12 flex items-center justify-end gap-1.5 text-zinc-300">
+                  <span className="text-[10px] font-bold">5G</span>
+                  <div className="w-4 h-2.5 border border-white/80 rounded-[3px] p-[1px] flex items-center">
+                    <div className="w-full h-full bg-[#25D366] rounded-[1px]" />
                   </div>
+                </div>
+              </div>
+
+              {/* REALISTIC WHATSAPP APP HEADER */}
+              <div className="bg-[#1F2C34] px-3 sm:px-4 py-2.5 text-white flex items-center justify-between border-b border-black/30 shadow-md z-10">
+                {/* Back Arrow & Avatar & Title */}
+                <div className="flex items-center gap-2 sm:gap-2.5">
+                  <div className="flex items-center text-zinc-300 hover:text-white cursor-pointer">
+                    <ChevronLeft className="w-5 h-5 -mr-1" />
+                  </div>
+
+                  {/* Company / Clinic Profile Photo */}
+                  <div className="relative">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#005C4B] to-[#128C7E] flex items-center justify-center text-base sm:text-lg shadow-md border border-white/20">
+                      {config.avatarIcon}
+                    </div>
+                    {/* Live Online Dot */}
+                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#25D366] border-2 border-[#1F2C34]" />
+                  </div>
+
+                  {/* Header Title & Subtitle */}
                   <div className="text-left">
-                    <div className="flex items-center gap-1.5">
-                      <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight truncate max-w-[190px]">
+                    <div className="flex items-center gap-1">
+                      <h4 className="text-xs sm:text-[13px] font-bold text-white tracking-tight truncate max-w-[140px] sm:max-w-[170px]">
                         {config.name}
                       </h4>
-                      <span className="w-3.5 h-3.5 rounded-full bg-[#25D366] flex items-center justify-center text-[9px] text-black font-black">
+                      {/* Verified Badge */}
+                      <span className="w-3.5 h-3.5 rounded-full bg-[#25D366] flex items-center justify-center text-[9px] text-black font-black shrink-0">
                         ✓
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-[10px] text-[#25D366] font-mono">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
-                      <span>{isTyping ? "typing..." : "online • 24/7 AI Receptionist"}</span>
+                    <div className="text-[10px] text-zinc-300 font-normal">
+                      {isTyping ? (
+                        <span className="text-[#25D366] font-semibold animate-pulse">typing...</span>
+                      ) : (
+                        <span className="text-[#25D366] flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] inline-block animate-pulse" />
+                          <span>online • 24/7 AI Receptionist</span>
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 text-zinc-300">
-                  <Phone className="w-4 h-4 opacity-75 hover:opacity-100 cursor-pointer" />
-                  <Video className="w-4 h-4 opacity-75 hover:opacity-100 cursor-pointer" />
+                {/* Right Action Icons & WhatsApp Brand Logo */}
+                <div className="flex items-center gap-2 sm:gap-2.5 text-zinc-300">
+                  <Video className="w-4 h-4 opacity-80 hover:opacity-100 cursor-pointer hidden sm:block" />
+                  <Phone className="w-4 h-4 opacity-80 hover:opacity-100 cursor-pointer hidden sm:block" />
+
+                  {/* Official WhatsApp Logo Icon */}
+                  <div className="w-6 h-6 rounded-full bg-[#25D366] flex items-center justify-center text-black shadow-[0_0_10px_rgba(37,211,102,0.6)]" title="Official WhatsApp Business AI">
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.586 1.761.88 2.791.88h.001c3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.769-5.766zm3.364 8.163c-.146.409-.854.787-1.18.825-.326.038-.727.142-2.385-.536-1.658-.678-2.73-2.366-2.812-2.476-.083-.11-.663-.883-.663-1.683 0-.8.414-1.193.562-1.353.148-.16.326-.201.435-.201.109 0 .217.001.312.006.1.005.234-.038.366.279.136.326.463 1.13.504 1.212.041.082.069.178.014.288-.055.11-.083.178-.163.274-.082.096-.172.214-.246.287-.082.082-.167.172-.072.335.095.163.424.7.91 1.133.626.556 1.154.728 1.317.81.163.082.259.069.355-.041.096-.11.409-.477.518-.641.109-.163.218-.137.368-.082.15.055.952.449 1.116.531.163.082.273.123.313.191.041.069.041.396-.105.805z" />
+                    </svg>
+                  </div>
+
                   <button
                     type="button"
                     onClick={handleReset}
@@ -262,22 +323,24 @@ export default function WhatsAppSimulator() {
                 </div>
               </div>
 
-              {/* Chat Messages Body with WhatsApp Subtle Doodle Texture */}
+              {/* CHAT MESSAGES BODY WITH AUTHENTIC WHATSAPP DOODLE BACKGROUND */}
               <div
-                className="flex-1 p-3 sm:p-4 overflow-y-auto space-y-3.5 text-left text-xs sm:text-[13px]"
+                ref={chatContainerRef}
+                className="flex-1 p-3 sm:p-4 overflow-y-auto space-y-3 text-left text-xs sm:text-[13px] scroll-smooth"
                 style={{
-                  backgroundImage: `radial-gradient(#128C7E 0.5px, transparent 0.5px)`,
-                  backgroundSize: "24px 24px",
                   backgroundColor: "#0B141A",
+                  backgroundImage: `radial-gradient(rgba(18,140,126,0.12) 1px, transparent 1px)`,
+                  backgroundSize: "20px 20px",
                 }}
               >
-                {/* Security encryption pill */}
+                {/* Security Encryption Pill */}
                 <div className="text-center my-1">
-                  <span className="inline-block px-3 py-1 rounded-lg bg-[#182229] text-[10px] text-zinc-400 border border-white/5">
-                    🔒 Messages are encrypted &amp; powered by Codube AI
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#182229] text-[10px] text-zinc-400 border border-white/5 shadow-sm">
+                    <span>🔒 End-to-end encrypted with Codube AI</span>
                   </span>
                 </div>
 
+                {/* Message List */}
                 {messages.map((m) => (
                   <div
                     key={m.id}
@@ -286,7 +349,7 @@ export default function WhatsAppSimulator() {
                     }`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl p-3 shadow-md relative leading-relaxed whitespace-pre-line ${
+                      className={`max-w-[86%] rounded-2xl p-2.5 sm:p-3 shadow-md relative leading-relaxed whitespace-pre-line text-xs sm:text-[12.5px] ${
                         m.sender === "user"
                           ? "bg-[#005C4B] text-white rounded-tr-none"
                           : "bg-[#202C33] text-zinc-100 rounded-tl-none border border-white/5"
@@ -306,31 +369,29 @@ export default function WhatsAppSimulator() {
                 {/* Animated Typing Bubble */}
                 {isTyping && (
                   <div className="flex items-start">
-                    <div className="bg-[#202C33] rounded-2xl rounded-tl-none p-3 shadow-md border border-white/5 flex items-center gap-1.5">
+                    <div className="bg-[#202C33] rounded-2xl rounded-tl-none px-3.5 py-2.5 shadow-md border border-white/5 flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-[#25D366] animate-bounce" />
-                      <span className="w-2 h-2 rounded-full bg-[#25D366] animate-bounce [animation-delay:0.2s]" />
-                      <span className="w-2 h-2 rounded-full bg-[#25D366] animate-bounce [animation-delay:0.4s]" />
+                      <span className="w-2 h-2 rounded-full bg-[#25D366] animate-bounce [animation-delay:0.18s]" />
+                      <span className="w-2 h-2 rounded-full bg-[#25D366] animate-bounce [animation-delay:0.36s]" />
                     </div>
                   </div>
                 )}
-
-                <div ref={messagesEndRef} />
               </div>
 
-              {/* Quick-Reply Suggested Pills */}
-              <div className="p-2.5 bg-[#1F2C34]/95 border-t border-white/[0.06] backdrop-blur-md">
+              {/* QUICK-REPLY SUGGESTED PILLS */}
+              <div className="p-2 sm:p-2.5 bg-[#1F2C34]/95 border-t border-white/[0.08] backdrop-blur-md">
                 <div className="text-[10px] text-zinc-400 font-mono text-left mb-1.5 flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-[#25D366]" />
                   <span>TAP A QUESTION TO TEST BOT REPLY:</span>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1 sm:gap-1.5">
                   {config.quickReplies.map((q) => (
                     <button
                       key={q}
                       type="button"
                       disabled={isTyping}
                       onClick={() => handleSendMessage(q)}
-                      className="px-2.5 py-1.5 rounded-full bg-white/[0.08] hover:bg-[#25D366] hover:text-black border border-white/10 text-[11px] font-medium text-white transition-all active:scale-95 text-left disabled:opacity-50 cursor-pointer"
+                      className="px-2.5 py-1.5 rounded-full bg-white/[0.07] hover:bg-[#25D366] hover:text-black border border-white/10 text-[10px] sm:text-[11px] font-medium text-white transition-all active:scale-95 text-left disabled:opacity-50 cursor-pointer"
                     >
                       {q}
                     </button>
@@ -338,13 +399,13 @@ export default function WhatsAppSimulator() {
                 </div>
               </div>
 
-              {/* Chat Input Bar */}
+              {/* CHAT INPUT BAR */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   handleSendMessage(inputText);
                 }}
-                className="bg-[#1F2C34] p-2 flex items-center gap-2 border-t border-white/10"
+                className="bg-[#1F2C34] p-2 flex items-center gap-1.5 sm:gap-2 border-t border-white/10"
               >
                 <div className="flex items-center gap-1 text-zinc-400 pl-1">
                   <Smile className="w-4 h-4 cursor-pointer hover:text-white" />
@@ -355,38 +416,43 @@ export default function WhatsAppSimulator() {
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Type a message or tap questions above..."
-                  className="flex-1 bg-[#2A3942] text-xs text-white placeholder-zinc-400 px-3.5 py-2.5 rounded-full focus:outline-none focus:ring-1 focus:ring-[#25D366]"
+                  placeholder="Type a message or tap above..."
+                  className="flex-1 bg-[#2A3942] text-[11px] sm:text-xs text-white placeholder-zinc-400 px-3 py-2 rounded-full focus:outline-none focus:ring-1 focus:ring-[#25D366]"
                 />
 
                 <button
                   type="submit"
                   disabled={!inputText.trim() || isTyping}
-                  className="w-8 h-8 rounded-full bg-[#00A884] text-white flex items-center justify-center hover:bg-[#25D366] hover:text-black transition-colors disabled:opacity-40 cursor-pointer"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#00A884] text-white flex items-center justify-center hover:bg-[#25D366] hover:text-black transition-colors disabled:opacity-40 cursor-pointer shrink-0"
                   aria-label="Send message"
                 >
                   <Send className="w-3.5 h-3.5 ml-0.5" />
                 </button>
               </form>
+
+              {/* iOS BOTTOM HOME INDICATOR BAR */}
+              <div className="bg-[#1F2C34] pb-1 pt-0.5 flex justify-center">
+                <div className="w-28 sm:w-32 h-1 bg-white/40 rounded-full" />
+              </div>
             </div>
           </div>
         </div>
 
         {/* BOTTOM CALL TO ACTION FOR BUSINESS OWNERS */}
-        <div className="mt-10 space-y-3">
+        <div className="mt-8 sm:mt-10 space-y-3 px-2">
           <a
             href={whatsappSetupUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-sm sm:text-base font-bold bg-[#25D366] text-black hover:bg-[#20bd5a] hover:shadow-[0_0_35px_rgba(37,211,102,0.6)] transition-all duration-300 active:scale-95 group"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm md:text-base font-bold bg-[#25D366] text-black hover:bg-[#20bd5a] hover:shadow-[0_0_35px_rgba(37,211,102,0.6)] transition-all duration-300 active:scale-95 group"
           >
-            <MessageCircle className="w-5 h-5 fill-current" />
+            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current shrink-0" />
             <span>Want This AI Bot For Your Business? Book Setup →</span>
-            <ArrowRight className="w-4 h-4 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 stroke-[2.5] transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
           </a>
 
-          <p className="text-xs text-zinc-400">
-            ⚡ Setup delivered in 3 to 7 days • Connects directly with your official WhatsApp number
+          <p className="text-[11px] sm:text-xs text-zinc-400">
+            ⚡ Turnkey setup in 3 to 7 days • Directly integrated with your official WhatsApp business number
           </p>
         </div>
       </div>
