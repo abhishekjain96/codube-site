@@ -85,7 +85,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/#pricing" className="hover:text-[#B8FF00] transition-colors">
-                  Pricing (₹19,999 Kit)
+                  Pricing ($999 Kit)
                 </Link>
               </li>
               <li>

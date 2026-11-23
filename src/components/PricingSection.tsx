@@ -19,11 +19,12 @@ export default function PricingSection() {
     {
       id: "ai-agent",
       name: "AI WhatsApp Automation Agent",
-      price: "₹14,999",
+      price: "$499",
       billing: "One-Time Setup",
+      subBilling: "Optional: +$99/mo AI & Cloud Maintenance",
       badge: "FOR EXISTING WEBSITES",
       description:
-        "Best for clinics, real estate agencies, and businesses that already have a website but are losing leads to slow replies.",
+        "Best for clinics, dental practices, real estate & businesses that already have a website but are losing leads to slow replies.",
       popular: false,
       icon: Bot,
       features: [
@@ -31,21 +32,23 @@ export default function PricingSection() {
         "24/7 Custom AI Sales / Booking Bot",
         "Auto Lead Sync to Google Sheets / CRM",
         "Automated Follow-up Reminders",
-        "Custom FAQ & Pricing Knowledge Training",
+        "Custom FAQ & Service Knowledge Training",
         "3-Day Guaranteed Delivery",
+        "Optional: +$99/mo AI & Cloud Maintenance",
       ],
-      ctaText: "Get AI Agent",
+      ctaText: "Get AI Agent ($499)",
       whatsappText:
-        "Hi Abhishek, I want the AI WhatsApp Automation Agent (₹14,999 One-Time) for my business.",
+        "Hi Abhishek, I want the AI WhatsApp Automation Agent ($499 One-Time Setup) for my business.",
     },
     {
       id: "growth-kit",
       name: "Complete Business Growth Kit",
-      price: "₹19,999",
-      billing: "One-Time Complete Build",
+      price: "$999",
+      billing: "Complete Launch",
+      subBilling: "Turnkey 7-Day Guaranteed Delivery",
       badge: "MOST POPULAR • 10x ROI",
       description:
-        "Best for Clinics, Doctors, Real Estate & Local Businesses wanting an automated website + AI booking system.",
+        "Best for Clinics, Doctors, Real Estate & Local Businesses wanting an automated high-speed website + 24/7 AI booking system.",
       popular: true,
       icon: Rocket,
       features: [
@@ -56,32 +59,34 @@ export default function PricingSection() {
         "Free Admin Dashboard & Easy Image Uploads",
         "7-Day Guaranteed Delivery & 100% Ownership",
       ],
-      ctaText: "Launch My Business",
+      ctaText: "Launch My Business ($999)",
       whatsappText:
-        "Hi Abhishek, I want to launch with the Complete Business Growth Kit (₹19,999 One-Time) including Website + WhatsApp AI Bot!",
+        "Hi Abhishek, I want to launch with the Complete Business Growth Kit ($999 Complete Launch) including Website + WhatsApp AI Bot!",
     },
     {
       id: "enterprise-saas",
-      name: "Custom SaaS / Enterprise Platform",
-      price: "Custom Quote",
-      billing: "Milestone-Based",
-      badge: "FOR SCALE & STARTUPS",
+      name: "Custom SaaS / Multi-Branch Clinic System",
+      pricePrefix: "Starting at",
+      price: "$2,499",
+      billing: "Custom Milestone-Based",
+      subBilling: "For Multi-Branch Chains & Scaled Ops",
+      badge: "ENTERPRISE & MULTI-BRANCH",
       description:
-        "Best for Funded Startups, Hospital Chains & Multi-Location Brands requiring custom full-stack architecture.",
+        "Best for Multi-Branch Clinic Chains (like Dr. Joy), Healthcare Networks & Funded Startups requiring enterprise-grade architecture.",
       popular: false,
       icon: Layers,
       features: [
-        "Full-Stack Web / Mobile App (like ScanTaker)",
-        "Custom Multi-Role Admin & Vendor Portals",
-        "Razorpay / Stripe Payment & API Integrations",
+        "Full-Stack Web / Mobile Platform (like ScanTaker)",
+        "Multi-Branch Patient & Doctor Management Portals",
+        "Custom Role-Based Admin & Staff Permissions",
+        "Stripe / International Payment Integrations",
         "AWS / Edge Scalable Cloud Infrastructure",
-        "Dedicated 1st Rank Architect Support",
-        "Full NDA & Complete GitHub IP Ownership",
+        "Dedicated 1st Rank Architect Support & Full NDA",
       ],
       ctaText: "Book Strategy Call",
       isContactPage: true,
       whatsappText:
-        "Hi Abhishek, I would like to book a Strategy Call for a Custom SaaS / Enterprise Platform.",
+        "Hi Abhishek, I would like to book a Strategy Call for a Custom SaaS / Multi-Branch Clinic System (Starting at $2,499).",
     },
   ];
 
@@ -162,13 +167,25 @@ export default function PricingSection() {
                   {/* Title & Price */}
                   <div>
                     <h3 className="text-xl font-black text-white">{pkg.name}</h3>
-                    <div className="mt-3 flex items-baseline gap-2">
-                      <span className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                        {pkg.price}
-                      </span>
-                      <span className="text-xs font-mono text-[#B8FF00] font-semibold">
-                        / {pkg.billing}
-                      </span>
+                    <div className="mt-3">
+                      {"pricePrefix" in pkg && pkg.pricePrefix && (
+                        <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-1">
+                          {pkg.pricePrefix}
+                        </div>
+                      )}
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                          {pkg.price}
+                        </span>
+                        <span className="text-xs font-mono text-[#B8FF00] font-semibold">
+                          / {pkg.billing}
+                        </span>
+                      </div>
+                      {"subBilling" in pkg && pkg.subBilling && (
+                        <div className="mt-1 text-[11px] font-mono text-zinc-400">
+                          {pkg.subBilling}
+                        </div>
+                      )}
                     </div>
                     <p className="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed min-h-[48px]">
                       {pkg.description}

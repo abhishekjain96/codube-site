@@ -61,7 +61,7 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
       description:
         "Traditional agencies trap business owners in 3-month retainers and keep the code hostage. With Codube, your turnkey website + WhatsApp AI agent goes live in 7 days, and you own 100% of the intellectual property.",
       metrics: [
-        "Transparent fixed pricing starting at ₹14,999 (No hidden charges)",
+        "Transparent fixed pricing starting at $499 (No hidden charges)",
         "100% full GitHub source code & cloud credentials belong to you",
         "Official WhatsApp Cloud API verification with your business name",
       ],
@@ -78,8 +78,8 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
     {
       feature: "Transparent Pricing",
       freelancer: "Hourly bills that keep rising",
-      agency: "₹1.5 Lakh - ₹4 Lakh + monthly retainer",
-      codube: "Fixed ₹14,999 - ₹19,999 One-Time",
+      agency: "$3,000 - $8,000 + monthly retainer",
+      codube: "Fixed $499 - $999 One-Time",
     },
     {
       feature: "24/7 WhatsApp AI Bot",

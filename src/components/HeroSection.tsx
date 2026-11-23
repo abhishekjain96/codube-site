@@ -147,7 +147,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-sm font-semibold text-white bg-[#080D0A]/90 hover:bg-white/10 border border-white/20 hover:border-[#B8FF00]/60 transition-all backdrop-blur-xl group cursor-pointer"
           >
             <Zap className="w-4 h-4 text-[#B8FF00]" />
-            <span>View ₹19,999 Growth Package</span>
+            <span>View $999 Growth Package</span>
           </button>
         </motion.div>
 
