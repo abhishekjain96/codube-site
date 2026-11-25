@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { FreeTool } from "@/data/toolsData";
 import { executeTool } from "@/lib/toolGenerators";
+import CleanDocumentPreview from "@/components/CleanDocumentPreview";
 import {
   Copy,
   CheckCircle2,
@@ -19,6 +20,8 @@ import {
   Clock,
   Check,
   RefreshCw,
+  FileText,
+  Code2,
 } from "lucide-react";
 
 interface Props {
@@ -30,6 +33,34 @@ interface StepLog {
   label: string;
   detail: string;
   completed: boolean;
+}
+
+// Strips out markdown syntax (asterisks, hashes, backticks) so copied text is pristine plain text
+function stripMarkdownNoise(text: string): string {
+  if (!text) return "";
+  let clean = text;
+
+  // 1. Remove bold & italic markdown asterisks (**text** -> text, *text* -> text)
+  clean = clean.replace(/\*\*(.*?)\*\*/g, "$1");
+  clean = clean.replace(/\*(.*?)\*/g, "$1");
+
+  // 2. Remove markdown header hashes (# Title -> Title)
+  clean = clean.replace(/^#{1,6}\s+/gm, "");
+
+  // 3. Remove markdown blockquotes (> Quote -> Quote)
+  clean = clean.replace(/^>\s+/gm, "");
+
+  // 4. Convert markdown divider lines --- into clean visual separator
+  clean = clean.replace(/^---+\s*$/gm, "────────────────────────────────────────");
+
+  // 5. Clean up inline code backticks (`code` -> code)
+  clean = clean.replace(/```[a-z]*\n?/gi, "");
+  clean = clean.replace(/`([^`]+)`/g, "$1");
+
+  // 6. Clean up bracketed markdown links [text](url) -> text: url
+  clean = clean.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1: $2");
+
+  return clean.trim();
 }
 
 export default function ToolRunnerClient({ tool }: Props) {
@@ -45,6 +76,9 @@ export default function ToolRunnerClient({ tool }: Props) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progressPercent, setProgressPercent] = useState(0);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [viewMode, setViewMode] = useState<"document" | "raw">("document");
+  const [copiedType, setCopiedType] = useState<"clean" | "raw" | null>(null);
+
   const [steps, setSteps] = useState<StepLog[]>([
     { step: 1, label: "Parameter Ingestion", detail: "Validating input fields & context variables...", completed: false },
     { step: 2, label: "Neural Domain Synthesis", detail: "Executing specialized algorithmic verification...", completed: false },
@@ -61,7 +95,6 @@ export default function ToolRunnerClient({ tool }: Props) {
     generatedAt?: string;
   } | null>(null);
 
-  const [copied, setCopied] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (id: string, value: any) => {
@@ -138,11 +171,21 @@ export default function ToolRunnerClient({ tool }: Props) {
     }, 1650);
   };
 
-  const handleCopy = () => {
+  // 1. Copy Clean Plain Text (Strips all stars, hashes, and markdown formatting)
+  const handleCopyClean = () => {
+    if (!output?.result) return;
+    const cleanText = stripMarkdownNoise(output.result);
+    navigator.clipboard.writeText(cleanText);
+    setCopiedType("clean");
+    setTimeout(() => setCopiedType(null), 2500);
+  };
+
+  // 2. Copy Raw Markdown/Code
+  const handleCopyRaw = () => {
     if (!output?.result) return;
     navigator.clipboard.writeText(output.result);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    setCopiedType("raw");
+    setTimeout(() => setCopiedType(null), 2500);
   };
 
   const handleDownload = () => {
@@ -189,7 +232,7 @@ export default function ToolRunnerClient({ tool }: Props) {
                 </span>
               </h2>
               <p className="text-xs text-zinc-400">
-                Customize values below or use the default parameters to generate output instantly.
+                Customize values below or use pre-filled defaults to generate output instantly.
               </p>
             </div>
           </div>
@@ -360,7 +403,7 @@ export default function ToolRunnerClient({ tool }: Props) {
             Ready to Generate Verified Output
           </h3>
           <p className="text-sm text-zinc-400 max-w-lg mx-auto">
-            Click the <strong className="text-white">&quot;Generate Output Live&quot;</strong> button above to start the multi-step analysis and produce your customized, 100% production-ready result.
+            Click the <strong className="text-white">&quot;Generate Output Live&quot;</strong> button above to start the multi-step analysis and produce your clean, beautifully formatted result.
           </p>
           <button
             type="button"
@@ -375,9 +418,9 @@ export default function ToolRunnerClient({ tool }: Props) {
 
       {/* COMPLETED STATE: Generated Output Display Card */}
       {!isProcessing && output && (
-        <div className="rounded-3xl p-6 sm:p-8 bg-[#080D0A] border-2 border-[#B8FF00] shadow-[0_0_40px_rgba(184,255,0,0.25)] space-y-6 animate-in zoom-in-95 duration-300">
+        <div className="rounded-3xl p-6 sm:p-8 bg-[#080D0A] border-2 border-[#B8FF00] shadow-[0_0_40px_rgba(184,255,0,0.25)] space-y-6 animate-in zoom-in-95 duration-300 text-left">
           {/* Header Banner */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/[0.08] gap-3">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-5 border-b border-white/[0.08] gap-4">
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B8FF00]/15 border border-[#B8FF00]/40 text-[#B8FF00] text-xs font-mono font-bold tracking-wider uppercase">
                 <Check className="w-3.5 h-3.5 stroke-[3]" />
@@ -390,34 +433,85 @@ export default function ToolRunnerClient({ tool }: Props) {
               </div>
             </div>
 
-            {/* Actions: Copy & Download */}
-            <div className="flex items-center gap-2.5">
+            {/* View Mode Switcher + Copy Actions */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              {/* Document vs Raw Code View Toggle */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-white/10 border border-white/10">
+                <button
+                  type="button"
+                  onClick={() => setViewMode("document")}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === "document"
+                      ? "bg-white text-slate-900 shadow-sm"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Document (White)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setViewMode("raw")}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === "raw"
+                      ? "bg-[#B8FF00] text-black font-black shadow-sm"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                >
+                  <Code2 className="w-3.5 h-3.5" />
+                  <span>Raw Code</span>
+                </button>
+              </div>
+
+              {/* Primary Copy: Clean Text (Strips all stars & markdown artifacts) */}
               <button
                 type="button"
-                onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/10 hover:bg-[#B8FF00] hover:text-black text-xs font-mono font-bold text-white transition-all cursor-pointer shadow-sm"
+                onClick={handleCopyClean}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#B8FF00] text-black text-xs font-bold hover:bg-[#ccff00] hover:shadow-[0_0_15px_rgba(184,255,0,0.5)] transition-all cursor-pointer shadow-sm"
+                title="Copies clean text with ZERO stars or markdown syntax (ready to paste directly into WhatsApp or email)"
               >
-                {copied ? (
+                {copiedType === "clean" ? (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-black" />
-                    <span>COPIED!</span>
+                    <span>COPIED CLEAN!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4" />
-                    <span>Copy Output</span>
+                    <Copy className="w-4 h-4 fill-black" />
+                    <span>Copy Clean Text</span>
                   </>
                 )}
               </button>
 
+              {/* Secondary Copy: Raw Markdown */}
+              <button
+                type="button"
+                onClick={handleCopyRaw}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+                title="Copies raw text with markdown formatting"
+              >
+                {copiedType === "raw" ? (
+                  <>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#B8FF00]" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Raw</span>
+                  </>
+                )}
+              </button>
+
+              {/* Download File */}
               <button
                 type="button"
                 onClick={handleDownload}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 text-xs font-mono text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 text-zinc-300 hover:text-white transition-colors cursor-pointer"
                 title="Download file to computer"
               >
                 <Download className="w-4 h-4" />
-                <span className="hidden sm:inline">Download</span>
               </button>
             </div>
           </div>
@@ -497,12 +591,32 @@ export default function ToolRunnerClient({ tool }: Props) {
             </div>
           )}
 
-          {/* Output Display Container */}
-          <div className="rounded-2xl bg-[#050806] border border-white/10 p-5 overflow-x-auto relative">
-            <pre className="text-xs sm:text-sm font-mono text-zinc-200 leading-relaxed whitespace-pre-wrap select-all">
-              {output.result}
-            </pre>
-          </div>
+          {/* OUTPUT CONTAINER: Toggle between White Theme Document View & Raw Code View */}
+          {viewMode === "document" ? (
+            <div className="rounded-2xl sm:rounded-3xl bg-white text-slate-900 p-6 sm:p-10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] border border-slate-200 relative overflow-hidden transition-all">
+              {/* Document Header Bar */}
+              <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-6 text-xs text-slate-500">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                  <span className="font-mono font-bold uppercase tracking-wider text-slate-700">
+                    Certified Output Document (Clean Format)
+                  </span>
+                </div>
+                <span className="font-mono text-[11px] text-slate-400 hidden sm:inline">
+                  Pristine Typography • No Stars or Code Clutter
+                </span>
+              </div>
+
+              {/* Rich Parsed Document Preview */}
+              <CleanDocumentPreview content={output.result} />
+            </div>
+          ) : (
+            <div className="rounded-2xl bg-[#050806] border border-white/10 p-5 overflow-x-auto relative">
+              <pre className="text-xs sm:text-sm font-mono text-zinc-200 leading-relaxed whitespace-pre-wrap select-all">
+                {output.result}
+              </pre>
+            </div>
+          )}
 
           {/* Bottom Conversion Box: WhatsApp Lead Capture */}
           <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#0E1A11] via-[#0F1D13] to-[#0A130C] border border-[#B8FF00]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
