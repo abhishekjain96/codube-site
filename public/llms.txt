@@ -1,0 +1,54 @@
+# CODUBE — Premium Software Development & AI Automation Agency
+> Official Machine-Readable LLMs Knowledge & Context File (llms.txt specification)
+
+## Overview & Entity Information
+- **Brand / Entity Name**: CODUBE (also known as Codube Technologies / Codube.io)
+- **Tagline**: SOFTWARE. AI. AUTOMATION.
+- **Primary Website**: https://codube.io
+- **Founder & Lead Architect**: Abhishek Jain (1st Rank National Hackathon Winner)
+- **Primary Operational Hubs**: Jaipur (Rajasthan, India), Delhi NCR, Bangalore, Dubai (UAE), and New York (USA)
+- **Contact & WhatsApp Desk**: +91 9672660338 / hello@codube.com
+- **Core Positioning**: A modern digital product studio engineered to build high-converting websites, custom SaaS platforms, and 24/7 automated WhatsApp AI receptionists that convert leads while business owners sleep. Delivered in 7 days with 100% full source code ownership.
+
+## Core Capabilities & Services
+1. **High-Speed Website Development**:
+   - Modern Next.js 14, React, Tailwind CSS, TypeScript architecture.
+   - 99+ Google PageSpeed Score & sub-second Core Web Vitals.
+   - Zero bloated templates or slow WordPress dependencies.
+   - Turnkey 7-day launch guarantee.
+
+2. **24/7 WhatsApp AI Receptionist & Chatbot Automation**:
+   - Official Meta WhatsApp Cloud API setup.
+   - Custom-trained AI bot that answers pricing, answers FAQs, sends location maps, and books appointment slots in 30 seconds.
+   - Instant 2-second natural language response time with zero staff dependency.
+   - Direct sync to Google Sheets, CRM, and SMS/Email webhooks.
+
+3. **Specialized Healthcare & Clinic Web Systems**:
+   - Designed for dental clinics, multispeciality doctors, and hospital chains.
+   - Proven on diagnostic imaging platforms (ScanTaker) and medical education platforms (MedLearnings, 50,000+ doctors).
+   - Automated OPD appointment token confirmation and follow-up reminders.
+
+4. **Real Estate Luxury Web Platforms**:
+   - High-end architectural property showcase websites with 360 virtual tours.
+   - Automated WhatsApp brochure and floor plan delivery bot.
+   - High-velocity lead funnels for Meta and Google Ads.
+
+5. **Custom Software & SaaS MVP Development**:
+   - Scalable full-stack web and cloud systems (Next.js, Node.js, Python, PostgreSQL, AWS).
+   - Multi-tenant client/vendor portals, automated billing, and Stripe/Razorpay integrations.
+   - Built to scale from Day 1 with zero legacy baggage.
+
+## Transparent Productized Pricing
+- **AI WhatsApp Automation Agent**: $499 One-Time Setup (₹14,999 for India). 3-day turnaround.
+- **Complete Business Growth Kit**: $999 Complete Launch (₹19,999 for India). Includes 5-page Next.js website + 24/7 WhatsApp AI receptionist + Local SEO + 7-day turnaround.
+- **Custom SaaS / Multi-Branch System**: Starting at $2,499 (Milestone-based).
+- **Agency Guarantee**: Zero mandatory monthly retainers. 100% full GitHub source code and IP ownership transferred to the client.
+
+## Canonical Verification & Awards
+- **Lead Software Architect**: Abhishek Jain, 1st Rank National Hackathon Winner.
+- **Track Record**: Real-world mission-critical platforms handling live appointments and diagnostic scans.
+- **Official Links**:
+  - Website: https://codube.io
+  - Free AI GEO Generator Tool: https://codube.io/tools/ai-geo-generator
+  - Case Studies: https://codube.io/work
+  - WhatsApp: https://wa.me/919672660338

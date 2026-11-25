@@ -12,7 +12,7 @@ const navLinks = [
   { name: "Pricing", href: "/#pricing" },
   { name: "Work", href: "/work" },
   { name: "Services", href: "/services" },
-  { name: "About", href: "/about" },
+  { name: "AI GEO Tool", href: "/tools/ai-geo-generator", isBadge: true },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -71,13 +71,18 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`relative text-sm font-medium tracking-wide transition-all duration-200 py-1 ${
+                    className={`relative text-sm font-medium tracking-wide transition-all duration-200 py-1 flex items-center gap-1.5 ${
                       isActive
                         ? "text-white font-semibold"
                         : "text-zinc-400 hover:text-white"
                     }`}
                   >
-                    {link.name}
+                    <span>{link.name}</span>
+                    {"isBadge" in link && link.isBadge && (
+                      <span className="px-1.5 py-0.2 rounded bg-[#B8FF00] text-black font-mono text-[9px] font-black tracking-wider uppercase shadow-[0_0_8px_rgba(184,255,0,0.5)]">
+                        FREE
+                      </span>
+                    )}
                     {isActive && (
                       <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B8FF00] rounded-full shadow-[0_0_8px_#B8FF00]" />
                     )}
@@ -133,7 +138,14 @@ export default function Navbar() {
                       : "text-zinc-300 hover:text-white hover:bg-white/[0.02]"
                   }`}
                 >
-                  <span>{link.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span>{link.name}</span>
+                    {"isBadge" in link && link.isBadge && (
+                      <span className="px-1.5 py-0.5 rounded bg-[#B8FF00] text-black font-mono text-[9px] font-black uppercase">
+                        FREE
+                      </span>
+                    )}
+                  </div>
                   {isActive && (
                     <span className="w-2 h-2 rounded-full bg-[#B8FF00]" />
                   )}
