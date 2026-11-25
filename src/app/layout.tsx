@@ -93,7 +93,7 @@ export default function RootLayout({
     <html lang="en" className={`${jakarta.variable} ${caveat.variable} dark`}>
       <head>
         {/* Google Tag Manager & Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-N88N43CV" />
+        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-K3CN3XFQ" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -112,7 +112,7 @@ export default function RootLayout({
         {/* Google Tag Manager (noscript fallback) */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-N88N43CV"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-K3CN3XFQ"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
