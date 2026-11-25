@@ -92,23 +92,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} ${caveat.variable} dark`}>
       <head>
-        {/* Google Tag Manager / Google Analytics */}
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-N88N43CV"
+        {/* Google Tag Manager & Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-N88N43CV" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              window.dataLayer.push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+              });
+            `,
+          }}
         />
-        <Script id="gtm-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            window.dataLayer.push({
-              'gtm.start': new Date().getTime(),
-              event: 'gtm.js'
-            });
-          `}
-        </Script>
       </head>
       <body className="bg-[#030604] text-white selection:bg-[#B8FF00] selection:text-black min-h-screen flex flex-col antialiased overflow-x-hidden">
         {/* Google Tag Manager (noscript fallback) */}
