@@ -60,7 +60,7 @@ export function executeTool(toolId: string, values: Record<string, any>): {
     // 2. llms.txt Generator
     case "llms-txt-generator": {
       const brand = values.brandName || "Codube Technologies";
-      const domain = values.websiteUrl || "https://codube.io";
+      const domain = values.websiteUrl || "https://codube.com";
       const tagline = values.tagline || "Next.js Web Development & 24/7 WhatsApp AI Receptionists";
       const rawProducts = values.keyProducts || "5-Page Next.js Websites\nWhatsApp AI Receptionist\nLocal SEO Setup";
       const phone = values.contactPhone || "+91 9672660338";
@@ -190,7 +190,7 @@ ${hasCitations.includes("Yes") ? "✅ Strong authority signals detected. Your ci
 
       let rules = `# ========================================================
 # Production robots.txt for AI Search & LLM Engine Citations
-# Engineered by Codube Technologies (https://codube.io)
+# Engineered by Codube Technologies (https://codube.com)
 # ========================================================
 
 User-agent: *
@@ -366,7 +366,7 @@ Hi {{firstName}},
 I assume improving after-hours patient conversion isn't a top priority for {{companyName}} right now—totally understand!
 
 If you ever want to see how we deliver sub-second websites and 24/7 WhatsApp AI bots in 7 days, feel free to test our live interactive demo here:
-https://codube.io/#ai-simulator
+https://codube.com/#ai-simulator
 
 Wishing you and the team continued success.
 
@@ -415,8 +415,8 @@ Abhishek Jain`;
 - **Callout Extension 1**: 24/7 WhatsApp Automation
 - **Callout Extension 2**: 7-Day Guaranteed Turnaround
 - **Callout Extension 3**: 1st Rank National Hackathon Winner
-- **Sitelink 1**: View $999 Growth Package (URL: https://codube.io/#pricing)
-- **Sitelink 2**: Test Live WhatsApp Simulator (URL: https://codube.io/#ai-simulator)`;
+- **Sitelink 1**: View $999 Growth Package (URL: https://codube.com/#pricing)
+- **Sitelink 2**: Test Live WhatsApp Simulator (URL: https://codube.com/#ai-simulator)`;
 
       return { result: output };
     }
@@ -491,7 +491,7 @@ Hi {{firstName}},
 Thanks for connecting!
 
 As promised, here is the breakdown on ${topic}:
-https://codube.io/work/medlearnings
+https://codube.com/work/medlearnings
 
 The most interesting finding: clinics that replace traditional web forms with sub-second WhatsApp booking capture 3x more after-hours appointments without hiring extra night staff.
 
@@ -506,7 +506,7 @@ ${sender}
 Hi {{firstName}},
 
 No pressure at all! We built a live interactive phone mockup where you can test how the WhatsApp AI receptionist handles appointment bookings in real-time:
-https://codube.io/#ai-simulator
+https://codube.com/#ai-simulator
 
 Let me know what you think of the flow!
 
@@ -778,8 +778,8 @@ A calendar invitation has been sent to your phone. If you need to reschedule, si
     // 17. Meta Cloud API WhatsApp Privacy Policy
     case "whatsapp-privacy-policy-generator": {
       const company = values.companyName || "Codube Technologies LLP";
-      const site = values.websiteUrl || "https://codube.io";
-      const email = values.contactEmail || "privacy@codube.io";
+      const site = values.websiteUrl || "https://codube.com";
+      const email = values.contactEmail || "privacy@codube.com";
       const jur = values.jurisdiction || "India (IT Act & DPDP Act)";
 
       const policy = `# Privacy Policy for ${company}
@@ -975,7 +975,7 @@ Status: ${desc.length <= 160 ? "✅ OPTIMAL LENGTH (<160 Chars)" : "⚠️ TOO L
 <title>${title}</title>
 <meta name="description" content="${desc}" />
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://codube.io/services/website-development-company-in-jaipur" />`;
+<link rel="canonical" href="https://codube.com/services/website-development-company-in-jaipur" />`;
 
       return { result: output };
     }
@@ -984,8 +984,8 @@ Status: ${desc.length <= 160 ? "✅ OPTIMAL LENGTH (<160 Chars)" : "⚠️ TOO L
     case "open-graph-meta-generator": {
       const title = values.title || "Codube | High-Speed Websites & 24/7 WhatsApp AI Agents";
       const desc = values.description || "Sub-second Next.js web systems and automated WhatsApp AI receptionists.";
-      const url = values.pageUrl || "https://codube.io";
-      const img = values.imageUrl || "https://codube.io/images/og-preview.png";
+      const url = values.pageUrl || "https://codube.com";
+      const img = values.imageUrl || "https://codube.com/images/og-preview.png";
 
       const output = `<!-- OpenGraph & Social Preview Tags for WhatsApp, LinkedIn & Facebook -->
 <meta property="og:type" content="website" />
@@ -1164,8 +1164,8 @@ In this walkthrough, Abhishek Jain demonstrates how to connect official WhatsApp
 08:45 - 7-Day Deployment Framework
 
 🔗 Useful Links:
-- Test the Live WhatsApp Simulator: https://codube.io/#ai-simulator
-- View Codube Growth Kit: https://codube.io/#pricing
+- Test the Live WhatsApp Simulator: https://codube.com/#ai-simulator
+- View Codube Growth Kit: https://codube.com/#pricing
 
 ---
 
@@ -1277,7 +1277,7 @@ Responding in 3 minutes beats a 3-hour delay every single time.
 We package this entire system (Sub-second Next.js Website + 24/7 WhatsApp AI Bot) into our 7-day Growth Kit.
 
 Test the live interactive simulator for free here:
-https://codube.io/#ai-simulator`;
+https://codube.com/#ai-simulator`;
 
       return { result: output };
     }
@@ -1304,7 +1304,7 @@ https://codube.io/#ai-simulator`;
 - **0:03 - 0:15 (The Problem)**: Explain that ${viewer} suffer from ${mistake}. Patients browse at night and want instant answers.
 - **0:15 - 0:35 (The Solution Walkthrough)**: Screen recording of a WhatsApp Click-to-Chat button opening and the AI assistant confirming a slot in seconds.
 - **0:35 - 0:50 (The Proof)**: Mention that this recovers 30-45% of previously lost after-hours inquiries.
-- **0:50 - 1:00 (Call To Action)**: "Test the live simulator yourself for free at Codube.io."`;
+- **0:50 - 1:00 (Call To Action)**: "Test the live simulator yourself for free at Codube.com."`;
 
       return { result: output };
     }
@@ -1467,7 +1467,7 @@ LIMIT 5;
     // 34. cURL to Fetch & Axios Converter
     case "curl-to-fetch-converter": {
       const lib = values.library || "Native JavaScript fetch() (Async/Await)";
-      const rawCurl = values.curlInput || "curl -X POST https://api.codube.io/v1/leads";
+      const rawCurl = values.curlInput || "curl -X POST https://api.codube.com/v1/leads";
 
       let output = "";
       if (lib.includes("Axios")) {
@@ -1476,7 +1476,7 @@ LIMIT 5;
 export async function submitLead() {
   try {
     const response = await axios.post(
-      "https://api.codube.io/v1/leads",
+      "https://api.codube.com/v1/leads",
       {
         name: "Dr. Sarah",
         phone: "+919672660338",
@@ -1498,7 +1498,7 @@ export async function submitLead() {
       } else {
         output = `// Native Next.js 14 Server Action / Fetch
 export async function submitLead() {
-  const response = await fetch("https://api.codube.io/v1/leads", {
+  const response = await fetch("https://api.codube.com/v1/leads", {
     method: "POST",
     headers: {
       "Authorization": "Bearer sk_live_982347102938",

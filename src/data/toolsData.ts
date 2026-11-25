@@ -138,10 +138,10 @@ export const FREE_TOOLS: FreeTool[] = [
       {
         "id": "websiteUrl",
         "label": "Domain URL",
-        "placeholder": "e.g. https://codube.io",
+        "placeholder": "e.g. https://codube.com",
         "type": "text",
         "required": true,
-        "defaultValue": "https://codube.io"
+        "defaultValue": "https://codube.com"
       },
       {
         "id": "tagline",
@@ -1167,13 +1167,13 @@ export const FREE_TOOLS: FreeTool[] = [
         "label": "Website URL",
         "type": "text",
         "required": true,
-        "defaultValue": "https://codube.io"
+        "defaultValue": "https://codube.com"
       },
       {
         "id": "contactEmail",
         "label": "Privacy Support Email",
         "type": "text",
-        "defaultValue": "privacy@codube.io"
+        "defaultValue": "privacy@codube.com"
       },
       {
         "id": "jurisdiction",
@@ -1531,13 +1531,13 @@ export const FREE_TOOLS: FreeTool[] = [
         "id": "pageUrl",
         "label": "Canonical Page URL",
         "type": "text",
-        "defaultValue": "https://codube.io"
+        "defaultValue": "https://codube.com"
       },
       {
         "id": "imageUrl",
         "label": "Social Preview Image URL (1200x630px)",
         "type": "text",
-        "defaultValue": "https://codube.io/images/og-preview.png"
+        "defaultValue": "https://codube.com/images/og-preview.png"
       }
     ],
     "outputLabel": "Complete HTML <head> Social Meta Tags",
@@ -2249,7 +2249,7 @@ export const FREE_TOOLS: FreeTool[] = [
         "label": "Raw cURL Command",
         "type": "textarea",
         "required": true,
-        "defaultValue": "curl -X POST https://api.codube.io/v1/leads \\\n  -H \"Authorization: Bearer sk_live_982347102938\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\": \"Dr. Sarah\", \"phone\": \"+919672660338\", \"service\": \"Growth Kit\"}'"
+        "defaultValue": "curl -X POST https://api.codube.com/v1/leads \\\n  -H \"Authorization: Bearer sk_live_982347102938\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\": \"Dr. Sarah\", \"phone\": \"+919672660338\", \"service\": \"Growth Kit\"}'"
       }
     ],
     "outputLabel": "Production-Ready JavaScript / TypeScript API Client Code",

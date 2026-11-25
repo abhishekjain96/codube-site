@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = getToolBySlug(params.toolSlug);
   if (!tool) return {};
 
-  const canonicalUrl = `https://codube.io/tools/${tool.id}`;
+  const canonicalUrl = `https://codube.com/tools/${tool.id}`;
 
   return {
     title: tool.metaTitle,
@@ -69,7 +69,7 @@ export default function DynamicToolPage({ params }: PageProps) {
     "@type": "WebApplication",
     name: tool.name,
     description: tool.metaDescription,
-    url: `https://codube.io/tools/${tool.id}`,
+    url: `https://codube.com/tools/${tool.id}`,
     applicationCategory: "BusinessApplication",
     operatingSystem: "All",
     offers: {
@@ -80,7 +80,7 @@ export default function DynamicToolPage({ params }: PageProps) {
     creator: {
       "@type": "Organization",
       name: "Codube",
-      url: "https://codube.io",
+      url: "https://codube.com",
       founder: {
         "@type": "Person",
         name: "Abhishek Jain",

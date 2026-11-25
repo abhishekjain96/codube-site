@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const data = getSeoPageData(params.slug);
   if (!data) return {};
 
-  const canonicalUrl = `https://codube.io/services/${data.slug}`;
+  const canonicalUrl = `https://codube.com/services/${data.slug}`;
 
   return {
     title: data.title,
@@ -115,19 +115,19 @@ export default function SeoServiceLocationPage({ params }: PageProps) {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://codube.io",
+            "item": "https://codube.com",
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Services",
-            "item": "https://codube.io/services",
+            "item": "https://codube.com/services",
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": `${service.shortName} in ${location.city}`,
-            "item": `https://codube.io/services/${data.slug}`,
+            "item": `https://codube.com/services/${data.slug}`,
           },
         ],
       },
@@ -139,7 +139,7 @@ export default function SeoServiceLocationPage({ params }: PageProps) {
         "provider": {
           "@type": "ProfessionalService",
           "name": "Codube",
-          "image": "https://codube.io/icon.png",
+          "image": "https://codube.com/icon.png",
           "telephone": "+919672660338",
           "priceRange": "$$",
           "founder": {

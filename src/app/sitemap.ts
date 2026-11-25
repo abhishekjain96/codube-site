@@ -3,7 +3,7 @@ import { getAllSeoSlugs } from "@/data/seoData";
 import { FREE_TOOLS } from "@/data/toolsData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://codube.io";
+  const baseUrl = "https://codube.com";
   const now = new Date();
 
   // Core static marketing and main portal routes

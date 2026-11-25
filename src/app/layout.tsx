@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://codube.io"),
+  metadataBase: new URL("https://codube.com"),
   title: "CODUBE — Premium Software Development & AI Automation Agency",
   description:
     "We Build Digital Products That Move Business Forward. Custom software, scalable SaaS platforms, and intelligent AI automation for modern enterprises.",
@@ -43,11 +43,11 @@ export const metadata: Metadata = {
     "Custom Software Engineering",
     "Next.js Enterprise Studio",
   ],
-  authors: [{ name: "CODUBE Team", url: "https://codube.io" }],
+  authors: [{ name: "CODUBE Team", url: "https://codube.com" }],
   openGraph: {
     title: "CODUBE — SOFTWARE. AI. AUTOMATION.",
     description: "We Build Digital Products That Move Business Forward.",
-    url: "https://codube.io",
+    url: "https://codube.com",
     siteName: "CODUBE",
     images: [
       {
