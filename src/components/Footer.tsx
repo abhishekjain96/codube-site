@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Linkedin, Instagram, ArrowRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, Sparkles, Globe, Cpu } from "lucide-react";
 import CodubeLogo from "./CodubeLogo";
 import { SEO_SERVICES, SEO_LOCATIONS, buildSeoSlug } from "@/data/seoData";
+import { FREE_AI_TOOLS } from "@/data/toolsData";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -77,8 +78,8 @@ export default function Footer() {
 
           {/* Quick Links (2 cols) */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Quick Links</h4>
-            <ul className="space-y-2.5 text-sm text-zinc-400">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Company &amp; Work</h4>
+            <ul className="space-y-2 text-sm text-zinc-400">
               <li>
                 <Link href="/" className="hover:text-[#B8FF00] transition-colors">
                   Home
@@ -96,35 +97,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/work" className="hover:text-[#B8FF00] transition-colors">
-                  Work
+                  Featured Work
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-[#B8FF00] transition-colors">
                   Services
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Free AI Tools & Company (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Free AI Tools</h4>
-            <ul className="space-y-2.5 text-sm text-zinc-400">
-              <li>
-                <Link
-                  href="/tools/ai-geo-generator"
-                  className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5 group"
-                >
-                  <span className="text-[#B8FF00] font-semibold">AI GEO Tool</span>
-                  <span className="px-1.5 py-0.2 rounded bg-[#B8FF00]/20 text-[#B8FF00] font-mono text-[9px] font-bold">
-                    FREE
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/process" className="hover:text-[#B8FF00] transition-colors">
-                  Process
                 </Link>
               </li>
               <li>
@@ -135,6 +113,49 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="hover:text-[#B8FF00] transition-colors">
                   Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Free AI Tools & Utilities (2 cols) */}
+          <div className="lg:col-span-2 space-y-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Free AI Tools</h4>
+            <ul className="space-y-2 text-sm text-zinc-400">
+              <li>
+                <Link
+                  href="/tools"
+                  className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5 group font-medium text-white"
+                >
+                  <span className="text-[#B8FF00] font-bold">All 20 Free Tools</span>
+                  <span className="px-1.5 py-0.2 rounded bg-[#B8FF00] text-black font-mono text-[9px] font-black">
+                    20 FREE
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/ai-geo-generator" className="hover:text-[#B8FF00] transition-colors text-xs text-zinc-400">
+                  AI GEO &amp; Visibility
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/llms-txt-generator" className="hover:text-[#B8FF00] transition-colors text-xs text-zinc-400">
+                  llms.txt Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/whatsapp-link-generator" className="hover:text-[#B8FF00] transition-colors text-xs text-zinc-400">
+                  WhatsApp Link Builder
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/schema-markup-generator" className="hover:text-[#B8FF00] transition-colors text-xs text-zinc-400">
+                  Schema Markup Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools/website-speed-audit" className="hover:text-[#B8FF00] transition-colors text-xs text-zinc-400">
+                  Speed &amp; LCP Estimator
                 </Link>
               </li>
             </ul>
@@ -314,6 +335,30 @@ export default function Footer() {
                   ))}
                 </div>
               </div>
+
+              {/* Category 5: 20 Free Viral AI & Developer Tools */}
+              <div>
+                <span className="text-[11px] font-mono text-[#B8FF00] font-semibold uppercase tracking-wider block mb-2">
+                  🛠️ 20 Free High-Traffic AI &amp; Developer Tools
+                </span>
+                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
+                  <Link
+                    href="/tools"
+                    className="text-[11px] text-[#B8FF00] font-bold hover:underline transition-colors"
+                  >
+                    ⚡ All 20 Free Tools Hub →
+                  </Link>
+                  {FREE_AI_TOOLS.map((tool) => (
+                    <Link
+                      key={tool.id}
+                      href={`/tools/${tool.id}`}
+                      className="text-[11px] text-zinc-400 hover:text-[#B8FF00] hover:underline transition-colors"
+                    >
+                      {tool.shortName}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -322,8 +367,8 @@ export default function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
           <p>© 2026 Codube. All rights reserved. Engineered by Abhishek Jain.</p>
           <div className="flex items-center gap-6">
-            <Link href="/tools/ai-geo-generator" className="text-[#B8FF00] hover:underline transition-colors font-medium">
-              Free AI GEO Tool
+            <Link href="/tools" className="text-[#B8FF00] hover:underline transition-colors font-medium">
+              20 Free AI Tools Hub
             </Link>
             <span>|</span>
             <Link href="/privacy" className="hover:text-zinc-300 transition-colors">

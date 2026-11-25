@@ -1,11 +1,12 @@
 import { MetadataRoute } from "next";
 import { getAllSeoSlugs } from "@/data/seoData";
+import { FREE_TOOLS } from "@/data/toolsData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://codube.io";
   const now = new Date();
 
-  // Core static marketing and tools routes
+  // Core static marketing and main portal routes
   const coreRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -14,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/tools/ai-geo-generator`,
+      url: `${baseUrl}/tools`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.95,
@@ -63,7 +64,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 560 Programmatic High-Intent SEO URLs
+  // 20 Free AI & Developer Tools URLs
+  const toolRoutes: MetadataRoute.Sitemap = FREE_TOOLS.map((tool) => ({
+    url: `${baseUrl}/tools/${tool.id}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // 1,792 Programmatic High-Intent SEO URLs
   const allSlugs = getAllSeoSlugs();
   const programmaticSeoRoutes: MetadataRoute.Sitemap = allSlugs.map((slug) => ({
     url: `${baseUrl}/services/${slug}`,
@@ -74,5 +83,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       : 0.8,
   }));
 
-  return [...coreRoutes, ...programmaticSeoRoutes];
+  return [...coreRoutes, ...toolRoutes, ...programmaticSeoRoutes];
 }

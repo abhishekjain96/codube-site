@@ -12,7 +12,7 @@ const navLinks = [
   { name: "Pricing", href: "/#pricing" },
   { name: "Work", href: "/work" },
   { name: "Services", href: "/services" },
-  { name: "AI GEO Tool", href: "/tools/ai-geo-generator", isBadge: true },
+  { name: "Free AI Tools", href: "/tools", isBadge: true },
   { name: "Contact", href: "/contact" },
 ];
 
