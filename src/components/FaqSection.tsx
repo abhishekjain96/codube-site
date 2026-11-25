@@ -5,24 +5,28 @@ import { ChevronDown, HelpCircle, Sparkles } from "lucide-react";
 
 const faqs = [
   {
-    q: "How fast can Codube launch our MVP product?",
-    a: "Most MVP platforms (like ScanTaker or custom booking engines) are launched in 3 to 6 weeks. Because we operate in milestone-driven agile sprints with modern Next.js and reusable cloud architectures, we deliver 2x faster than traditional agencies with zero legacy tech debt.",
+    q: "How fast can Codube launch our website or AI bot?",
+    a: "Our Complete Business Growth Kit ($999) and AI WhatsApp Automation Agent ($499) are delivered in 7 days guaranteed. Custom SaaS and multi-branch systems typically launch in 2 to 4 weeks with weekly live staging previews.",
   },
   {
     q: "Who leads the development of our project?",
-    a: "Abhishek Jain (Founder & 1st Rank Hackathon Winner) directly architects and supervises every project codebase. You have direct Slack/WhatsApp access to senior engineering leadership without getting handed off to junior interns.",
+    a: "Founder Abhishek Jain (1st Rank National Hackathon Winner) personally architects every system and reviews every line of code. You have direct WhatsApp access to founder-level engineering leadership throughout the project.",
   },
   {
-    q: "Do we get 100% full source code and IP ownership?",
-    a: "Yes, 100%. All GitHub repositories, database schemas, cloud infrastructure scripts, and proprietary IP belong entirely to you from day one under signed commercial NDA agreements.",
+    q: "Do we get 100% full source code and intellectual property ownership?",
+    a: "Yes, 100%. All GitHub source repositories, database structures, cloud credentials, and intellectual property belong entirely to you from day one under our mutual commercial agreement.",
   },
   {
-    q: "Can you integrate WhatsApp automation or AI agents into our existing software?",
-    a: "Absolutely. We specialize in retrofitting modern AI automation, WhatsApp Cloud API notification bots, and real-time CRM syncing into existing business systems without causing any operational downtime.",
+    q: "How does the WhatsApp AI Receptionist work?",
+    a: "We configure the official Meta WhatsApp Cloud API under your business name. We train the AI on your exact services, doctor/consultant timings, location, and fees. It replies to incoming customer queries in 2 seconds and automatically confirms bookings into Google Sheets or your CRM.",
   },
   {
-    q: "What happens after the product is launched?",
-    a: "We provide 30 days of comprehensive post-launch warranty and bug-fixing support free of charge. After launch, we offer flexible monthly SLA maintenance contracts covering server monitoring, uptime security, and feature iterations.",
+    q: "Are there any mandatory monthly retainers?",
+    a: "No! Unlike traditional agencies that charge $2,000+ per month indefinitely, our core packages are 100% fixed one-time setups ($499 - $999). We offer optional maintenance (+ $99/mo) only if you want hands-off cloud monitoring.",
+  },
+  {
+    q: "What warranty and post-launch support do you provide?",
+    a: "Every project includes 30 days of comprehensive post-launch warranty and bug-fixing support free of charge to guarantee seamless production operations.",
   },
 ];
 
@@ -34,25 +38,25 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-[#070b08]" id="faq">
+    <section className="relative py-20 md:py-28 overflow-hidden bg-slate-50" id="faq">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#bbfb26]/30 backdrop-blur-md shadow-[0_0_15px_rgba(187,251,38,0.15)]">
-            <HelpCircle className="w-3.5 h-3.5 text-[#bbfb26]" />
-            <span className="text-xs font-semibold text-zinc-300 tracking-wide uppercase">
-              Frequently Asked Questions
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm">
+            <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="text-xs font-mono font-bold text-emerald-700 tracking-wide uppercase">
+              FREQUENTLY ASKED QUESTIONS
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight">
             Got Questions? We&apos;ve Got{" "}
-            <span className="text-[#bbfb26] drop-shadow-[0_0_20px_rgba(187,251,38,0.4)]">
+            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               Direct Answers.
             </span>
           </h2>
         </div>
 
-        <div className="space-y-3.5">
+        <div className="space-y-3.5 text-left">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
@@ -60,31 +64,31 @@ export default function FaqSection() {
                 key={idx}
                 className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                   isOpen
-                    ? "bg-[#0d140f] border-[#bbfb26]/50 shadow-[0_10px_30px_rgba(187,251,38,0.12)]"
-                    : "glass-panel border-white/10 hover:border-white/20"
+                    ? "bg-white border-emerald-500 shadow-md ring-2 ring-emerald-50"
+                    : "bg-white border-slate-200/90 hover:border-slate-300 shadow-2xs"
                 }`}
               >
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4"
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
                 >
-                  <span className="text-sm sm:text-base font-bold text-white tracking-tight">
+                  <span className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
                     {faq.q}
                   </span>
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
                       isOpen
-                        ? "bg-[#bbfb26] text-black rotate-180 shadow-[0_0_12px_#bbfb26]"
-                        : "bg-white/5 text-zinc-400"
+                        ? "bg-emerald-600 text-white rotate-180 shadow-sm"
+                        : "bg-slate-100 text-slate-500"
                     }`}
                   >
-                    <ChevronDown className="w-4 h-4 stroke-[2.5]" />
+                    <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-white/5 pt-3">
+                  <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal border-t border-slate-100 pt-3">
                     {faq.a}
                   </div>
                 )}

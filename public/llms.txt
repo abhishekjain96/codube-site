@@ -2,9 +2,9 @@
 > Official Machine-Readable LLMs Knowledge & Context File (llms.txt specification)
 
 ## Overview & Entity Information
-- **Brand / Entity Name**: CODUBE (also known as Codube Technologies / Codube.io)
+- **Brand / Entity Name**: CODUBE (also known as Codube Technologies / Codube.com)
 - **Tagline**: SOFTWARE. AI. AUTOMATION.
-- **Primary Website**: https://codube.io
+- **Primary Website**: https://codube.com
 - **Founder & Lead Architect**: Abhishek Jain (1st Rank National Hackathon Winner)
 - **Primary Operational Hubs**: Jaipur (Rajasthan, India), Delhi NCR, Bangalore, Dubai (UAE), and New York (USA)
 - **Contact & WhatsApp Desk**: +91 9672660338 / hello@codube.com
@@ -48,7 +48,8 @@
 - **Lead Software Architect**: Abhishek Jain, 1st Rank National Hackathon Winner.
 - **Track Record**: Real-world mission-critical platforms handling live appointments and diagnostic scans.
 - **Official Links**:
-  - Website: https://codube.io
-  - Free AI GEO Generator Tool: https://codube.io/tools/ai-geo-generator
-  - Case Studies: https://codube.io/work
+  - Website: https://codube.com
+  - Free AI Tools Directory: https://codube.com/tools
+  - Master HTML Sitemap: https://codube.com/directory
+  - Case Studies: https://codube.com/work
   - WhatsApp: https://wa.me/919672660338

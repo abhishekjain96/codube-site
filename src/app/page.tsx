@@ -10,34 +10,33 @@ import FounderSection from "@/components/FounderSection";
 import ProcessFlow from "@/components/ProcessFlow";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqSection from "@/components/FaqSection";
-import WhyChooseUs from "@/components/WhyChooseUs";
 import CtaBanner from "@/components/CtaBanner";
 import { getSiteContent } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
-export const revalidate = 0; // Dynamic for instant admin updates
+export const revalidate = 0; // Dynamic for instant updates
 
 export default function HomePage() {
   const content = getSiteContent();
 
   return (
     <div className="relative">
-      {/* 1. Outcome-Driven Hero Section */}
+      {/* 1. Outcome-Driven Hero Section with Typewriter Effect */}
       <HeroSection content={content} />
 
       {/* 2. Interactive Live WhatsApp AI Receptionist Simulator */}
       <WhatsAppSimulator />
 
-      {/* 3. Infinite Neon Marquee Banner */}
+      {/* 3. Marquee Banner */}
       <MarqueeBanner customItems={content?.general?.marqueeText} />
 
-      {/* 4. Transparent Productized Pricing & Packages */}
+      {/* 4. Transparent Productized Pricing & Packages ($999 Growth Kit) */}
       <PricingSection />
 
-      {/* 5. Featured Healthcare & SaaS Case Studies + 60s Live Walkthrough */}
+      {/* 5. Featured Healthcare & SaaS Case Studies */}
       <FeaturedProjects content={content} />
 
-      {/* 6. Authenticated Proof Pillars & Agency Comparison */}
+      {/* 6. Authenticated Proof Pillars */}
       <TestimonialsSection content={content} />
 
       {/* 7. Founder Spotlight: Abhishek Jain (1st Rank Hackathon Winner) */}
@@ -52,13 +51,10 @@ export default function HomePage() {
       {/* 10. From Idea to Launch in 7 Days (Process Flow) */}
       <ProcessFlow content={content} showHeroGraphic={false} />
 
-      {/* 11. Why Codube Technical Architecture Breakdown */}
-      <WhyChooseUs content={content} />
-
-      {/* 12. Frequently Asked Questions */}
+      {/* 11. Frequently Asked Questions */}
       <FaqSection />
 
-      {/* 13. Bottom Conversion CTA Banner */}
+      {/* 12. Bottom Conversion CTA Banner */}
       <CtaBanner content={content} />
     </div>
   );

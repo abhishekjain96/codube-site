@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Monitor,
@@ -8,11 +9,11 @@ import {
   Sparkles,
   MessageCircle,
   Cloud,
+  Activity,
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
 } from "lucide-react";
-import ServiceVisuals from "./ServiceVisuals";
 
 interface ServicesSectionProps {
   content?: any;
@@ -23,222 +24,202 @@ export default function ServicesSection({
   content,
   showAll = false,
 }: ServicesSectionProps) {
-  const [activeServiceId, setActiveServiceId] = useState<string>("web-dev");
-
-  const servicesData = content?.services || {
-    badge: "OUR CAPABILITIES",
-    heading: "End-to-End Technology Solutions",
-    headingHighlight: "Technology",
-    subheading:
-      "From high-converting web applications to complex custom software and AI automation — we build, integrate and scale digital products for your business.",
-  };
-
   const servicesList = [
     {
       id: "web-dev",
-      title: "Web Development",
+      title: "Conversion-Engineered Web Platforms",
       icon: Monitor,
-      tagline: "High-performing, modern websites that convert visitors into buyers.",
-      badge: "100/100 Lighthouse",
+      category: "NEXT.JS 14 & TYPESCRIPT",
+      tagline: "Sub-second, mobile-first websites designed to turn high-intent visitors into booked clients.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
       features: [
-        "Next.js 14 & React Architecture",
-        "Sub-Second 0.2s LCP Load Speed",
-        "Mobile-First Responsive Layouts",
-        "Dynamic Framer Motion Interactions",
+        "0.2s LCP Sub-Second Core Web Vitals",
+        "Conversion Funnels & Sticky WhatsApp CTAs",
+        "SEO Meta Tags & High-Velocity Architecture",
+        "Turnkey 7-Day Guaranteed Launch",
       ],
+      href: "/services/web-development",
+    },
+    {
+      id: "whatsapp-ai",
+      title: "24/7 WhatsApp AI Receptionists",
+      icon: MessageCircle,
+      category: "META CLOUD API AUTOMATION",
+      tagline: "Automated booking and inquiry bots that reply in 2 seconds and sync leads directly to CRM.",
+      image: "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80",
+      features: [
+        "Official Meta WhatsApp Cloud API Setup",
+        "Natural Language Slot Booking in 30 Seconds",
+        "Instant Google Sheets & Webhook Auto-Sync",
+        "Zero Staff Dependency or Nighttime Drops",
+      ],
+      href: "/services/business-automation",
+    },
+    {
+      id: "clinic-systems",
+      title: "Healthcare & Clinic Web Systems",
+      icon: Activity,
+      category: "MISSION-CRITICAL HEALTHCARE",
+      tagline: "Specialized platforms for dental, diagnostic centers, and hospital chains like ScanTaker.",
+      image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+      features: [
+        "Online Token Generation & Doctor Scheduling",
+        "WhatsApp Diagnostic Report Delivery",
+        "Multi-Branch Admin & Staff Roles (RBAC)",
+        "Proven on 50,000+ Enrolled Doctors",
+      ],
+      href: "/services/custom-software",
     },
     {
       id: "custom-software",
-      title: "Custom Software",
+      title: "Custom Full-Stack ERP & CRM Software",
       icon: Layers,
-      tagline: "Enterprise ERP, CRM, and operational systems tailored to your workflows.",
-      badge: "Zero Legacy Bloat",
+      category: "ENTERPRISE WORKFLOWS",
+      tagline: "Tailor-made internal business operating systems that eliminate manual spreadsheets.",
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80",
       features: [
-        "Tailored Internal Workflows",
-        "Role-Based Dashboards (RBAC)",
-        "High-Concurrency PostgreSQL & Redis",
         "Encrypted Cloud Security (AES-256)",
+        "Automated Invoicing & Stripe / UPI Gateways",
+        "High-Concurrency PostgreSQL & Redis Caching",
+        "100% Full IP & GitHub Repository Ownership",
       ],
-    },
-    {
-      id: "ai-development",
-      title: "AI Development",
-      icon: Sparkles,
-      tagline: "Autonomous AI agents, smart assistants, and intelligent RAG workflows.",
-      badge: "Gemini & LLM Powered",
-      features: [
-        "Custom Enterprise RAG on Company Data",
-        "Autonomous Multi-Agent Pipelines",
-        "Intelligent Document OCR & Extraction",
-        "Sub-500ms Vector Embeddings",
-      ],
-    },
-    {
-      id: "business-automation",
-      title: "Business Automation",
-      icon: MessageCircle,
-      tagline: "Official WhatsApp Business Cloud API & automated CRM pipelines.",
-      badge: "Meta Verified",
-      features: [
-        "24/7 WhatsApp Booking & Alerts",
-        "Instant Lead Sync to Google Sheets & CRM",
-        "85% Drop in Manual Overhead",
-        "Automated Payment & Invoice Links",
-      ],
+      href: "/services/custom-software",
     },
     {
       id: "saas-development",
-      title: "SaaS Development",
+      title: "Multi-Tenant SaaS Platform Engineering",
       icon: Cloud,
-      tagline: "Product-ready, multi-tenant SaaS platforms built to scale to millions.",
-      badge: "Full Stack Cloud",
+      category: "SCALABLE CLOUD ARCHITECTURE",
+      tagline: "Product-ready SaaS platforms built to handle millions of requests with edge deployment.",
+      image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80",
       features: [
-        "Isolated Multi-Tenant Databases",
-        "Stripe & Razorpay Recurring Billing",
-        "Self-Service Customer Analytics",
+        "Isolated Tenant Security & Cloud Storage",
+        "Stripe Recurring Subscriptions & Metering",
         "Global Edge CDN on AWS & Cloudflare",
+        "Self-Service Customer Analytics",
       ],
+      href: "/services/saas-development",
+    },
+    {
+      id: "ai-development",
+      title: "Autonomous AI Agents & Enterprise RAG",
+      icon: Sparkles,
+      category: "GEMINI & LLM PIPELINES",
+      tagline: "Domain-specific AI copilots and document OCR extraction pipelines on your proprietary data.",
+      image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+      features: [
+        "Custom Vector Knowledge Embeddings",
+        "Automated Document OCR & Entity Extraction",
+        "Sub-500ms Gemini Model Responses",
+        "Bulletproof Privacy & Data Governance",
+      ],
+      href: "/services/ai-development",
     },
   ];
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-[#030604]" id="services">
+    <section className="relative py-20 md:py-28 overflow-hidden bg-white" id="services">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(184,255,0,0.08)_0%,transparent_70%)] blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(112,255,0,0.06)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(16,185,129,0.06)_0%,transparent_70%)] blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="space-y-4 max-w-2xl text-left">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#B8FF00]/30 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-pulse" />
-              <span className="text-xs font-mono font-semibold text-[#B8FF00] tracking-widest uppercase">
-                {servicesData.badge}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-mono font-bold text-emerald-700 tracking-widest uppercase">
+                OUR CORE CAPABILITIES
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.1]">
-              End-to-End{" "}
-              <span className="text-[#B8FF00] drop-shadow-[0_0_25px_rgba(184,255,0,0.4)]">
-                Technology Solutions.
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-[1.14]">
+              High-Converting Software &amp;{" "}
+              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                Autonomous AI Systems.
               </span>
             </h2>
 
-            <p className="text-sm sm:text-base text-zinc-400">
-              {servicesData.subheading}
+            <p className="text-sm sm:text-base text-slate-600">
+              From lead-generating websites to 24/7 WhatsApp AI receptionists and custom enterprise SaaS — we build, launch, and scale digital products for your business.
             </p>
           </div>
 
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#B8FF00] hover:text-[#ccff00] transition-colors group shrink-0"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors group shrink-0"
           >
-            <span>Explore Full Architecture &amp; Deliverables</span>
+            <span>View All Service Specifications</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
-        {/* INTERACTIVE SPLIT SHOWCASE: Left Selector Cards + Right Framed Mockup Screen */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
-          {/* Left Column: Interactive Service Selectors */}
-          <div className="lg:col-span-5 space-y-3">
-            {servicesList.map((srv) => {
-              const Icon = srv.icon;
-              const isSelected = activeServiceId === srv.id;
-              return (
-                <div
-                  key={srv.id}
-                  onClick={() => setActiveServiceId(srv.id)}
-                  className={`cursor-pointer rounded-2xl p-5 border transition-all duration-300 text-left ${
-                    isSelected
-                      ? "bg-[#080D0A] border-[#B8FF00] shadow-[0_0_25px_rgba(184,255,0,0.2)] -translate-x-0 sm:translate-x-2"
-                      : "bg-[#080D0A]/60 border-white/[0.08] hover:border-white/20 hover:bg-[#080D0A]"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                          isSelected
-                            ? "bg-[#B8FF00] text-black shadow-[0_0_15px_#B8FF00]"
-                            : "bg-white/5 border border-white/10 text-zinc-300"
-                        }`}
-                      >
-                        <Icon className="w-5 h-5 stroke-[2]" />
-                      </div>
-                      <div>
-                        <h3 className="text-base font-bold text-white tracking-tight">
-                          {srv.title}
-                        </h3>
-                        <span className="text-[10px] font-mono text-[#B8FF00]">
-                          {srv.badge}
-                        </span>
-                      </div>
+        {/* CLEAN 6-CARD SERVICES GRID WITH UNSPLASH IMAGES */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {servicesList.map((srv) => {
+            const Icon = srv.icon;
+            return (
+              <div
+                key={srv.id}
+                className="group rounded-3xl bg-white border border-slate-200/90 hover:border-emerald-500/50 transition-all duration-300 overflow-hidden shadow-[0_4px_25px_rgba(15,23,42,0.04)] hover:shadow-[0_16px_40px_rgba(15,23,42,0.08)] hover:-translate-y-1 flex flex-col justify-between text-left"
+              >
+                <div>
+                  {/* Service Card Image Header */}
+                  <div className="relative w-full h-48 bg-slate-100 overflow-hidden">
+                    <Image
+                      src={srv.image}
+                      alt={srv.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+
+                    <div className="absolute top-3 right-3 w-10 h-10 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 flex items-center justify-center text-slate-900 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                      <Icon className="w-5 h-5" />
                     </div>
 
-                    <ArrowRight
-                      className={`w-4 h-4 transition-all ${
-                        isSelected
-                          ? "text-[#B8FF00] translate-x-1"
-                          : "text-zinc-600 opacity-50"
-                      }`}
-                    />
+                    <div className="absolute bottom-3 left-4">
+                      <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-300 uppercase px-2 py-0.5 rounded bg-slate-950/80 backdrop-blur-xs">
+                        {srv.category}
+                      </span>
+                    </div>
                   </div>
 
-                  <p className="mt-3 text-xs text-zinc-400 line-clamp-2">
-                    {srv.tagline}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+                  {/* Card Content Body */}
+                  <div className="p-6 space-y-4">
+                    <h3 className="text-xl font-black text-slate-900 tracking-tight group-hover:text-emerald-600 transition-colors">
+                      {srv.title}
+                    </h3>
 
-          {/* Right Column: High-Impact Framed Interactive Screen Mockup */}
-          <div className="lg:col-span-7 sticky top-28">
-            <div className="rounded-3xl p-3 sm:p-5 bg-[#080D0A] border border-[#B8FF00]/40 shadow-[0_20px_60px_rgba(0,0,0,0.8)]">
-              {/* Device Frame Top Pills */}
-              <div className="flex items-center justify-between pb-3 px-2 border-b border-white/[0.08] text-xs font-mono">
-                <span className="text-[#B8FF00] flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-ping" />
-                  LIVE ARCHITECTURE PREVIEW
-                </span>
-                <span className="text-zinc-500 text-[11px]">CODUBE FRAMEWORK v2.4</span>
-              </div>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                      {srv.tagline}
+                    </p>
 
-              {/* Dynamic Service Visual Inside Frame */}
-              <div className="pt-3">
-                <ServiceVisuals serviceId={activeServiceId} />
-              </div>
-
-              {/* Active Service Deliverables Row Below Visual */}
-              <div className="mt-4 pt-4 border-t border-white/[0.08] flex flex-wrap gap-2 justify-between items-center">
-                <div className="flex flex-wrap gap-1.5">
-                  {servicesList
-                    .find((s) => s.id === activeServiceId)
-                    ?.features.map((feat, fIdx) => (
-                      <span
-                        key={fIdx}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-[11px] text-zinc-300"
-                      >
-                        <CheckCircle2 className="w-3 h-3 text-[#B8FF00]" />
-                        <span>{feat}</span>
-                      </span>
-                    ))}
+                    <div className="pt-2 border-t border-slate-100 space-y-2">
+                      {srv.features.map((feat, fIdx) => (
+                        <div key={fIdx} className="flex items-start gap-2 text-xs text-slate-700">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <Link
-                  href={`/contact?service=${encodeURIComponent(
-                    servicesList.find((s) => s.id === activeServiceId)?.title || ""
-                  )}`}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] transition-all"
-                >
-                  <span>Build This</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                </Link>
+                {/* Bottom Card Footer Action */}
+                <div className="p-6 pt-0">
+                  <Link
+                    href={`/contact?service=${encodeURIComponent(srv.title)}`}
+                    className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl text-xs font-bold bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 transition-all"
+                  >
+                    <span>Get Started</span>
+                    <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                  </Link>
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>

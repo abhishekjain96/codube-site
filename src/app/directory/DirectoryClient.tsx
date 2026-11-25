@@ -93,7 +93,7 @@ export default function DirectoryClient() {
   return (
     <div className="space-y-10 text-left">
       {/* Search & Filter Controls */}
-      <div className="p-6 rounded-3xl bg-[#080D0A] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] space-y-6">
+      <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
           {/* Category Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
@@ -104,8 +104,8 @@ export default function DirectoryClient() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                   activeTab === tab.id
-                    ? "bg-[#B8FF00] text-black shadow-[0_0_15px_rgba(184,255,0,0.4)]"
-                    : "bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10"
+                    ? "bg-emerald-600 text-white shadow-sm"
+                    : "bg-slate-100 text-slate-700 hover:text-slate-950 hover:bg-slate-200 border border-slate-200"
                 }`}
               >
                 {tab.label}
@@ -115,21 +115,21 @@ export default function DirectoryClient() {
 
           {/* Search Bar */}
           <div className="relative min-w-[280px] sm:min-w-[340px]">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by city, service, or tool..."
-              className="w-full bg-[#121B14] border border-white/15 focus:border-[#B8FF00] rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none transition-colors"
+              placeholder="Search by city (e.g. Vaishali Nagar, Dubai) or service..."
+              className="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none transition-colors"
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs font-mono text-zinc-400 pt-2 border-t border-white/[0.08]">
+        <div className="flex items-center justify-between text-xs font-mono text-slate-500 pt-2 border-t border-slate-100">
           <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-pulse" />
-            <span>Master 2-Level Hub &amp; Spoke Architecture</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Master 2-Level Hub &amp; Spoke Directory</span>
           </span>
           <span>Indexed URLs: 1,840+ Active Nodes</span>
         </div>
@@ -140,12 +140,12 @@ export default function DirectoryClient() {
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <Cpu className="w-5 h-5 text-[#B8FF00]" />
-              <h2 className="text-xl sm:text-2xl font-black text-white">
+              <Cpu className="w-5 h-5 text-emerald-600" />
+              <h2 className="text-xl sm:text-2xl font-black text-slate-950">
                 40 Free AI &amp; Developer Tools Index
               </h2>
             </div>
-            <Link href="/tools" className="text-xs font-mono text-[#B8FF00] hover:underline flex items-center gap-1">
+            <Link href="/tools" className="text-xs font-mono text-emerald-600 hover:underline flex items-center gap-1 font-bold">
               <span>View Tools Hub</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -156,27 +156,27 @@ export default function DirectoryClient() {
               <Link
                 key={t.id}
                 href={`/tools/${t.id}`}
-                className="p-4 rounded-2xl bg-[#080D0A] border border-white/10 hover:border-[#B8FF00]/50 hover:bg-white/[0.02] transition-all group flex flex-col justify-between"
+                className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs hover:border-emerald-500 hover:shadow-md transition-all group flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono text-[#B8FF00] uppercase font-bold">
+                    <span className="text-[10px] font-mono text-emerald-700 uppercase font-bold">
                       {t.category}
                     </span>
                     {t.badge && (
-                      <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#B8FF00]/15 text-[#B8FF00] font-bold">
+                      <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">
                         {t.badge}
                       </span>
                     )}
                   </div>
-                  <h3 className="text-sm font-bold text-white group-hover:text-[#B8FF00] transition-colors leading-snug">
+                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-snug">
                     {t.name}
                   </h3>
-                  <p className="text-xs text-zinc-400 line-clamp-2 mt-1">
+                  <p className="text-xs text-slate-500 line-clamp-2 mt-1">
                     {t.tagline}
                   </p>
                 </div>
-                <div className="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-zinc-500 group-hover:text-[#B8FF00]">
+                <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500 group-hover:text-emerald-600 font-bold">
                   <span>Launch Tool</span>
                   <span>→</span>
                 </div>
@@ -186,12 +186,12 @@ export default function DirectoryClient() {
         </section>
       )}
 
-      {/* SECTION 2: CORE SPECIALIZED SERVICES (CANONICAL) */}
+      {/* SECTION 2: CORE SPECIALIZED SERVICES */}
       {(activeTab === "all" || activeTab === "services") && filteredServices.length > 0 && (
         <section className="space-y-4 pt-6">
           <div className="flex items-center gap-2.5">
-            <Layers className="w-5 h-5 text-[#B8FF00]" />
-            <h2 className="text-xl sm:text-2xl font-black text-white">
+            <Layers className="w-5 h-5 text-emerald-600" />
+            <h2 className="text-xl sm:text-2xl font-black text-slate-950">
               28 Core Specialized Engineering Services
             </h2>
           </div>
@@ -200,43 +200,43 @@ export default function DirectoryClient() {
             {filteredServices.map((s) => (
               <div
                 key={s.id}
-                className="p-5 rounded-2xl bg-[#080D0A] border border-white/10 space-y-3"
+                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-[#B8FF00] uppercase font-bold">
+                  <span className="text-[10px] font-mono text-emerald-700 uppercase font-bold">
                     {s.category} SERVICE
                   </span>
-                  <span className="text-xs font-mono text-zinc-400">{s.deliveryDays}</span>
+                  <span className="text-xs font-mono text-slate-500">{s.deliveryDays}</span>
                 </div>
-                <h3 className="text-base font-bold text-white leading-snug">{s.name}</h3>
-                <p className="text-xs text-zinc-400 line-clamp-2">{s.description}</p>
+                <h3 className="text-base font-bold text-slate-900 leading-snug">{s.name}</h3>
+                <p className="text-xs text-slate-500 line-clamp-2">{s.description}</p>
 
-                <div className="pt-2 border-t border-white/5 flex flex-wrap gap-2 text-[11px] font-mono">
-                  <span className="text-zinc-500">Popular Hubs:</span>
+                <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-2 text-[11px] font-mono">
+                  <span className="text-slate-400">Popular Hubs:</span>
                   <Link
                     href={`/services/${buildSeoSlug(s.id, "jaipur")}`}
-                    className="text-zinc-400 hover:text-[#B8FF00] hover:underline"
+                    className="text-slate-600 hover:text-emerald-600 hover:underline"
                   >
                     Jaipur
                   </Link>
-                  <span className="text-zinc-600">•</span>
+                  <span className="text-slate-300">•</span>
                   <Link
                     href={`/services/${buildSeoSlug(s.id, "delhi-ncr")}`}
-                    className="text-zinc-400 hover:text-[#B8FF00] hover:underline"
+                    className="text-slate-600 hover:text-emerald-600 hover:underline"
                   >
                     Delhi NCR
                   </Link>
-                  <span className="text-zinc-600">•</span>
+                  <span className="text-slate-300">•</span>
                   <Link
                     href={`/services/${buildSeoSlug(s.id, "bangalore")}`}
-                    className="text-zinc-400 hover:text-[#B8FF00] hover:underline"
+                    className="text-slate-600 hover:text-emerald-600 hover:underline"
                   >
                     Bangalore
                   </Link>
-                  <span className="text-zinc-600">•</span>
+                  <span className="text-slate-300">•</span>
                   <Link
                     href={`/services/${buildSeoSlug(s.id, "dubai")}`}
-                    className="text-zinc-400 hover:text-[#B8FF00] hover:underline"
+                    className="text-slate-600 hover:text-emerald-600 hover:underline"
                   >
                     Dubai
                   </Link>
@@ -247,17 +247,17 @@ export default function DirectoryClient() {
         </section>
       )}
 
-      {/* SECTION 3: PROGRAMMATIC LOCATIONS DIRECTORY (64 CITIES × 28 SERVICES = 1,792 PAGES) */}
+      {/* SECTION 3: PROGRAMMATIC LOCATIONS DIRECTORY */}
       {filteredLocations.length > 0 && (
         <section className="space-y-6 pt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <MapPin className="w-5 h-5 text-[#B8FF00]" />
-              <h2 className="text-xl sm:text-2xl font-black text-white">
+              <MapPin className="w-5 h-5 text-emerald-600" />
+              <h2 className="text-xl sm:text-2xl font-black text-slate-950">
                 Programmatic Locations &amp; Corridors Directory
               </h2>
             </div>
-            <span className="text-xs font-mono text-zinc-400">
+            <span className="text-xs font-mono text-slate-500">
               Showing {filteredLocations.length} Regions
             </span>
           </div>
@@ -270,7 +270,7 @@ export default function DirectoryClient() {
               return (
                 <div
                   key={loc.id}
-                  className="p-5 sm:p-6 rounded-3xl bg-[#080D0A] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between space-y-4"
+                  className="p-5 sm:p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-4"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
@@ -278,28 +278,28 @@ export default function DirectoryClient() {
                         <span className="text-sm">
                           {loc.region === "jaipur" ? "📍" : loc.region === "india" ? "🇮🇳" : "🌍"}
                         </span>
-                        <h3 className="text-base font-bold text-white tracking-wide">
+                        <h3 className="text-base font-bold text-slate-900 tracking-wide">
                           {loc.city}
                         </h3>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-zinc-400 uppercase font-semibold">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 uppercase font-semibold">
                         {loc.country}
                       </span>
                     </div>
 
-                    <p className="text-xs text-zinc-400 leading-relaxed">
+                    <p className="text-xs text-slate-500 leading-relaxed">
                       {loc.businessContext}
                     </p>
 
-                    <div className="pt-2 border-t border-white/[0.08] space-y-1.5">
-                      <span className="text-[10px] font-mono font-bold text-[#B8FF00] uppercase tracking-wider block mb-2">
+                    <div className="pt-2 border-t border-slate-100 space-y-1.5">
+                      <span className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider block mb-2">
                         Available Services in {loc.city}:
                       </span>
                       {displayedServices.map((s) => (
                         <Link
                           key={s.id}
                           href={`/services/${buildSeoSlug(s.id, loc.id)}`}
-                          className="block text-xs text-zinc-300 hover:text-[#B8FF00] hover:underline transition-colors py-0.5 truncate"
+                          className="block text-xs text-slate-700 hover:text-emerald-600 hover:underline transition-colors py-0.5 truncate"
                         >
                           → {s.name} in {loc.city}
                         </Link>
@@ -310,7 +310,7 @@ export default function DirectoryClient() {
                   <button
                     type="button"
                     onClick={() => toggleLocation(loc.id)}
-                    className="w-full mt-2 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-[#B8FF00] hover:underline cursor-pointer"
+                    className="w-full mt-2 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-emerald-700 hover:underline cursor-pointer font-bold"
                   >
                     <span>{isExpanded ? "Collapse Services" : `View All 28 Services in ${loc.city}`}</span>
                     {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -325,7 +325,7 @@ export default function DirectoryClient() {
       {/* Empty Search Fallback */}
       {filteredLocations.length === 0 && filteredTools.length === 0 && filteredServices.length === 0 && (
         <div className="py-20 text-center space-y-3">
-          <p className="text-base text-zinc-400">
+          <p className="text-base text-slate-500">
             No locations or services found matching &quot;{search}&quot;.
           </p>
           <button
@@ -334,7 +334,7 @@ export default function DirectoryClient() {
               setSearch("");
               setActiveTab("all");
             }}
-            className="text-xs font-mono text-[#B8FF00] hover:underline"
+            className="text-xs font-mono text-emerald-600 hover:underline"
           >
             Reset All Filters
           </button>

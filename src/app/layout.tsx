@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MouseGlow from "@/components/MouseGlow";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import Preloader from "@/components/Preloader";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
@@ -24,7 +23,7 @@ const caveat = Caveat({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#030604",
+  themeColor: "#FFFFFF",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -90,7 +89,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${caveat.variable} dark`}>
+    <html lang="en" className={`${jakarta.variable} ${caveat.variable}`}>
       <head>
         {/* Google Analytics 4 (GA4) */}
         <Script
@@ -113,7 +112,7 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtm.js?id=GTM-K3CN3XFQ"
         />
       </head>
-      <body className="bg-[#030604] text-white selection:bg-[#B8FF00] selection:text-black min-h-screen flex flex-col antialiased overflow-x-hidden">
+      <body className="bg-[#FAFAFA] text-slate-900 selection:bg-emerald-500 selection:text-white min-h-screen flex flex-col antialiased overflow-x-hidden font-sans">
         {/* Google Tag Manager (noscript fallback) */}
         <noscript>
           <iframe
@@ -123,7 +122,6 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <Preloader />
         <SmoothScroll>
           <MouseGlow />
           <Navbar />

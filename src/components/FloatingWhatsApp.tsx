@@ -27,32 +27,32 @@ export default function FloatingWhatsApp() {
     >
       {/* Pop-up Quick Prompt */}
       {isOpen && (
-        <div className="mb-1 w-72 sm:w-80 rounded-2xl glass-panel-glow border-[#25D366]/40 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.9)] bg-[#0A110C]/95 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
-          <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-white/10">
+        <div className="mb-1 w-72 sm:w-80 rounded-2xl bg-white border border-emerald-200 p-4 shadow-xl text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse shadow-[0_0_8px_#25D366]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10B981]" />
               <div>
-                <span className="text-xs font-bold text-white block">Abhishek Jain</span>
-                <span className="text-[10px] font-mono text-[#25D366]">Replies in 2 mins</span>
+                <span className="text-xs font-bold text-slate-900 block">Abhishek Jain</span>
+                <span className="text-[10px] font-mono text-emerald-700">Replies in 2 mins</span>
               </div>
             </div>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="p-1 rounded-full text-zinc-400 hover:text-white hover:bg-white/10"
+              className="p-1 rounded-full text-slate-400 hover:text-slate-900 hover:bg-slate-100"
               aria-label="Close popup"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-          <p className="text-xs text-zinc-300 leading-relaxed mb-3">
+          <p className="text-xs text-slate-600 leading-relaxed mb-3">
             Want a live Website + WhatsApp AI Receptionist for your clinic or business? Let&apos;s chat directly!
           </p>
           <a
             href={`https://wa.me/${phone}?text=${defaultMsg}`}
             target="_blank"
             rel="noreferrer"
-            className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-[#25D366] text-black hover:bg-[#20bd5a] flex items-center justify-center gap-1.5 transition-all"
+            className="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 flex items-center justify-center gap-1.5 transition-all shadow-sm"
           >
             <MessageCircle className="w-4 h-4 fill-current" />
             <span>Chat on WhatsApp Now</span>
@@ -66,18 +66,18 @@ export default function FloatingWhatsApp() {
         <button
           type="button"
           onClick={scrollToDemo}
-          className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#080D0A]/90 hover:bg-[#B8FF00] text-zinc-200 hover:text-black border border-[#B8FF00]/40 backdrop-blur-xl text-xs font-bold shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-300 cursor-pointer group"
+          className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/95 hover:bg-emerald-600 text-slate-800 hover:text-white border border-slate-200 backdrop-blur-xl text-xs font-bold shadow-md transition-all duration-300 cursor-pointer group"
         >
-          <Bot className="w-3.5 h-3.5 text-[#B8FF00] group-hover:text-black transition-colors" />
+          <Bot className="w-3.5 h-3.5 text-emerald-600 group-hover:text-white transition-colors" />
           <span>Book Free Demo</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
 
-        {/* Main WhatsApp Trigger Button with Permanent Pulsing Dot & Hover Tooltip */}
+        {/* Main WhatsApp Trigger Button */}
         <div className="relative group flex items-center">
-          {/* Sleek Persistent Mini Tooltip / Label on Desktop or Hover */}
-          <div className="hidden md:flex items-center gap-2 mr-3 px-3.5 py-2 rounded-full bg-[#080D0A]/95 border border-[#25D366]/40 text-xs font-semibold text-white shadow-xl backdrop-blur-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap">
-            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+          {/* Tooltip on Desktop */}
+          <div className="hidden md:flex items-center gap-2 mr-3 px-3.5 py-2 rounded-full bg-slate-900 text-xs font-semibold text-white shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>Chat with Abhishek (Replies in 2 mins)</span>
           </div>
 
@@ -87,19 +87,16 @@ export default function FloatingWhatsApp() {
             rel="noreferrer"
             aria-label="Chat with Abhishek (Replies in 2 mins)"
             title="Chat with Abhishek (Replies in 2 mins)"
-            className="relative w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_0_25px_rgba(37,211,102,0.5)] hover:shadow-[0_0_40px_rgba(37,211,102,0.8)] hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white/25"
+            className="relative w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_4px_30px_rgba(37,211,102,0.6)] hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white"
           >
             <MessageCircle className="w-7 h-7 fill-white stroke-none drop-shadow-md" />
             
             {/* Pulsing Green Indicator Dot on Top Corner */}
             <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B8FF00] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-[#B8FF00] border-2 border-[#030604]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white"></span>
             </span>
           </a>
-
-          {/* Ambient Ring */}
-          <span className="absolute -inset-1 rounded-full bg-[#25D366] opacity-25 animate-ping pointer-events-none -z-10" />
         </div>
       </div>
     </aside>

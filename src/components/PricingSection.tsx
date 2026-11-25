@@ -91,28 +91,28 @@ export default function PricingSection() {
   ];
 
   return (
-    <section className="relative py-20 md:py-28 bg-[#030604] overflow-hidden" id="pricing">
+    <section className="relative py-20 md:py-28 bg-gradient-to-b from-white via-slate-50 to-white overflow-hidden" id="pricing">
       {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[radial-gradient(circle,rgba(184,255,0,0.08)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[radial-gradient(circle,rgba(16,185,129,0.06)_0%,transparent_70%)] blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#B8FF00]/30 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#B8FF00]" />
-            <span className="text-xs font-mono font-semibold text-[#B8FF00] tracking-widest uppercase">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="text-xs font-mono font-bold text-emerald-700 tracking-widest uppercase">
               TRANSPARENT PRODUCTIZED PRICING
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight">
             Zero Hidden Fees.{" "}
-            <span className="text-[#B8FF00] drop-shadow-[0_0_25px_rgba(184,255,0,0.4)]">
+            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               100% Ownership.
             </span>
           </h2>
 
-          <p className="text-sm sm:text-base text-zinc-400">
+          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
             Business owners shouldn&apos;t have to guess pricing or wait weeks for quotes. Pick a turnkey growth system engineered to pay for itself in your first week.
           </p>
         </div>
@@ -128,13 +128,13 @@ export default function PricingSection() {
                 key={pkg.id}
                 className={`relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
                   pkg.popular
-                    ? "bg-gradient-to-b from-[#0E1810] via-[#09110B] to-[#050806] border-2 border-[#B8FF00] shadow-[0_0_50px_rgba(184,255,0,0.22)] lg:-translate-y-4"
-                    : "bg-[#080D0A]/90 border border-white/10 hover:border-[#B8FF00]/40"
+                    ? "bg-white border-2 border-emerald-500 shadow-[0_15px_40px_rgba(16,185,129,0.14)] lg:-translate-y-3 ring-4 ring-emerald-50"
+                    : "bg-white border border-slate-200/90 hover:border-slate-300 shadow-[0_4px_25px_rgba(15,23,42,0.03)] hover:shadow-lg"
                 }`}
               >
                 {/* Floating Popular Badge */}
                 {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-[#B8FF00] text-black text-[11px] font-black tracking-wider uppercase shadow-[0_0_25px_rgba(184,255,0,0.6)] whitespace-nowrap flex items-center gap-1.5">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-emerald-600 text-white text-[11px] font-black tracking-wider uppercase shadow-md whitespace-nowrap flex items-center gap-1.5">
                     <Zap className="w-3.5 h-3.5 fill-current" />
                     <span>MOST POPULAR</span>
                   </div>
@@ -146,8 +146,8 @@ export default function PricingSection() {
                     <span
                       className={`text-[10px] font-mono font-bold tracking-widest uppercase px-2.5 py-1 rounded-md border ${
                         pkg.popular
-                          ? "bg-[#B8FF00]/15 border-[#B8FF00]/40 text-[#B8FF00]"
-                          : "bg-white/[0.04] border-white/10 text-zinc-400"
+                          ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                          : "bg-slate-50 border-slate-200 text-slate-600"
                       }`}
                     >
                       {pkg.badge}
@@ -156,8 +156,8 @@ export default function PricingSection() {
                     <div
                       className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                         pkg.popular
-                          ? "bg-[#B8FF00] text-black shadow-[0_0_15px_rgba(184,255,0,0.5)]"
-                          : "bg-white/[0.05] text-[#B8FF00] border border-white/10"
+                          ? "bg-emerald-600 text-white shadow-sm"
+                          : "bg-slate-100 text-slate-700"
                       }`}
                     >
                       <Icon className="w-5 h-5" />
@@ -166,41 +166,41 @@ export default function PricingSection() {
 
                   {/* Title & Price */}
                   <div>
-                    <h3 className="text-xl font-black text-white">{pkg.name}</h3>
+                    <h3 className="text-xl font-black text-slate-900">{pkg.name}</h3>
                     <div className="mt-3">
                       {"pricePrefix" in pkg && pkg.pricePrefix && (
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-1">
+                        <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold mb-1">
                           {pkg.pricePrefix}
                         </div>
                       )}
                       <div className="flex items-baseline gap-2">
-                        <span className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                        <span className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight">
                           {pkg.price}
                         </span>
-                        <span className="text-xs font-mono text-[#B8FF00] font-semibold">
+                        <span className="text-xs font-mono text-emerald-600 font-semibold">
                           / {pkg.billing}
                         </span>
                       </div>
                       {"subBilling" in pkg && pkg.subBilling && (
-                        <div className="mt-1 text-[11px] font-mono text-zinc-400">
+                        <div className="mt-1 text-[11px] font-mono text-slate-500">
                           {pkg.subBilling}
                         </div>
                       )}
                     </div>
-                    <p className="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed min-h-[48px]">
+                    <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed min-h-[48px]">
                       {pkg.description}
                     </p>
                   </div>
 
-                  <div className="border-t border-white/[0.08] pt-5 space-y-3">
+                  <div className="border-t border-slate-100 pt-5 space-y-3">
                     {pkg.features.map((feat, idx) => (
                       <div key={idx} className="flex items-start gap-2.5 text-left">
                         <CheckCircle2
                           className={`w-4 h-4 shrink-0 mt-0.5 ${
-                            pkg.popular ? "text-[#B8FF00]" : "text-emerald-400"
+                            pkg.popular ? "text-emerald-600" : "text-emerald-600"
                           }`}
                         />
-                        <span className="text-xs sm:text-sm text-zinc-200">{feat}</span>
+                        <span className="text-xs sm:text-sm text-slate-700 font-medium">{feat}</span>
                       </div>
                     ))}
                   </div>
@@ -211,7 +211,7 @@ export default function PricingSection() {
                   {pkg.isContactPage ? (
                     <Link
                       href="/contact"
-                      className="w-full py-3.5 px-6 rounded-full text-xs sm:text-sm font-bold bg-white/10 text-white hover:bg-[#B8FF00] hover:text-black border border-white/15 transition-all flex items-center justify-center gap-2 group"
+                      className="w-full py-3.5 px-6 rounded-full text-xs sm:text-sm font-bold bg-slate-950 text-white hover:bg-emerald-600 shadow-sm transition-all flex items-center justify-center gap-2 group"
                     >
                       <span>{pkg.ctaText}</span>
                       <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -223,8 +223,8 @@ export default function PricingSection() {
                       rel="noreferrer"
                       className={`w-full py-3.5 px-6 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all group ${
                         pkg.popular
-                          ? "bg-[#B8FF00] text-black hover:bg-[#ccff00] shadow-[0_0_25px_rgba(184,255,0,0.45)]"
-                          : "bg-white/[0.06] text-white hover:bg-[#B8FF00] hover:text-black border border-white/15"
+                          ? "bg-emerald-600 text-white hover:bg-emerald-700 shadow-[0_4px_18px_rgba(16,185,129,0.35)]"
+                          : "bg-slate-900 text-white hover:bg-emerald-600 shadow-sm"
                       }`}
                     >
                       <MessageCircle className="w-4 h-4 fill-current" />
@@ -239,18 +239,18 @@ export default function PricingSection() {
         </div>
 
         {/* Bottom Risk-Reversal Guarantee Banner */}
-        <div className="mt-12 rounded-2xl p-4 sm:p-5 bg-[#080D0A] border border-[#B8FF00]/20 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-zinc-300">
+        <div className="mt-12 rounded-2xl p-4 sm:p-5 bg-white border border-slate-200/90 shadow-sm flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-700 font-semibold">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#B8FF00]" />
-            <span>100% Source Code Ownership</span>
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <span>100% Source Code Ownership Transferred</span>
           </div>
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-[#B8FF00]" />
+            <Zap className="w-4 h-4 text-emerald-600" />
             <span>On-Time 7-Day Launch Guarantee</span>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" />
-            <span>Zero Monthly Agency Retainers</span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span>Zero Mandatory Monthly Agency Retainers</span>
           </div>
         </div>
       </div>

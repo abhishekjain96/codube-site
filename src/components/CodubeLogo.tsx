@@ -96,9 +96,9 @@ export default function CodubeLogo({
 
       {/* Typography: Codube. (Only shown if custom logo is square icon or user enabled) */}
       {shouldShowText && (
-        <span className={`font-extrabold tracking-tight text-white dark:text-white ${currentSize.text} flex items-center`}>
+        <span className={`font-black tracking-tight text-slate-900 group-hover:text-emerald-600 transition-colors ${currentSize.text} flex items-center`}>
           {siteName.replace(".", "")}
-          <span className="text-[#bbfb26] ml-[1px] animate-pulse">.</span>
+          <span className="text-emerald-500 ml-[1px] animate-pulse">.</span>
         </span>
       )}
     </div>

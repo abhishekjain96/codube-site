@@ -37,7 +37,7 @@ export default function MouseGlow() {
         transform: `translate3d(${mousePosition.x - 200}px, ${mousePosition.y - 200}px, 0)`,
       }}
     >
-      <div className="w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(187,251,38,0.07)_0%,rgba(34,197,94,0.03)_40%,transparent_70%)] blur-2xl" />
+      <div className="w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.08)_0%,rgba(99,102,241,0.04)_40%,transparent_70%)] blur-3xl" />
     </div>
   );
 }

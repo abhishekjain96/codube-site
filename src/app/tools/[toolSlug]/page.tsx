@@ -95,27 +95,27 @@ export default function DynamicToolPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="min-h-screen bg-[#030604] text-white pt-28 pb-20 selection:bg-[#B8FF00] selection:text-black">
+      <main className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 pt-28 pb-20">
         {/* Ambient Top Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(184,255,0,0.14),transparent_70%)] blur-2xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(16,185,129,0.08),transparent_70%)] blur-2xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-left">
           {/* Breadcrumb Navigation */}
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex items-center flex-wrap gap-2 text-xs font-mono text-zinc-400">
+            <ol className="flex items-center flex-wrap gap-2 text-xs font-mono text-slate-500">
               <li>
-                <Link href="/" className="hover:text-[#B8FF00] transition-colors">
+                <Link href="/" className="hover:text-emerald-600 transition-colors">
                   Home
                 </Link>
               </li>
-              <ChevronRight className="w-3 h-3 text-zinc-600" />
+              <ChevronRight className="w-3 h-3 text-slate-400" />
               <li>
-                <Link href="/tools" className="hover:text-[#B8FF00] transition-colors">
+                <Link href="/tools" className="hover:text-emerald-600 transition-colors">
                   Free Tools
                 </Link>
               </li>
-              <ChevronRight className="w-3 h-3 text-zinc-600" />
-              <li className="text-[#B8FF00] font-semibold truncate max-w-[240px] sm:max-w-none">
+              <ChevronRight className="w-3 h-3 text-slate-400" />
+              <li className="text-emerald-700 font-semibold truncate max-w-[240px] sm:max-w-none">
                 {tool.shortName}
               </li>
             </ol>
@@ -123,16 +123,16 @@ export default function DynamicToolPage({ params }: PageProps) {
 
           {/* Tool Header */}
           <header className="space-y-4 mb-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/40 text-[#B8FF00] text-xs font-mono font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(184,255,0,0.25)]">
-              <Sparkles className="w-3.5 h-3.5 text-[#B8FF00]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono font-bold tracking-widest uppercase shadow-sm">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
               <span>100% FREE AI &amp; DEVELOPER UTILITY</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-[1.12]">
+            <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-[1.12]">
               {tool.name}
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg text-zinc-300 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed">
               {tool.description}
             </p>
           </header>
@@ -141,29 +141,29 @@ export default function DynamicToolPage({ params }: PageProps) {
           <ToolRunnerClient tool={tool} />
 
           {/* Educational Content Section */}
-          <section className="mt-16 pt-12 border-t border-white/10 space-y-8">
+          <section className="mt-16 pt-12 border-t border-slate-200 space-y-8">
             <div className="space-y-3">
-              <span className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-widest">
+              <span className="text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest">
                 BEST PRACTICES &amp; KNOWLEDGE
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-white">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-950">
                 {tool.educationalContent.heading}
               </h2>
               {tool.educationalContent.paragraphs.map((p, idx) => (
-                <p key={idx} className="text-sm sm:text-base text-zinc-300 leading-relaxed">
+                <p key={idx} className="text-sm sm:text-base text-slate-600 leading-relaxed">
                   {p}
                 </p>
               ))}
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#080D0A] border border-white/10 space-y-3">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono text-[#B8FF00]">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
+              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-mono text-emerald-700">
                 Pro Engineering Tips for {tool.shortName}:
               </h3>
-              <ul className="space-y-2 text-xs sm:text-sm text-zinc-300">
+              <ul className="space-y-2 text-xs sm:text-sm text-slate-700">
                 {tool.educationalContent.tips.map((t, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#B8FF00] font-bold">✓</span>
+                    <span className="text-emerald-600 font-bold">✓</span>
                     <span>{t}</span>
                   </li>
                 ))}
@@ -172,16 +172,16 @@ export default function DynamicToolPage({ params }: PageProps) {
           </section>
 
           {/* Explore Other Free Tools */}
-          <section className="mt-16 pt-10 border-t border-white/10 space-y-6">
+          <section className="mt-16 pt-10 border-t border-slate-200 space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-black text-white">
+              <h3 className="text-xl font-black text-slate-950">
                 Explore More Free Engineering &amp; AI Tools
               </h3>
               <Link
                 href="/tools"
-                className="text-xs font-mono text-[#B8FF00] hover:underline"
+                className="text-xs font-mono text-emerald-600 hover:underline font-bold"
               >
-                View All 20 Tools →
+                View All 40 Tools →
               </Link>
             </div>
 
@@ -190,20 +190,20 @@ export default function DynamicToolPage({ params }: PageProps) {
                 <Link
                   key={t.id}
                   href={`/tools/${t.id}`}
-                  className="p-4 rounded-xl bg-[#080D0A] border border-white/10 hover:border-[#B8FF00]/50 hover:bg-white/[0.02] transition-all group flex flex-col justify-between"
+                  className="p-4 rounded-2xl bg-white border border-slate-200 hover:border-emerald-500 shadow-2xs hover:shadow-md transition-all group flex flex-col justify-between"
                 >
                   <div className="space-y-1.5">
-                    <span className="text-[10px] font-mono text-[#B8FF00] uppercase">
+                    <span className="text-[10px] font-mono text-emerald-700 uppercase font-bold">
                       {t.category}
                     </span>
-                    <h4 className="text-sm font-bold text-white group-hover:text-[#B8FF00] transition-colors leading-snug">
+                    <h4 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-snug">
                       {t.name}
                     </h4>
-                    <p className="text-xs text-zinc-400 line-clamp-2">
+                    <p className="text-xs text-slate-500 line-clamp-2">
                       {t.tagline}
                     </p>
                   </div>
-                  <div className="pt-3 text-[11px] font-mono text-zinc-400 group-hover:text-[#B8FF00] flex items-center gap-1">
+                  <div className="pt-3 text-[11px] font-mono text-slate-500 group-hover:text-emerald-600 flex items-center gap-1 font-bold">
                     <span>Try Free</span>
                     <span>→</span>
                   </div>

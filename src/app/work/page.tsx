@@ -14,22 +14,22 @@ export default function WorkPage() {
   const content = getSiteContent();
 
   return (
-    <div className="pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-10 pb-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#bbfb26]/30 backdrop-blur-md mb-4">
-          <span className="w-2 h-2 rounded-full bg-[#bbfb26] animate-pulse" />
-          <span className="text-xs font-semibold text-zinc-300 tracking-wide uppercase">
-            Portfolio &amp; Case Studies
+    <div className="pt-28 pb-16 bg-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-6 pb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 shadow-sm mb-4">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs font-mono font-bold text-emerald-700 tracking-wide uppercase">
+            PORTFOLIO &amp; CASE STUDIES
           </span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 className="text-4xl sm:text-5xl font-black text-slate-950 tracking-tight">
           Proven In Production.{" "}
-          <span className="text-[#bbfb26] drop-shadow-[0_0_20px_rgba(187,251,38,0.4)]">
+          <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
             Scalable by Design.
           </span>
         </h1>
-        <p className="mt-4 text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto">
-          We build real-world digital products that handle actual users, complex bookings, transactions, and continuous growth.
+        <p className="mt-4 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          We build real-world digital products that handle actual users, complex bookings, diagnostic tokens, and continuous scaling.
         </p>
       </div>
 
