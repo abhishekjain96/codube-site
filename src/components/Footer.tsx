@@ -127,9 +127,9 @@ export default function Footer() {
                   href="/tools"
                   className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5 group font-medium text-white"
                 >
-                  <span className="text-[#B8FF00] font-bold">All 20 Free Tools</span>
+                  <span className="text-[#B8FF00] font-bold">All 40 Free Tools</span>
                   <span className="px-1.5 py-0.2 rounded bg-[#B8FF00] text-black font-mono text-[9px] font-black">
-                    20 FREE
+                    40 FREE
                   </span>
                 </Link>
               </li>
@@ -336,17 +336,17 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* Category 5: 20 Free Viral AI & Developer Tools */}
+              {/* Category 5: 40 Free Viral AI & Developer Tools */}
               <div>
                 <span className="text-[11px] font-mono text-[#B8FF00] font-semibold uppercase tracking-wider block mb-2">
-                  🛠️ 20 Free High-Traffic AI &amp; Developer Tools
+                  🛠️ 40 Free High-Traffic AI &amp; Developer Tools
                 </span>
                 <div className="flex flex-wrap gap-x-3 gap-y-1.5">
                   <Link
                     href="/tools"
                     className="text-[11px] text-[#B8FF00] font-bold hover:underline transition-colors"
                   >
-                    ⚡ All 20 Free Tools Hub →
+                    ⚡ All 40 Free Tools Hub →
                   </Link>
                   {FREE_AI_TOOLS.map((tool) => (
                     <Link
@@ -368,7 +368,7 @@ export default function Footer() {
           <p>© 2026 Codube. All rights reserved. Engineered by Abhishek Jain.</p>
           <div className="flex items-center gap-6">
             <Link href="/tools" className="text-[#B8FF00] hover:underline transition-colors font-medium">
-              20 Free AI Tools Hub
+              40 Free AI Tools Hub
             </Link>
             <span>|</span>
             <Link href="/privacy" className="hover:text-zinc-300 transition-colors">

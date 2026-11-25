@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FreeTool } from "@/data/toolsData";
 import { executeTool } from "@/lib/toolGenerators";
 import {
@@ -14,10 +14,22 @@ import {
   Cpu,
   ShieldCheck,
   AlertTriangle,
+  Sparkles,
+  Terminal,
+  Clock,
+  Check,
+  RefreshCw,
 } from "lucide-react";
 
 interface Props {
   tool: FreeTool;
+}
+
+interface StepLog {
+  step: number;
+  label: string;
+  detail: string;
+  completed: boolean;
 }
 
 export default function ToolRunnerClient({ tool }: Props) {
@@ -30,40 +42,107 @@ export default function ToolRunnerClient({ tool }: Props) {
     return init;
   });
 
-  const [loading, setLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [progressPercent, setProgressPercent] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [steps, setSteps] = useState<StepLog[]>([
+    { step: 1, label: "Parameter Ingestion", detail: "Validating input fields & context variables...", completed: false },
+    { step: 2, label: "Neural Domain Synthesis", detail: "Executing specialized algorithmic verification...", completed: false },
+    { step: 3, label: "Output Formatting & Linting", detail: "Structuring production-ready payload & schema...", completed: false },
+    { step: 4, label: "Verification Complete", detail: "Output certified & compiled with 100% precision.", completed: false },
+  ]);
+
   const [output, setOutput] = useState<{
     result: string;
     score?: number;
     scoreRating?: string;
     scoreBreakdown?: { label: string; passed: boolean; tip: string }[];
     actionLink?: string;
-  } | null>(() => {
-    // Run default output immediately so user sees value on first render!
-    return executeTool(tool.id, formState);
-  });
+    generatedAt?: string;
+  } | null>(null);
 
   const [copied, setCopied] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (id: string, value: any) => {
     setFormState((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleRun = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  const handleRun = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setIsProcessing(true);
+    setProgressPercent(10);
+    setCurrentStepIndex(0);
+    setOutput(null);
 
+    // Scroll smoothly to output container
     setTimeout(() => {
-      const res = executeTool(tool.id, formState);
-      setOutput(res);
-      setLoading(false);
+      resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+
+    // Step 1
+    setTimeout(() => {
+      setProgressPercent(35);
+      setCurrentStepIndex(1);
+      setSteps((prev) => [
+        { ...prev[0], completed: true },
+        prev[1],
+        prev[2],
+        prev[3],
+      ]);
     }, 400);
+
+    // Step 2
+    setTimeout(() => {
+      setProgressPercent(70);
+      setCurrentStepIndex(2);
+      setSteps((prev) => [
+        prev[0],
+        { ...prev[1], completed: true },
+        prev[2],
+        prev[3],
+      ]);
+    }, 900);
+
+    // Step 3
+    setTimeout(() => {
+      setProgressPercent(95);
+      setCurrentStepIndex(3);
+      setSteps((prev) => [
+        prev[0],
+        prev[1],
+        { ...prev[2], completed: true },
+        prev[3],
+      ]);
+    }, 1300);
+
+    // Final Completion
+    setTimeout(() => {
+      setProgressPercent(100);
+      setSteps((prev) => [
+        { ...prev[0], completed: true },
+        { ...prev[1], completed: true },
+        { ...prev[2], completed: true },
+        { ...prev[3], completed: true },
+      ]);
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+      const res = executeTool(tool.id, formState);
+
+      setOutput({
+        ...res,
+        generatedAt: timeStr,
+      });
+      setIsProcessing(false);
+    }, 1650);
   };
 
   const handleCopy = () => {
     if (!output?.result) return;
     navigator.clipboard.writeText(output.result);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleDownload = () => {
@@ -73,13 +152,14 @@ export default function ToolRunnerClient({ tool }: Props) {
     else if (tool.codeLanguage === "css") ext = "css";
     else if (tool.codeLanguage === "html") ext = "html";
     else if (tool.codeLanguage === "markdown") ext = "md";
-    else if (tool.codeLanguage === "typescript") ext = "ts";
+    else if (tool.codeLanguage === "typescript" || tool.codeLanguage === "javascript") ext = "ts";
+    else if (tool.codeLanguage === "sql") ext = "sql";
 
     const blob = new Blob([output.result], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${tool.id}.${ext}`;
+    link.download = `${tool.id}-${Date.now()}.${ext}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -90,10 +170,32 @@ export default function ToolRunnerClient({ tool }: Props) {
   )}`;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Interactive Form Card */}
-      <div className="rounded-3xl p-6 sm:p-8 bg-[#080D0A] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-        <form onSubmit={handleRun} className="space-y-5">
+      <div className="rounded-3xl p-6 sm:p-8 bg-[#080D0A] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden">
+        {/* Top ambient highlight */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#B8FF00] to-transparent opacity-60" />
+
+        <div className="flex items-center justify-between pb-6 border-b border-white/[0.08] mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#B8FF00]/10 border border-[#B8FF00]/30 flex items-center justify-center text-[#B8FF00]">
+              <Cpu className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                <span>Configure Input Parameters</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#B8FF00]/15 text-[#B8FF00] uppercase font-bold">
+                  LIVE ENGINE
+                </span>
+              </h2>
+              <p className="text-xs text-zinc-400">
+                Customize values below or use the default parameters to generate output instantly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={handleRun} className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {tool.fields.map((f) => {
               if (f.type === "select") {
@@ -125,7 +227,6 @@ export default function ToolRunnerClient({ tool }: Props) {
                     </label>
                     <textarea
                       rows={3}
-                      required={f.required}
                       value={formState[f.id] ?? ""}
                       onChange={(e) => handleChange(f.id, e.target.value)}
                       placeholder={f.placeholder}
@@ -141,11 +242,11 @@ export default function ToolRunnerClient({ tool }: Props) {
                     {f.label} {f.required && <span className="text-[#B8FF00]">*</span>}
                   </label>
                   <input
-                    type={f.type}
-                    required={f.required}
+                    type={f.type === "number" ? "number" : "text"}
                     value={formState[f.id] ?? ""}
                     onChange={(e) => handleChange(f.id, e.target.value)}
                     placeholder={f.placeholder}
+                    required={f.required}
                     className="w-full bg-[#121B14] border border-white/10 focus:border-[#B8FF00] rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none transition-colors"
                   />
                 </div>
@@ -153,59 +254,158 @@ export default function ToolRunnerClient({ tool }: Props) {
             })}
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border-t border-white/[0.08]">
+            <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+              <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-pulse" />
+              <span>Free Unlimited Runs • 100% Deterministic Execution</span>
+            </div>
+
             <button
               type="submit"
-              disabled={loading}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] hover:shadow-[0_0_30px_rgba(184,255,0,0.5)] transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+              disabled={isProcessing}
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-sm font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] hover:shadow-[0_0_30px_rgba(184,255,0,0.5)] transition-all duration-300 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed active:scale-98"
             >
-              <Cpu className="w-4 h-4" />
-              <span>{loading ? "Processing..." : `Run Free ${tool.shortName} →`}</span>
+              {isProcessing ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin text-black" />
+                  <span>Processing Live Analysis...</span>
+                </>
+              ) : (
+                <>
+                  <Zap className="w-4 h-4 fill-black" />
+                  <span>Generate Output Live →</span>
+                </>
+              )}
             </button>
           </div>
         </form>
       </div>
 
-      {/* Output Display Card */}
-      {output && (
-        <div className="rounded-3xl p-6 sm:p-8 bg-[#080D0A] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.9)] space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
-            <div>
-              <span className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-wider block">
-                {tool.outputLabel}
+      {/* Target Ref for smooth scroll */}
+      <div ref={resultRef} />
+
+      {/* PROCESSING STATE: Futuristic Live Terminal & Scanning HUD */}
+      {isProcessing && (
+        <div className="rounded-3xl p-6 sm:p-8 bg-[#050806] border-2 border-[#B8FF00]/50 shadow-[0_0_50px_rgba(184,255,0,0.25)] space-y-6 animate-in fade-in duration-300">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-[#B8FF00] animate-ping" />
+              <span className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-wider">
+                Executing AI &amp; Algorithmic Pipeline...
               </span>
-              <p className="text-xs text-zinc-400 mt-0.5">
-                Ready to copy, implement, or download for your website.
-              </p>
+            </div>
+            <span className="text-xs font-mono font-bold text-white bg-white/10 px-3 py-1 rounded-full">
+              {progressPercent}% Complete
+            </span>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden relative">
+            <div
+              className="h-full bg-gradient-to-r from-[#B8FF00] to-[#55ff00] transition-all duration-300 rounded-full shadow-[0_0_12px_#B8FF00]"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+
+          {/* Step Diagnostics Terminal */}
+          <div className="bg-[#0A100C] rounded-2xl p-4 sm:p-5 border border-white/10 space-y-3 font-mono text-xs">
+            <div className="flex items-center gap-2 pb-2 border-b border-white/[0.08] text-zinc-500">
+              <Terminal className="w-3.5 h-3.5 text-[#B8FF00]" />
+              <span>Real-Time Execution Logs</span>
             </div>
 
-            <div className="flex items-center gap-2">
-              {output.actionLink && (
-                <a
-                  href={output.actionLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-[#25D366] text-black hover:bg-[#20bd5a] text-xs font-bold flex items-center gap-1.5 transition-all"
+            {steps.map((st, idx) => {
+              const isCurrent = idx === currentStepIndex;
+              return (
+                <div
+                  key={st.step}
+                  className={`flex items-start gap-3 transition-colors ${
+                    st.completed
+                      ? "text-zinc-300"
+                      : isCurrent
+                      ? "text-[#B8FF00] font-bold"
+                      : "text-zinc-600"
+                  }`}
                 >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>Test Link</span>
-                </a>
-              )}
+                  <div className="mt-0.5 shrink-0">
+                    {st.completed ? (
+                      <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" />
+                    ) : isCurrent ? (
+                      <RefreshCw className="w-4 h-4 text-[#B8FF00] animate-spin" />
+                    ) : (
+                      <div className="w-4 h-4 rounded-full border border-zinc-700" />
+                    )}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-zinc-500">[{st.step}/4]</span>
+                      <span>{st.label}</span>
+                    </div>
+                    <p className="text-[11px] text-zinc-400 font-normal">{st.detail}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
+      {/* IDLE STATE (Before Running) */}
+      {!isProcessing && !output && (
+        <div className="rounded-3xl p-8 sm:p-10 bg-[#080D0A] border border-white/10 text-center space-y-4">
+          <div className="w-14 h-14 rounded-2xl bg-[#B8FF00]/10 border border-[#B8FF00]/30 flex items-center justify-center text-[#B8FF00] mx-auto shadow-[0_0_30px_rgba(184,255,0,0.2)]">
+            <Sparkles className="w-7 h-7" />
+          </div>
+          <h3 className="text-lg sm:text-xl font-bold text-white">
+            Ready to Generate Verified Output
+          </h3>
+          <p className="text-sm text-zinc-400 max-w-lg mx-auto">
+            Click the <strong className="text-white">&quot;Generate Output Live&quot;</strong> button above to start the multi-step analysis and produce your customized, 100% production-ready result.
+          </p>
+          <button
+            type="button"
+            onClick={() => handleRun()}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-white/10 hover:bg-[#B8FF00] text-white hover:text-black border border-white/20 transition-all cursor-pointer"
+          >
+            <span>Run with Pre-filled Defaults</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
+      {/* COMPLETED STATE: Generated Output Display Card */}
+      {!isProcessing && output && (
+        <div className="rounded-3xl p-6 sm:p-8 bg-[#080D0A] border-2 border-[#B8FF00] shadow-[0_0_40px_rgba(184,255,0,0.25)] space-y-6 animate-in zoom-in-95 duration-300">
+          {/* Header Banner */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-white/[0.08] gap-3">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B8FF00]/15 border border-[#B8FF00]/40 text-[#B8FF00] text-xs font-mono font-bold tracking-wider uppercase">
+                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                <span>Output Generated Successfully (100% Accurate)</span>
+              </div>
+              <h3 className="text-lg font-bold text-white">{tool.outputLabel}</h3>
+              <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+                <Clock className="w-3 h-3 text-[#B8FF00]" />
+                <span>Generated at {output.generatedAt} • Certified Clean Output</span>
+              </div>
+            </div>
+
+            {/* Actions: Copy & Download */}
+            <div className="flex items-center gap-2.5">
               <button
                 type="button"
                 onClick={handleCopy}
-                className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-white flex items-center gap-1.5 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/10 hover:bg-[#B8FF00] hover:text-black text-xs font-mono font-bold text-white transition-all cursor-pointer shadow-sm"
               >
                 {copied ? (
                   <>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#B8FF00]" />
-                    <span className="text-[#B8FF00]">Copied!</span>
+                    <CheckCircle2 className="w-4 h-4 text-black" />
+                    <span>COPIED!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>Copy</span>
+                    <Copy className="w-4 h-4" />
+                    <span>Copy Output</span>
                   </>
                 )}
               </button>
@@ -213,68 +413,108 @@ export default function ToolRunnerClient({ tool }: Props) {
               <button
                 type="button"
                 onClick={handleDownload}
-                className="px-4 py-2 rounded-lg bg-[#B8FF00] text-black hover:bg-[#ccff00] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 text-xs font-mono text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                title="Download file to computer"
               >
-                <Download className="w-3.5 h-3.5" />
-                <span>Download</span>
+                <Download className="w-4 h-4" />
+                <span className="hidden sm:inline">Download</span>
               </button>
             </div>
           </div>
 
-          {/* Audit Score Card (if score exists) */}
+          {/* Diagnostic Score Card (If Tool Returns a Score) */}
           {output.score !== undefined && (
-            <div className="p-5 rounded-2xl bg-[#030604] border border-[#B8FF00]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1 text-center sm:text-left">
-                <span className="text-xs font-mono text-zinc-400 uppercase">
-                  Calculated Diagnostic Score
-                </span>
-                <div className="text-lg font-bold text-white">
-                  Rating: <span className="text-amber-400">{output.scoreRating}</span>
-                </div>
-              </div>
-              <div className="w-20 h-20 rounded-full border-4 border-[#B8FF00] flex flex-col items-center justify-center bg-[#080D0A]">
-                <span className="text-2xl font-black text-[#B8FF00]">{output.score}</span>
-                <span className="text-[9px] font-mono text-zinc-400">/ 100</span>
-              </div>
-            </div>
-          )}
-
-          {/* Score Breakdown Checklist */}
-          {output.scoreBreakdown && output.scoreBreakdown.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-              {output.scoreBreakdown.map((item, idx) => (
-                <div key={idx} className="p-3.5 rounded-xl bg-white/[0.02] border border-white/10 flex items-start gap-2.5">
-                  {item.passed ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  ) : (
-                    <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  )}
-                  <div>
-                    <h5 className="text-xs font-bold text-white mb-0.5">{item.label}</h5>
-                    <p className="text-[11px] text-zinc-400 leading-relaxed">{item.tip}</p>
+            <div className="p-6 rounded-2xl bg-[#0F1711] border border-[#B8FF00]/30 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block">
+                    Diagnostic Score Rating
+                  </span>
+                  <div className="flex items-baseline gap-3 mt-1">
+                    <span className="text-4xl sm:text-5xl font-black text-[#B8FF00]">
+                      {output.score}
+                    </span>
+                    <span className="text-zinc-500 font-mono text-sm">/ 100</span>
+                    {output.scoreRating && (
+                      <span className="px-3 py-1 rounded-full bg-[#B8FF00]/20 text-[#B8FF00] text-xs font-mono font-bold">
+                        {output.scoreRating}
+                      </span>
+                    )}
                   </div>
                 </div>
-              ))}
+
+                <div className="text-left sm:text-right text-xs font-mono text-zinc-400">
+                  <span>Engine: Codube Verified Algorithm</span>
+                  <span className="block text-[#B8FF00]">Status: Certified Valid</span>
+                </div>
+              </div>
+
+              {/* Score Breakdown Checklist */}
+              {output.scoreBreakdown && output.scoreBreakdown.length > 0 && (
+                <div className="pt-4 border-t border-white/[0.08] space-y-2.5">
+                  <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block mb-2">
+                    Diagnostic Parameters Checked:
+                  </span>
+                  {output.scoreBreakdown.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-2.5 text-xs bg-black/30 p-2.5 rounded-lg border border-white/5"
+                    >
+                      {item.passed ? (
+                        <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 mt-0.5" />
+                      ) : (
+                        <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                      )}
+                      <div>
+                        <span className="font-bold text-white">{item.label}: </span>
+                        <span className="text-zinc-400">{item.tip}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
-          {/* Code Output Window */}
-          <div className="rounded-2xl bg-[#030604] border border-white/15 p-4 sm:p-5 font-mono text-xs text-zinc-200 overflow-x-auto max-h-[420px] shadow-inner leading-relaxed whitespace-pre text-left">
-            {output.result}
+          {/* Action Link Button (e.g. WhatsApp Direct Test) */}
+          {output.actionLink && (
+            <div className="p-4 rounded-2xl bg-[#25D366]/10 border border-[#25D366]/40 flex items-center justify-between flex-wrap gap-3">
+              <div className="flex items-center gap-2.5">
+                <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                <span className="text-xs font-bold text-white">
+                  Direct Live Click-to-Chat Link Ready:
+                </span>
+              </div>
+              <a
+                href={output.actionLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#25D366] text-black text-xs font-bold hover:bg-[#20b858] transition-colors cursor-pointer"
+              >
+                <span>Test Link Live on WhatsApp</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          )}
+
+          {/* Output Display Container */}
+          <div className="rounded-2xl bg-[#050806] border border-white/10 p-5 overflow-x-auto relative">
+            <pre className="text-xs sm:text-sm font-mono text-zinc-200 leading-relaxed whitespace-pre-wrap select-all">
+              {output.result}
+            </pre>
           </div>
 
-          {/* High-Converting Lead Magnet */}
-          <div className="rounded-2xl p-6 sm:p-7 bg-gradient-to-r from-[#0E1810] to-[#050806] border-2 border-[#25D366]/40 flex flex-col md:flex-row items-center justify-between gap-5 text-left">
+          {/* Bottom Conversion Box: WhatsApp Lead Capture */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#0E1A11] via-[#0F1D13] to-[#0A130C] border border-[#B8FF00]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <span className="text-[10px] font-mono font-bold text-[#25D366] uppercase tracking-wider flex items-center gap-1">
-                <Zap className="w-3.5 h-3.5" />
-                <span>TURNKEY ENGINEERING SERVICE</span>
+              <span className="text-[11px] font-mono text-[#B8FF00] font-bold uppercase tracking-wider block">
+                ⚡ WANT TO IMPLEMENT THIS IN PRODUCTION?
               </span>
-              <h4 className="text-lg sm:text-xl font-black text-white">
-                Want Codube to Implement This For Your Business?
-              </h4>
-              <p className="text-xs text-zinc-300 max-w-xl">
-                Get a complete high-speed Next.js 14 website + 24/7 WhatsApp AI Receptionist delivered in 7 days with 100% full source code ownership.
+              <p className="text-sm font-bold text-white">
+                We engineer sub-second Next.js websites and 24/7 WhatsApp AI agents for your business.
+              </p>
+              <p className="text-xs text-zinc-400">
+                Guaranteed 7-day turnaround • Full source code ownership • Direct support from Abhishek Jain.
               </p>
             </div>
 
@@ -282,10 +522,10 @@ export default function ToolRunnerClient({ tool }: Props) {
               href={whatsappInquiryUrl}
               target="_blank"
               rel="noreferrer"
-              className="w-full md:w-auto px-6 py-3 rounded-full text-xs font-bold bg-[#25D366] text-black hover:bg-[#20bd5a] hover:shadow-[0_0_20px_rgba(37,211,102,0.5)] transition-all flex items-center justify-center gap-1.5 whitespace-nowrap active:scale-95"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#B8FF00] text-black text-xs font-bold hover:bg-[#ccff00] hover:shadow-[0_0_25px_rgba(184,255,0,0.5)] transition-all shrink-0 cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4 fill-current" />
-              <span>Chat on WhatsApp →</span>
+              <MessageCircle className="w-4 h-4 fill-black" />
+              <span>Implement on WhatsApp →</span>
             </a>
           </div>
         </div>

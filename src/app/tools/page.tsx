@@ -33,11 +33,13 @@ export default function ToolsIndexPage() {
   });
 
   const categories = [
-    { id: "all", name: "All 20 Free Tools" },
+    { id: "all", name: "All 40 Free Tools" },
     { id: "ai", name: "🤖 AI & LLM Visibility" },
-    { id: "seo", name: "🔍 SEO & Schema.org" },
+    { id: "marketing", name: "✍️ AI Copy & Ads" },
     { id: "growth", name: "⚡ WhatsApp & Growth" },
-    { id: "dev", name: "💻 Developer Utilities" },
+    { id: "seo", name: "🔍 SEO & Schema" },
+    { id: "dev", name: "💻 Developer & Code" },
+    { id: "social", name: "📱 Viral Social Media" },
   ];
 
   return (
@@ -50,18 +52,18 @@ export default function ToolsIndexPage() {
         <header className="max-w-3xl space-y-4 mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/40 text-[#B8FF00] text-xs font-mono font-bold tracking-widest uppercase shadow-[0_0_20px_rgba(184,255,0,0.25)]">
             <Sparkles className="w-3.5 h-3.5 text-[#B8FF00]" />
-            <span>20 FREE AI &amp; DEVELOPER TOOLS</span>
+            <span>40 FREE HIGH-DEMAND AI &amp; DEVELOPER TOOLS</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
             Free AI Search &amp;{" "}
             <span className="text-[#B8FF00] drop-shadow-[0_0_35px_rgba(184,255,0,0.5)]">
-              Engineering Utilities
+              Growth Engineering Utilities
             </span>
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-zinc-300 leading-relaxed">
-            Free tools built by Codube to help business owners, clinics, and developers audit their AI visibility, generate Schema markup, and convert website traffic into WhatsApp clients. Zero registration required.
+            Free production-grade tools built by Codube to help business owners, clinics, and developers audit their AI visibility, generate high-converting copy, and automate WhatsApp bookings. Zero signups, zero credit cards, 100% free forever.
           </p>
         </header>
 
@@ -86,13 +88,13 @@ export default function ToolsIndexPage() {
           </div>
 
           {/* Search Box */}
-          <div className="relative min-w-[260px] sm:min-w-[300px]">
+          <div className="relative min-w-[260px] sm:min-w-[320px]">
             <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search 20 free tools by name or keyword..."
+              placeholder="Search 40 free tools by name, category, or keyword..."
               className="w-full bg-[#080D0A] border border-white/15 focus:border-[#B8FF00] rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none transition-colors"
             />
           </div>
