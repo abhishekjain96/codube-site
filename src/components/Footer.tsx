@@ -2,16 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Linkedin, Instagram, ArrowRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, Sparkles, Globe, Cpu } from "lucide-react";
+import { Linkedin, Instagram, ArrowRight, CheckCircle2, MapPin } from "lucide-react";
 import CodubeLogo from "./CodubeLogo";
-import { SEO_SERVICES, SEO_LOCATIONS, buildSeoSlug } from "@/data/seoData";
-import { FREE_AI_TOOLS } from "@/data/toolsData";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [customLogo, setCustomLogo] = useState<string | null>(null);
-  const [showDirectory, setShowDirectory] = useState(true);
 
   React.useEffect(() => {
     fetch("/api/admin/content")
@@ -32,10 +29,6 @@ export default function Footer() {
       setEmail("");
     }, 3000);
   };
-
-  const jaipurLocations = SEO_LOCATIONS.filter((l) => l.region === "jaipur");
-  const indiaLocations = SEO_LOCATIONS.filter((l) => l.region === "india");
-  const globalLocations = SEO_LOCATIONS.filter((l) => l.region === "global");
 
   return (
     <footer className="relative bg-[#050806] border-t border-white/[0.07] pt-16 pb-12 overflow-hidden text-left">
@@ -103,6 +96,14 @@ export default function Footer() {
               <li>
                 <Link href="/services" className="hover:text-[#B8FF00] transition-colors">
                   Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/directory" className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5">
+                  <span className="text-[#B8FF00] font-semibold">Master Directory</span>
+                  <span className="px-1.5 py-0.2 rounded bg-[#B8FF00]/20 text-[#B8FF00] font-mono text-[9px] font-bold">
+                    INDEX
+                  </span>
                 </Link>
               </li>
               <li>
@@ -197,177 +198,97 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* COMPACT GLOBAL & LOCAL SEO DIRECTORY (500+ Programmatic Locations) */}
+        {/* 2-LEVEL MASTER SITEMAP & LOCATIONS DIRECTORY HUB */}
         <div className="pt-10 pb-8 border-b border-white/[0.08]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <MapPin className="w-3.5 h-3.5 text-[#B8FF00]" />
-              <span className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-wider">
-                Services &amp; Locations Directory (Google Ranking Index)
+          <Link
+            href="/directory"
+            className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#0C150E] via-[#080D0A] to-[#0C150E] border-2 border-[#B8FF00]/40 hover:border-[#B8FF00] hover:shadow-[0_0_35px_rgba(184,255,0,0.2)] transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group block"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#B8FF00]/15 border border-[#B8FF00]/40 flex items-center justify-center text-[#B8FF00] shrink-0 group-hover:scale-105 transition-transform">
+                <MapPin className="w-6 h-6" />
+              </div>
+              <div className="text-left">
+                <div className="flex items-center gap-2">
+                  <span className="text-base sm:text-lg font-bold text-white group-hover:text-[#B8FF00] transition-colors">
+                    Master HTML Sitemap &amp; Locations Directory
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full bg-[#B8FF00] text-black font-mono text-[10px] font-black uppercase">
+                    1,840+ NODES
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-400 mt-1 max-w-2xl">
+                  Explore our structured 2-level directory indexing 1,792 localized services across Jaipur, Indian metros, and global healthcare hubs, plus 40 free AI developer tools.
+                </p>
+              </div>
+            </div>
+
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#B8FF00] text-black text-xs font-bold font-mono group-hover:bg-[#ccff00] transition-all shrink-0">
+              <span>Browse Full Directory →</span>
+            </div>
+          </Link>
+
+          {/* Clean Curated Hub Highlights (Safe Link Density) */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-left">
+            <div>
+              <span className="font-mono text-[#B8FF00] font-bold uppercase tracking-wider block mb-2">
+                📍 Jaipur Corridors
               </span>
+              <ul className="space-y-1.5 text-zinc-400">
+                <li><Link href="/services/website-development-company-in-jaipur" className="hover:text-[#B8FF00] transition-colors">Web Development Jaipur</Link></li>
+                <li><Link href="/services/ai-chatbot-development-company-in-malviya-nagar-jaipur" className="hover:text-[#B8FF00] transition-colors">AI Chatbots Malviya Nagar</Link></li>
+                <li><Link href="/services/whatsapp-ai-agent-development-in-vaishali-nagar-jaipur" className="hover:text-[#B8FF00] transition-colors">WhatsApp AI Vaishali Nagar</Link></li>
+                <li><Link href="/services/clinic-website-and-appointment-system-in-tonk-road-jaipur" className="hover:text-[#B8FF00] transition-colors">Clinic AI Tonk Road</Link></li>
+              </ul>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setShowDirectory(!showDirectory)}
-              className="text-[11px] font-mono text-zinc-400 hover:text-[#B8FF00] flex items-center gap-1 transition-colors cursor-pointer"
-            >
-              <span>{showDirectory ? "Collapse" : "Expand All Locations"}</span>
-              {showDirectory ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-            </button>
+            <div>
+              <span className="font-mono text-[#B8FF00] font-bold uppercase tracking-wider block mb-2">
+                🇮🇳 Top Indian Metros
+              </span>
+              <ul className="space-y-1.5 text-zinc-400">
+                <li><Link href="/services/website-development-company-in-delhi-ncr" className="hover:text-[#B8FF00] transition-colors">Web Studio Delhi NCR</Link></li>
+                <li><Link href="/services/ai-chatbot-development-company-in-bangalore" className="hover:text-[#B8FF00] transition-colors">AI Agency Bangalore</Link></li>
+                <li><Link href="/services/whatsapp-ai-agent-development-in-mumbai" className="hover:text-[#B8FF00] transition-colors">WhatsApp Bot Mumbai</Link></li>
+                <li><Link href="/services/saas-product-development-company-in-pune" className="hover:text-[#B8FF00] transition-colors">SaaS Engineers Pune</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <span className="font-mono text-[#B8FF00] font-bold uppercase tracking-wider block mb-2">
+                🌍 Global Technology Hubs
+              </span>
+              <ul className="space-y-1.5 text-zinc-400">
+                <li><Link href="/services/website-development-company-in-dubai" className="hover:text-[#B8FF00] transition-colors">Web Development Dubai</Link></li>
+                <li><Link href="/services/clinic-website-and-appointment-system-in-dubai" className="hover:text-[#B8FF00] transition-colors">Clinic AI Booking Dubai</Link></li>
+                <li><Link href="/services/website-development-company-in-london" className="hover:text-[#B8FF00] transition-colors">Web Studio London</Link></li>
+                <li><Link href="/services/saas-product-development-company-in-new-york" className="hover:text-[#B8FF00] transition-colors">SaaS Engineering New York</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <span className="font-mono text-[#B8FF00] font-bold uppercase tracking-wider block mb-2">
+                🛠️ Master Directory Hub
+              </span>
+              <ul className="space-y-1.5 text-zinc-400">
+                <li><Link href="/tools/ai-geo-generator" className="hover:text-[#B8FF00] transition-colors">AI GEO &amp; Visibility Audit</Link></li>
+                <li><Link href="/tools/llms-txt-generator" className="hover:text-[#B8FF00] transition-colors">Official llms.txt Builder</Link></li>
+                <li><Link href="/tools/whatsapp-link-generator" className="hover:text-[#B8FF00] transition-colors">WhatsApp Link Generator</Link></li>
+                <li><Link href="/directory" className="text-[#B8FF00] font-bold hover:underline transition-colors">Browse All 1,840+ Index →</Link></li>
+              </ul>
+            </div>
           </div>
-
-          {showDirectory && (
-            <div className="space-y-6 pt-2 animate-in fade-in duration-300">
-              {/* Category 1: Jaipur & Rajasthan Local Markets */}
-              <div>
-                <span className="text-[11px] font-mono text-[#B8FF00] font-semibold uppercase tracking-wider block mb-2">
-                  📍 Jaipur &amp; Rajasthan Tech Corridors
-                </span>
-                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
-                  {jaipurLocations.map((loc) => (
-                    <Link
-                      key={loc.id}
-                      href={`/services/${buildSeoSlug("website-development-company", loc.id)}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      Web Development in {loc.city}
-                    </Link>
-                  ))}
-                  {jaipurLocations.slice(0, 5).map((loc) => (
-                    <Link
-                      key={`ai-${loc.id}`}
-                      href={`/services/${buildSeoSlug("ai-chatbot-development-company", loc.id)}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      AI Chatbots {loc.city}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 2: Tier 1 & Indian Metros */}
-              <div>
-                <span className="text-[11px] font-mono text-[#B8FF00] font-semibold uppercase tracking-wider block mb-2">
-                  🇮🇳 Tier 1 &amp; National Technology Hubs
-                </span>
-                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
-                  {indiaLocations.map((loc) => (
-                    <Link
-                      key={loc.id}
-                      href={`/services/${buildSeoSlug("website-development-company", loc.id)}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      Website Development in {loc.city}
-                    </Link>
-                  ))}
-                  {indiaLocations.slice(0, 6).map((loc) => (
-                    <Link
-                      key={`wa-${loc.id}`}
-                      href={`/services/${buildSeoSlug("whatsapp-ai-agent-development", loc.id)}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      WhatsApp AI Agent in {loc.city}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 3: Global Markets (Dubai, USA, UK, Canada, Australia) */}
-              <div>
-                <span className="text-[11px] font-mono text-[#B8FF00] font-semibold uppercase tracking-wider block mb-2">
-                  🌍 Global Technology &amp; Healthcare Markets
-                </span>
-                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
-                  {globalLocations.map((loc) => (
-                    <Link
-                      key={loc.id}
-                      href={`/services/${buildSeoSlug("website-development-company", loc.id)}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      Web Developers in {loc.city}
-                    </Link>
-                  ))}
-                  {globalLocations.map((loc) => (
-                    <Link
-                      key={`clinic-${loc.id}`}
-                      href={`/services/${buildSeoSlug("clinic-website-and-appointment-system", loc.id)}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      Clinic AI Booking in {loc.city}
-                    </Link>
-                  ))}
-                  {globalLocations.slice(0, 6).map((loc) => (
-                    <Link
-                      key={`saas-${loc.id}`}
-                      href={`/services/${buildSeoSlug("saas-product-development-company", loc.id)}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      SaaS Development in {loc.city}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 4: High-Demand Core Specialized Services */}
-              <div>
-                <span className="text-[11px] font-mono text-[#B8FF00] font-semibold uppercase tracking-wider block mb-2">
-                  ⚡ Specialized Core Services
-                </span>
-                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
-                  {SEO_SERVICES.map((s) => (
-                    <Link
-                      key={s.id}
-                      href={`/services/${buildSeoSlug(s.id, "jaipur")}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      {s.name} (Jaipur)
-                    </Link>
-                  ))}
-                  {SEO_SERVICES.map((s) => (
-                    <Link
-                      key={`global-${s.id}`}
-                      href={`/services/${buildSeoSlug(s.id, "dubai")}`}
-                      className="text-[11px] text-zinc-500 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      {s.name} (Dubai)
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Category 5: 40 Free Viral AI & Developer Tools */}
-              <div>
-                <span className="text-[11px] font-mono text-[#B8FF00] font-semibold uppercase tracking-wider block mb-2">
-                  🛠️ 40 Free High-Traffic AI &amp; Developer Tools
-                </span>
-                <div className="flex flex-wrap gap-x-3 gap-y-1.5">
-                  <Link
-                    href="/tools"
-                    className="text-[11px] text-[#B8FF00] font-bold hover:underline transition-colors"
-                  >
-                    ⚡ All 40 Free Tools Hub →
-                  </Link>
-                  {FREE_AI_TOOLS.map((tool) => (
-                    <Link
-                      key={tool.id}
-                      href={`/tools/${tool.id}`}
-                      className="text-[11px] text-zinc-400 hover:text-[#B8FF00] hover:underline transition-colors"
-                    >
-                      {tool.shortName}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
           <p>© 2026 Codube. All rights reserved. Engineered by Abhishek Jain.</p>
           <div className="flex items-center gap-6">
-            <Link href="/tools" className="text-[#B8FF00] hover:underline transition-colors font-medium">
+            <Link href="/directory" className="text-[#B8FF00] hover:underline transition-colors font-medium">
+              Master Directory (1,840+ Index)
+            </Link>
+            <span>|</span>
+            <Link href="/tools" className="text-zinc-400 hover:text-[#B8FF00] transition-colors font-medium">
               40 Free AI Tools Hub
             </Link>
             <span>|</span>

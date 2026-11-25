@@ -120,12 +120,18 @@ export default function SeoServiceLocationPage({ params }: PageProps) {
           {
             "@type": "ListItem",
             "position": 2,
+            "name": "Master Directory",
+            "item": "https://codube.com/directory",
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
             "name": "Services",
             "item": "https://codube.com/services",
           },
           {
             "@type": "ListItem",
-            "position": 3,
+            "position": 4,
             "name": `${service.shortName} in ${location.city}`,
             "item": `https://codube.com/services/${data.slug}`,
           },
@@ -178,11 +184,11 @@ export default function SeoServiceLocationPage({ params }: PageProps) {
     ],
   };
 
-  // Nearby / Related services for internal SEO linking
-  const otherServicesInSameCity = SEO_SERVICES.filter((s) => s.id !== service.id).slice(0, 4);
-  const otherCitiesInSameRegion = SEO_LOCATIONS.filter(
+  // Nearby / Related services for internal SEO spiderweb linking (8 services + 10 nearby locations)
+  const relatedServicesInSameCity = SEO_SERVICES.filter((s) => s.id !== service.id).slice(0, 8);
+  const nearbyLocationsInSameRegion = SEO_LOCATIONS.filter(
     (l) => l.region === location.region && l.id !== location.id
-  ).slice(0, 5);
+  ).slice(0, 10);
 
   return (
     <>
@@ -203,6 +209,12 @@ export default function SeoServiceLocationPage({ params }: PageProps) {
               <li>
                 <Link href="/" className="hover:text-[#B8FF00] transition-colors">
                   Home
+                </Link>
+              </li>
+              <ChevronRight className="w-3 h-3 text-zinc-600" />
+              <li>
+                <Link href="/directory" className="hover:text-[#B8FF00] transition-colors">
+                  Directory
                 </Link>
               </li>
               <ChevronRight className="w-3 h-3 text-zinc-600" />
@@ -439,49 +451,77 @@ export default function SeoServiceLocationPage({ params }: PageProps) {
             </div>
           </section>
 
-          {/* SECTION: INTERNAL SEO MESH (RELATED SERVICES & CITIES) */}
-          <section className="py-14 text-left space-y-8">
-            <div className="space-y-2">
-              <span className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-widest">
-                EXPLORE MORE SERVICES IN {location.city.toUpperCase()}
-              </span>
-              <h2 className="text-xl sm:text-2xl font-black text-white">
-                Related Technology Solutions
-              </h2>
+          {/* SECTION: INTERNAL SEO SPIDERWEB MESH (RELATED SERVICES & NEARBY CITIES) */}
+          <section className="py-14 text-left space-y-8 border-b border-white/[0.08]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="space-y-1">
+                <span className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-widest">
+                  INTERNAL SPIDERWEB MESH • {location.city.toUpperCase()}
+                </span>
+                <h2 className="text-xl sm:text-2xl font-black text-white">
+                  Related Technology &amp; AI Solutions in {location.city}
+                </h2>
+              </div>
+              <Link
+                href="/directory"
+                className="text-xs font-mono text-[#B8FF00] hover:underline flex items-center gap-1 shrink-0"
+              >
+                <span>Master Directory Index</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
 
+            {/* 8 Related Services in Same City */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-              {otherServicesInSameCity.map((s) => (
+              {relatedServicesInSameCity.map((s) => (
                 <Link
                   key={s.id}
                   href={`/services/${buildSeoSlug(s.id, location.id)}`}
-                  className="p-4 rounded-xl bg-[#080D0A] border border-white/10 hover:border-[#B8FF00]/50 hover:bg-white/[0.02] transition-all group"
+                  className="p-4 rounded-xl bg-[#080D0A] border border-white/10 hover:border-[#B8FF00]/50 hover:bg-white/[0.02] transition-all group flex flex-col justify-between"
                 >
-                  <span className="text-xs font-mono text-zinc-500 block mb-1">
-                    {location.city}
+                  <span className="text-[10px] font-mono text-zinc-500 block mb-1">
+                    {location.city} • {s.category.toUpperCase()}
                   </span>
                   <h3 className="text-sm font-bold text-white group-hover:text-[#B8FF00] transition-colors leading-snug">
-                    {s.name}
+                    {s.name} in {location.city}
                   </h3>
+                  <div className="mt-2 text-[10px] font-mono text-zinc-400 group-hover:text-[#B8FF00]">
+                    View Details →
+                  </div>
                 </Link>
               ))}
             </div>
 
-            <div className="pt-4 space-y-2">
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest block">
-                {service.shortName} in Other Tech Hubs:
+            {/* 10 Nearby & Regional Locations for Same Service */}
+            <div className="pt-4 space-y-3">
+              <span className="text-xs font-mono font-bold text-zinc-300 uppercase tracking-widest block">
+                Nearby Cities &amp; Tech Hubs for {service.name}:
               </span>
               <div className="flex flex-wrap gap-2">
-                {otherCitiesInSameRegion.map((c) => (
+                {nearbyLocationsInSameRegion.map((c) => (
                   <Link
                     key={c.id}
                     href={`/services/${buildSeoSlug(service.id, c.id)}`}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#B8FF00] hover:text-black border border-white/10 text-xs text-zinc-300 transition-all font-medium"
+                    className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-[#B8FF00] hover:text-black border border-white/10 text-xs text-zinc-300 transition-all font-medium flex items-center gap-1.5"
                   >
-                    {service.shortName} in {c.city}
+                    <MapPin className="w-3 h-3 text-[#B8FF00] group-hover:text-black" />
+                    <span>{service.shortName} in {c.city}</span>
                   </Link>
                 ))}
               </div>
+            </div>
+
+            {/* Master Directory Anchor Hub */}
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between flex-wrap gap-2 text-xs">
+              <span className="text-zinc-400">
+                Looking for other global markets, medical hubs, or developer utilities?
+              </span>
+              <Link
+                href="/directory"
+                className="text-[#B8FF00] font-mono font-bold hover:underline"
+              >
+                Browse All 1,840+ Locations in Master Directory →
+              </Link>
             </div>
           </section>
 
