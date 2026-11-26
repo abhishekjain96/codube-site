@@ -38,6 +38,20 @@ export async function generateStaticParams() {
   const topLocations = ["jaipur", "delhi-ncr", "bangalore", "mumbai", "dubai", "new-york", "tonk-road-jaipur", "vaishali-nagar-jaipur"];
   
   const params: { slug: string }[] = [];
+
+  // Standalone core capability and alias slugs (zero 404s for footer and direct service links)
+  const standaloneSlugs = [
+    "web-development",
+    "business-automation",
+    "custom-software",
+    "saas-development",
+    "ai-development",
+    ...SEO_SERVICES.map((s) => s.id),
+  ];
+  for (const s of standaloneSlugs) {
+    params.push({ slug: s });
+  }
+
   for (const s of topServices) {
     for (const l of topLocations) {
       params.push({ slug: buildSeoSlug(s, l) });
@@ -198,7 +212,7 @@ export default function SeoServiceLocationPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchemas) }}
       />
 
-      <article className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 pt-28 pb-20">
+      <article className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 pt-28 pb-20 relative overflow-x-clip">
         {/* Ambient Glows */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(16,185,129,0.08),transparent_70%)] blur-2xl pointer-events-none" />
 

@@ -74,12 +74,12 @@ export default function DynamicProjectPage({ params }: ProjectDetailProps) {
     : ["High performance architecture", "Production grade delivery"];
 
   return (
-    <div className="pt-24 min-h-screen bg-[#030604]">
+    <div className="pt-24 min-h-screen bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 overflow-x-clip relative">
       {/* Top Breadcrumb & Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
         <Link
           href="/work"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-[#B8FF00] transition-colors py-2 group"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-emerald-600 transition-colors py-2 group"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>Back to All Work</span>
@@ -88,31 +88,31 @@ export default function DynamicProjectPage({ params }: ProjectDetailProps) {
 
       {/* Case Study Hero */}
       <section className="relative pb-16 overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[radial-gradient(circle,rgba(184,255,0,0.1)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[radial-gradient(circle,rgba(16,185,129,0.08)_0%,transparent_70%)] blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl space-y-6">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-xs font-mono font-bold tracking-wider text-[#B8FF00]">
+              <span className="text-xs font-mono font-bold tracking-wider text-emerald-700">
                 {badge}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/30 text-xs font-semibold text-[#B8FF00]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 {status}
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+            <h1 className="text-4xl sm:text-6xl font-black text-slate-950 tracking-tight leading-[1.1]">
               {title}
             </h1>
 
             {tagline && (
-              <p className="text-xl sm:text-2xl font-semibold text-zinc-200">
+              <p className="text-xl sm:text-2xl font-semibold text-slate-800">
                 {tagline}
               </p>
             )}
 
-            <p className="text-base sm:text-lg text-zinc-400 leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
               {description}
             </p>
 
@@ -123,7 +123,7 @@ export default function DynamicProjectPage({ params }: ProjectDetailProps) {
                   href={liveUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-bold bg-[#B8FF00] text-black hover:bg-[#ccff00] hover:shadow-[0_0_20px_rgba(184,255,0,0.4)] transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-bold bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition-all"
                 >
                   <span>Visit Live Platform</span>
                   <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -133,7 +133,7 @@ export default function DynamicProjectPage({ params }: ProjectDetailProps) {
           </div>
 
           {/* Featured Device Mockup */}
-          <div className="mt-12 rounded-3xl overflow-hidden border border-white/[0.08] bg-[#080D0A] p-3 sm:p-6 shadow-2xl relative">
+          <div className="mt-12 rounded-3xl overflow-hidden border border-slate-200 bg-white p-3 sm:p-6 shadow-xl relative">
             <Image
               src={image}
               alt={`${title} Interface`}
@@ -147,14 +147,14 @@ export default function DynamicProjectPage({ params }: ProjectDetailProps) {
           {/* Key Deliverables & Tags */}
           {tags.length > 0 && (
             <div className="mt-12">
-              <h3 className="text-sm font-mono uppercase tracking-widest text-zinc-400 mb-4">
+              <h3 className="text-sm font-mono uppercase tracking-widest text-slate-500 mb-4">
                 Architecture &amp; Modules
               </h3>
               <div className="flex flex-wrap gap-2.5">
                 {tags.map((tag: string, idx: number) => (
                   <span
                     key={idx}
-                    className="px-4 py-2 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs sm:text-sm font-medium text-zinc-300"
+                    className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs sm:text-sm font-medium text-slate-700 shadow-2xs"
                   >
                     {tag}
                   </span>
@@ -165,18 +165,18 @@ export default function DynamicProjectPage({ params }: ProjectDetailProps) {
 
           {/* Results Summary Bar */}
           {results.length > 0 && (
-            <div className="mt-12 rounded-2xl p-6 sm:p-8 bg-[#0B120D] border border-[#B8FF00]/20">
-              <h3 className="text-sm font-mono uppercase tracking-widest text-[#B8FF00] mb-6">
+            <div className="mt-12 rounded-2xl p-6 sm:p-8 bg-emerald-50/60 border border-emerald-200">
+              <h3 className="text-sm font-mono uppercase tracking-widest text-emerald-800 mb-6 font-bold">
                 Measurable Impact &amp; Production Results
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {results.map((res: string, idx: number) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]"
+                    className="flex items-center gap-3 p-4 rounded-xl bg-white border border-emerald-100 shadow-2xs"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-[#B8FF00] shrink-0" />
-                    <span className="text-sm font-semibold text-white">{res}</span>
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                    <span className="text-sm font-semibold text-slate-900">{res}</span>
                   </div>
                 ))}
               </div>

@@ -1616,6 +1616,26 @@ export const SEO_LOCATIONS: SeoLocation[] = [
   },
 ];
 
+export const SERVICE_ALIASES: Record<string, string> = {
+  "web-development": "website-development-company",
+  "business-automation": "whatsapp-ai-agent-development",
+  "custom-software": "custom-software-development-company",
+  "saas-development": "saas-product-development-company",
+  "ai-development": "ai-workflow-automation-services",
+};
+
+export const GLOBAL_DEFAULT_LOCATION: SeoLocation = {
+  id: "global",
+  city: "Global & India",
+  state: "Worldwide",
+  country: "Global",
+  region: "global",
+  currency: "USD",
+  localHubName: "Global Tech Hub (US, UAE, India)",
+  businessContext: "World-class engineering serving clients across the US, UK, UAE, Australia, and India.",
+  phoneCode: "+91",
+};
+
 export function buildSeoSlug(serviceId: string, locationId: string): string {
   return `${serviceId}-in-${locationId}`;
 }
@@ -1631,51 +1651,93 @@ export function getAllSeoSlugs(): string[] {
 }
 
 export function getSeoPageData(slug: string): GeneratedSeoPage | null {
-  const parts = slug.split("-in-");
-  if (parts.length !== 2) return null;
+  // 1. Check if slug is a location-specific SEO combination (e.g. website-development-company-in-jaipur)
+  if (slug.includes("-in-")) {
+    const parts = slug.split("-in-");
+    if (parts.length !== 2) return null;
 
-  const [serviceId, locationId] = parts;
-  const service = SEO_SERVICES.find((s) => s.id === serviceId);
-  const location = SEO_LOCATIONS.find((l) => l.id === locationId);
+    const [serviceId, locationId] = parts;
+    const service = SEO_SERVICES.find((s) => s.id === serviceId);
+    const location = SEO_LOCATIONS.find((l) => l.id === locationId);
 
-  if (!service || !location) return null;
+    if (!service || !location) return null;
 
-  const isIndia = location.country === "India";
-  const displayPrice = isIndia
-    ? service.startingPrice.includes("INR") || service.startingPrice.includes("₹")
-      ? service.startingPrice.replace("INR ", "₹")
-      : "₹19,999 One-Time"
+    const isIndia = location.country === "India";
+    const displayPrice = isIndia
+      ? service.startingPrice.includes("INR") || service.startingPrice.includes("₹")
+        ? service.startingPrice.replace("INR ", "₹")
+        : "₹19,999 One-Time"
+      : service.startingPrice.split("(")[0].trim();
+
+    const title = `${service.name} in ${location.city} | Best Rated Agency | Codube`;
+    const metaDescription = `Looking for the best ${service.name.toLowerCase()} in ${location.city}? Codube builds high-speed websites & 24/7 WhatsApp AI agents delivered in ${service.deliveryDays}. Starting at ${displayPrice}. 100% IP Ownership.`;
+    const h1 = `${service.name} in ${location.city}`;
+    const subheadline = `We help businesses in ${location.city} (${location.localHubName}) grow faster with high-converting digital products and 24/7 WhatsApp AI automation that books appointments while you sleep.`;
+
+    const localTrustNote = `Serving business leaders, clinics, and growth brands across ${location.city} with 100% source code ownership and guaranteed ${service.deliveryDays} delivery.`;
+
+    const targetKeywords = [
+      `${service.name.toLowerCase()} in ${location.city.toLowerCase()}`,
+      `best ${service.shortName.toLowerCase()} in ${location.city.toLowerCase()}`,
+      `${service.shortName.toLowerCase()} agency ${location.city.toLowerCase()}`,
+      `hire ${service.shortName.toLowerCase()} ${location.city.toLowerCase()}`,
+      `top software company in ${location.city.toLowerCase()}`,
+    ];
+
+    const localizedFaqs = [
+      {
+        question: `Why choose Codube as your ${service.shortName} partner in ${location.city}?`,
+        answer: `Codube is led directly by Abhishek Jain, a 1st Rank National Hackathon winner. Unlike generic agencies in ${location.city} that trap clients in slow 3-month retainers, we deliver turnkey, production-grade solutions in ${service.deliveryDays} with 100% full source code ownership.`,
+      },
+      {
+        question: `How much does ${service.shortName.toLowerCase()} cost for businesses in ${location.city}?`,
+        answer: `We operate on transparent, productized pricing starting at ${displayPrice} with zero hidden agency markups or mandatory monthly retainers.`,
+      },
+      {
+        question: `Do you provide support and maintenance after launching in ${location.city}?`,
+        answer: `Yes! Every build includes post-launch monitoring, staff handover training, and optional managed cloud/AI maintenance so your system runs flawlessly 24/7.`,
+      },
+      ...service.faqs.slice(0, 2),
+    ];
+
+    return {
+      slug,
+      title,
+      metaDescription,
+      service,
+      location,
+      h1,
+      subheadline,
+      localTrustNote,
+      targetKeywords,
+      faqs: localizedFaqs,
+    };
+  }
+
+  // 2. Standalone Service Slug (e.g. /services/web-development, /services/saas-development, or direct service ID)
+  const resolvedServiceId = SERVICE_ALIASES[slug] || slug;
+  const service = SEO_SERVICES.find((s) => s.id === resolvedServiceId);
+
+  if (!service) return null;
+
+  const location = GLOBAL_DEFAULT_LOCATION;
+  const displayPrice = service.startingPrice.includes("INR") || service.startingPrice.includes("₹")
+    ? service.startingPrice.replace("INR ", "₹")
     : service.startingPrice.split("(")[0].trim();
 
-  const title = `${service.name} in ${location.city} | Best Rated Agency | Codube`;
-  const metaDescription = `Looking for the best ${service.name.toLowerCase()} in ${location.city}? Codube builds high-speed websites & 24/7 WhatsApp AI agents delivered in ${service.deliveryDays}. Starting at ${displayPrice}. 100% IP Ownership.`;
-  const h1 = `${service.name} in ${location.city}`;
-  const subheadline = `We help businesses in ${location.city} (${location.localHubName}) grow faster with high-converting digital products and 24/7 WhatsApp AI automation that books appointments while you sleep.`;
-
-  const localTrustNote = `Serving business leaders, clinics, and growth brands across ${location.city} with 100% source code ownership and guaranteed ${service.deliveryDays} delivery.`;
+  const title = `${service.name} | Modern Software & AI Engineering Studio | Codube`;
+  const metaDescription = `${service.headline}. ${service.subheadline} Starting at ${displayPrice}. 100% Full Source Code & GitHub Ownership.`;
+  const h1 = service.name;
+  const subheadline = service.subheadline;
+  const localTrustNote = `Engineered for enterprise reliability, high-converting speed, and 100% full GitHub repository ownership.`;
 
   const targetKeywords = [
-    `${service.name.toLowerCase()} in ${location.city.toLowerCase()}`,
-    `best ${service.shortName.toLowerCase()} in ${location.city.toLowerCase()}`,
-    `${service.shortName.toLowerCase()} agency ${location.city.toLowerCase()}`,
-    `hire ${service.shortName.toLowerCase()} ${location.city.toLowerCase()}`,
-    `top software company in ${location.city.toLowerCase()}`,
-  ];
-
-  const localizedFaqs = [
-    {
-      question: `Why choose Codube as your ${service.shortName} partner in ${location.city}?`,
-      answer: `Codube is led directly by Abhishek Jain, a 1st Rank National Hackathon winner. Unlike generic agencies in ${location.city} that trap clients in slow 3-month retainers, we deliver turnkey, production-grade solutions in ${service.deliveryDays} with 100% full source code ownership.`,
-    },
-    {
-      question: `How much does ${service.shortName.toLowerCase()} cost for businesses in ${location.city}?`,
-      answer: `We operate on transparent, productized pricing starting at ${displayPrice} with zero hidden agency markups or mandatory monthly retainers.`,
-    },
-    {
-      question: `Do you provide support and maintenance after launching in ${location.city}?`,
-      answer: `Yes! Every build includes post-launch monitoring, staff handover training, and optional managed cloud/AI maintenance so your system runs flawlessly 24/7.`,
-    },
-    ...service.faqs.slice(0, 2),
+    service.name.toLowerCase(),
+    service.shortName.toLowerCase(),
+    `best ${service.shortName.toLowerCase()} company`,
+    `hire ${service.shortName.toLowerCase()}`,
+    "codube software studio",
+    "top software agency india usa",
   ];
 
   return {
@@ -1688,7 +1750,7 @@ export function getSeoPageData(slug: string): GeneratedSeoPage | null {
     subheadline,
     localTrustNote,
     targetKeywords,
-    faqs: localizedFaqs,
+    faqs: service.faqs,
   };
 }
 

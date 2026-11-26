@@ -12,7 +12,7 @@ interface SpotlightCardProps {
 export default function SpotlightCard({
   children,
   className = "",
-  glowColor = "rgba(187, 251, 38, 0.25)",
+  glowColor = "rgba(16, 185, 129, 0.08)",
   onClick,
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLDivElement>(null);
@@ -56,7 +56,7 @@ export default function SpotlightCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      className={`relative rounded-2xl border border-white/[0.08] bg-[#0c130e]/80 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:border-[#bbfb26]/40 hover:-translate-y-1 ${className}`}
+      className={`relative rounded-2xl border border-slate-200/90 bg-white shadow-sm overflow-hidden transition-all duration-300 hover:border-emerald-500/40 hover:-translate-y-1 ${className}`}
     >
       {/* Dynamic Cursor Spotlight Layer */}
       <div
