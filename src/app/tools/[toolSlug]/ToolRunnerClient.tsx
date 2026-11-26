@@ -20,9 +20,6 @@ import {
   RefreshCw,
   FileText,
   Code2,
-  SlidersHorizontal,
-  ChevronDown,
-  ChevronUp,
 } from "lucide-react";
 
 interface Props {
@@ -35,54 +32,6 @@ interface StepLog {
   detail: string;
   completed: boolean;
 }
-
-// 1-Click Smart Preset Data for instant testing
-const QUICK_PRESETS = [
-  {
-    label: "🏥 Healthcare / Clinic",
-    brandName: "Dr. Joy Dental Clinic",
-    websiteUrl: "https://drjoydental.com",
-    industry: "Healthcare & Clinics",
-    location: "Dubai & Abu Dhabi",
-    services: "Dental Implants, Invisalign, Teeth Whitening",
-    businessType: "Dental Clinic",
-    targetAudience: "Patients seeking dental implants & cosmetic smile correction",
-    offer: "Free Initial Consultation & 3D Scan",
-  },
-  {
-    label: "🏢 Real Estate",
-    brandName: "Apex Luxury Properties",
-    websiteUrl: "https://apexproperties.com",
-    industry: "Real Estate & Housing",
-    location: "Dubai Marina & Downtown",
-    services: "Luxury Waterfront Villas, Penthouses, Golden Visa Advisory",
-    businessType: "Real Estate Brokerage",
-    targetAudience: "HNW Investors & International Buyers",
-    offer: "VIP Off-Plan Catalog & Free ROI Guide",
-  },
-  {
-    label: "💻 Software & SaaS",
-    brandName: "CloudScale Analytics",
-    websiteUrl: "https://cloudscale.io",
-    industry: "Software & SaaS",
-    location: "Global & India",
-    services: "Automated Data Pipeline, Real-Time Dashboards, API Integration",
-    businessType: "B2B SaaS Studio",
-    targetAudience: "CTOs & Engineering Teams",
-    offer: "14-Day Free Unlimited Trial & Architecture Review",
-  },
-  {
-    label: "🛍️ E-Commerce & Retail",
-    brandName: "Aura Essentials",
-    websiteUrl: "https://auraessentials.store",
-    industry: "E-Commerce & Retail",
-    location: "Worldwide / India",
-    services: "Organic Skincare, Clean Beauty, Vegan Personal Care",
-    businessType: "D2C Brand",
-    targetAudience: "Eco-Conscious Skincare Buyers",
-    offer: "Flat 20% Off First Order + Free Shipping",
-  },
-];
 
 // Strips out markdown syntax (asterisks, hashes, backticks) so copied text is pristine plain text
 function stripMarkdownNoise(text: string): string {
@@ -117,12 +66,15 @@ export default function ToolRunnerClient({ tool }: Props) {
   const [formState, setFormState] = useState<Record<string, any>>(() => {
     const init: Record<string, any> = {};
     tool.fields.forEach((f) => {
-      init[f.id] = f.defaultValue !== undefined ? f.defaultValue : "";
+      if (f.type === "select") {
+        init[f.id] = f.defaultValue || f.options?.[0] || "";
+      } else {
+        init[f.id] = "";
+      }
     });
     return init;
   });
 
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [progressPercent, setProgressPercent] = useState(0);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -149,18 +101,6 @@ export default function ToolRunnerClient({ tool }: Props) {
 
   const handleChange = (id: string, value: any) => {
     setFormState((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const applyPreset = (preset: typeof QUICK_PRESETS[0]) => {
-    setFormState((prev) => {
-      const updated = { ...prev };
-      Object.keys(preset).forEach((key) => {
-        if (key !== "label" && (key in updated || tool.fields.some((f) => f.id === key))) {
-          updated[key] = (preset as any)[key];
-        }
-      });
-      return updated;
-    });
   };
 
   const handleRun = (e?: React.FormEvent) => {
@@ -274,37 +214,8 @@ export default function ToolRunnerClient({ tool }: Props) {
     tool.whatsappHook
   )}`;
 
-  // Streamlining: Split fields into primary (first 2) and advanced (remaining)
-  const primaryFields = tool.fields.slice(0, 2);
-  const advancedFields = tool.fields.slice(2);
-
   return (
     <div className="space-y-8 max-w-full overflow-hidden">
-      {/* 1-CLICK QUICK PRESETS BAR */}
-      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.02)] space-y-2.5">
-        <div className="flex items-center justify-between">
-          <span className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>1-Click Quick Presets (Instant Auto-Fill):</span>
-          </span>
-          <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60 font-semibold hidden sm:inline">
-            Zero Effort
-          </span>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {QUICK_PRESETS.map((p) => (
-            <button
-              key={p.label}
-              type="button"
-              onClick={() => applyPreset(p)}
-              className="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-xs font-semibold text-slate-700 hover:text-emerald-800 transition-all cursor-pointer active:scale-95 shadow-2xs"
-            >
-              {p.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* STREAMLINED INTERACTIVE FORM CARD (WHITE THEME) */}
       <div className="rounded-3xl p-6 sm:p-8 bg-white border border-slate-200/90 shadow-[0_10px_35px_rgba(15,23,42,0.03)] relative overflow-hidden text-left">
         {/* Header Strip */}
@@ -317,7 +228,7 @@ export default function ToolRunnerClient({ tool }: Props) {
               </span>
             </h2>
             <p className="text-xs text-slate-500">
-              Enter your core business info below to generate your verified result in seconds.
+              Enter your genuine business details below to generate an accurate, verified result.
             </p>
           </div>
 
@@ -328,12 +239,13 @@ export default function ToolRunnerClient({ tool }: Props) {
         </div>
 
         <form onSubmit={handleRun} className="space-y-6">
-          {/* Primary Fields (Clean & Prominent) */}
+          {/* All Fields Clean Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {primaryFields.map((f) => {
+            {tool.fields.map((f) => {
+              const ph = f.placeholder || (f.defaultValue ? `e.g. ${f.defaultValue}` : undefined);
               if (f.type === "select") {
                 return (
-                  <div key={f.id}>
+                  <div key={f.id} className={tool.fields.length === 1 ? "sm:col-span-2" : ""}>
                     <label className="block text-xs font-bold text-slate-800 uppercase tracking-wide mb-2 font-mono">
                       {f.label} {f.required && <span className="text-emerald-600">*</span>}
                     </label>
@@ -362,7 +274,7 @@ export default function ToolRunnerClient({ tool }: Props) {
                       rows={3}
                       value={formState[f.id] ?? ""}
                       onChange={(e) => handleChange(f.id, e.target.value)}
-                      placeholder={f.placeholder}
+                      placeholder={ph}
                       className="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors shadow-2xs"
                     />
                   </div>
@@ -370,7 +282,7 @@ export default function ToolRunnerClient({ tool }: Props) {
               }
 
               return (
-                <div key={f.id}>
+                <div key={f.id} className={tool.fields.length === 1 ? "sm:col-span-2" : ""}>
                   <label className="block text-xs font-bold text-slate-800 uppercase tracking-wide mb-2 font-mono">
                     {f.label} {f.required && <span className="text-emerald-600">*</span>}
                   </label>
@@ -378,7 +290,7 @@ export default function ToolRunnerClient({ tool }: Props) {
                     type={f.type === "number" ? "number" : "text"}
                     value={formState[f.id] ?? ""}
                     onChange={(e) => handleChange(f.id, e.target.value)}
-                    placeholder={f.placeholder}
+                    placeholder={ph}
                     required={f.required}
                     className="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors shadow-2xs"
                   />
@@ -386,88 +298,6 @@ export default function ToolRunnerClient({ tool }: Props) {
               );
             })}
           </div>
-
-          {/* Optional Advanced Fields Collapsible (Prevents Input Fatigue) */}
-          {advancedFields.length > 0 && (
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-700 hover:text-emerald-800 py-1.5 px-3 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 transition-colors cursor-pointer select-none"
-              >
-                <SlidersHorizontal className="w-3.5 h-3.5" />
-                <span>
-                  {showAdvanced
-                    ? "Hide Additional Parameters"
-                    : `+ Customize Additional Details (${advancedFields.length} Optional Fields)`}
-                </span>
-                {showAdvanced ? (
-                  <ChevronUp className="w-3.5 h-3.5" />
-                ) : (
-                  <ChevronDown className="w-3.5 h-3.5" />
-                )}
-              </button>
-
-              {showAdvanced && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4 p-5 rounded-2xl bg-slate-50/80 border border-slate-200/80 animate-in fade-in duration-200">
-                  {advancedFields.map((f) => {
-                    if (f.type === "select") {
-                      return (
-                        <div key={f.id}>
-                          <label className="block text-xs font-mono text-slate-700 font-bold uppercase tracking-wider mb-2">
-                            {f.label}
-                          </label>
-                          <select
-                            value={formState[f.id] ?? ""}
-                            onChange={(e) => handleChange(f.id, e.target.value)}
-                            className="w-full bg-white border border-slate-200 focus:border-emerald-500 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none transition-colors cursor-pointer"
-                          >
-                            {f.options?.map((opt) => (
-                              <option key={opt} value={opt}>
-                                {opt}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      );
-                    }
-
-                    if (f.type === "textarea") {
-                      return (
-                        <div key={f.id} className="sm:col-span-2">
-                          <label className="block text-xs font-mono text-slate-700 font-bold uppercase tracking-wider mb-2">
-                            {f.label}
-                          </label>
-                          <textarea
-                            rows={3}
-                            value={formState[f.id] ?? ""}
-                            onChange={(e) => handleChange(f.id, e.target.value)}
-                            placeholder={f.placeholder}
-                            className="w-full bg-white border border-slate-200 focus:border-emerald-500 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors"
-                          />
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <div key={f.id}>
-                        <label className="block text-xs font-mono text-slate-700 font-bold uppercase tracking-wider mb-2">
-                          {f.label}
-                        </label>
-                        <input
-                          type={f.type === "number" ? "number" : "text"}
-                          value={formState[f.id] ?? ""}
-                          onChange={(e) => handleChange(f.id, e.target.value)}
-                          placeholder={f.placeholder}
-                          className="w-full bg-white border border-slate-200 focus:border-emerald-500 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors"
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          )}
 
           {/* Action Row */}
           <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border-t border-slate-100">

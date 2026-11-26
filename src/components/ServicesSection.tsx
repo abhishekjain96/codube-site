@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Monitor,
@@ -14,6 +13,12 @@ import {
   ArrowUpRight,
   CheckCircle2,
 } from "lucide-react";
+import WebPlatformGraphic from "./services/WebPlatformGraphic";
+import WhatsAppAIGraphic from "./services/WhatsAppAIGraphic";
+import ClinicSuiteGraphic from "./services/ClinicSuiteGraphic";
+import ErpCrmGraphic from "./services/ErpCrmGraphic";
+import SaasOrchestratorGraphic from "./services/SaasOrchestratorGraphic";
+import EnterpriseRagGraphic from "./services/EnterpriseRagGraphic";
 
 interface ServicesSectionProps {
   content?: any;
@@ -31,7 +36,7 @@ export default function ServicesSection({
       icon: Monitor,
       category: "NEXT.JS 14 & TYPESCRIPT",
       tagline: "Sub-second, mobile-first websites designed to turn high-intent visitors into booked clients.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      Graphic: WebPlatformGraphic,
       features: [
         "0.2s LCP Sub-Second Core Web Vitals",
         "Conversion Funnels & Sticky WhatsApp CTAs",
@@ -46,7 +51,7 @@ export default function ServicesSection({
       icon: MessageCircle,
       category: "META CLOUD API AUTOMATION",
       tagline: "Automated booking and inquiry bots that reply in 2 seconds and sync leads directly to CRM.",
-      image: "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=800&q=80",
+      Graphic: WhatsAppAIGraphic,
       features: [
         "Official Meta WhatsApp Cloud API Setup",
         "Natural Language Slot Booking in 30 Seconds",
@@ -61,7 +66,7 @@ export default function ServicesSection({
       icon: Activity,
       category: "MISSION-CRITICAL HEALTHCARE",
       tagline: "Specialized platforms for dental, diagnostic centers, and hospital chains like ScanTaker.",
-      image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+      Graphic: ClinicSuiteGraphic,
       features: [
         "Online Token Generation & Doctor Scheduling",
         "WhatsApp Diagnostic Report Delivery",
@@ -76,7 +81,7 @@ export default function ServicesSection({
       icon: Layers,
       category: "ENTERPRISE WORKFLOWS",
       tagline: "Tailor-made internal business operating systems that eliminate manual spreadsheets.",
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80",
+      Graphic: ErpCrmGraphic,
       features: [
         "Encrypted Cloud Security (AES-256)",
         "Automated Invoicing & Stripe / UPI Gateways",
@@ -91,7 +96,7 @@ export default function ServicesSection({
       icon: Cloud,
       category: "SCALABLE CLOUD ARCHITECTURE",
       tagline: "Product-ready SaaS platforms built to handle millions of requests with edge deployment.",
-      image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80",
+      Graphic: SaasOrchestratorGraphic,
       features: [
         "Isolated Tenant Security & Cloud Storage",
         "Stripe Recurring Subscriptions & Metering",
@@ -106,7 +111,7 @@ export default function ServicesSection({
       icon: Sparkles,
       category: "GEMINI & LLM PIPELINES",
       tagline: "Domain-specific AI copilots and document OCR extraction pipelines on your proprietary data.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+      Graphic: EnterpriseRagGraphic,
       features: [
         "Custom Vector Knowledge Embeddings",
         "Automated Document OCR & Entity Extraction",
@@ -154,33 +159,27 @@ export default function ServicesSection({
           </Link>
         </div>
 
-        {/* CLEAN 6-CARD SERVICES GRID WITH UNSPLASH IMAGES */}
+        {/* CLEAN 6-CARD SERVICES GRID WITH DEDICATED VECTOR GRAPHICS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesList.map((srv) => {
             const Icon = srv.icon;
+            const GraphicComponent = srv.Graphic;
             return (
               <div
                 key={srv.id}
                 className="group rounded-3xl bg-white border border-slate-200/90 hover:border-emerald-500/50 transition-all duration-300 overflow-hidden shadow-[0_4px_25px_rgba(15,23,42,0.04)] hover:shadow-[0_16px_40px_rgba(15,23,42,0.08)] hover:-translate-y-1 flex flex-col justify-between text-left"
               >
                 <div>
-                  {/* Service Card Image Header */}
-                  <div className="relative w-full h-48 bg-slate-100 overflow-hidden">
-                    <Image
-                      src={srv.image}
-                      alt={srv.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+                  {/* Service Card Vector Graphic Header */}
+                  <div className="relative w-full h-52 bg-slate-50 border-b border-slate-100 overflow-hidden">
+                    <GraphicComponent />
 
-                    <div className="absolute top-3 right-3 w-10 h-10 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 flex items-center justify-center text-slate-900 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                      <Icon className="w-5 h-5" />
+                    <div className="absolute top-2.5 right-2.5 w-8 h-8 rounded-lg bg-white/90 backdrop-blur-md border border-slate-200/80 flex items-center justify-center text-slate-800 shadow-2xs group-hover:bg-emerald-600 group-hover:text-white transition-colors z-20">
+                      <Icon className="w-4 h-4" />
                     </div>
 
-                    <div className="absolute bottom-3 left-4">
-                      <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-300 uppercase px-2 py-0.5 rounded bg-slate-950/80 backdrop-blur-xs">
+                    <div className="absolute bottom-2.5 left-3 z-20">
+                      <span className="text-[9px] font-mono font-bold tracking-wider text-emerald-800 uppercase px-2 py-0.5 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200/80 shadow-2xs">
                         {srv.category}
                       </span>
                     </div>

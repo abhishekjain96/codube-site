@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import HeroLiveGraphic from "./HeroLiveGraphic";
 import {
   ArrowUpRight,
   Bot,
@@ -109,21 +110,23 @@ export default function HeroSection({ content }: HeroSectionProps) {
       {/* 2. FOREGROUND CONTENT */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-8"
+        className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-8 max-w-full overflow-hidden"
       >
         {/* Target Audience Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200/90 backdrop-blur-xl shadow-sm select-none max-w-full"
-        >
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10B981] shrink-0" />
-          <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-800 tracking-[0.14em] uppercase truncate">
-            FOR CLINICS, REAL ESTATE &amp; MODERN ENTERPRISES
-          </span>
-          <Sparkles className="w-3.5 h-3.5 text-emerald-600 hidden sm:inline shrink-0" />
-        </motion.div>
+        <div className="flex justify-center w-full px-2">
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-white/95 border border-slate-200 shadow-xs select-none max-w-full"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <span className="text-[10px] sm:text-xs font-mono font-bold text-slate-800 tracking-wider uppercase truncate">
+              FOR CLINICS, REAL ESTATE &amp; MODERN ENTERPRISES
+            </span>
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600 hidden sm:inline shrink-0" />
+          </motion.div>
+        </div>
 
         {/* Outcome-Driven H1 Headline with Smooth Typewriter Effect */}
         <motion.div
@@ -132,13 +135,13 @@ export default function HeroSection({ content }: HeroSectionProps) {
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-3"
         >
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight text-slate-950 leading-[1.2] sm:leading-[1.14]">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight text-slate-950 leading-[1.25] sm:leading-[1.14] break-words">
             <span className="block text-slate-900">Turn Visitors Into Paying Customers with</span>
-            <span className="relative inline-flex items-center justify-center mt-1.5 min-h-[58px] sm:min-h-[78px] md:min-h-[88px] text-center">
-              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 bg-clip-text text-transparent">
+            <span className="relative inline-flex items-center justify-center mt-1.5 min-h-[52px] sm:min-h-[78px] md:min-h-[88px] text-center max-w-full px-1">
+              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 bg-clip-text text-transparent break-words text-center">
                 {typedHeadline}
               </span>
-              <span className="inline-block w-[3px] h-[0.9em] bg-emerald-500 ml-1.5 animate-pulse align-middle" />
+              <span className="inline-block w-[2.5px] sm:w-[3px] h-[0.85em] bg-emerald-500 ml-1 animate-pulse align-middle shrink-0" />
             </span>
           </h1>
         </motion.div>
@@ -218,57 +221,14 @@ export default function HeroSection({ content }: HeroSectionProps) {
           </div>
         </motion.div>
 
-        {/* 3. MODERN FLOATING APP PREVIEW MOCKUP WITH UNSPLASH IMAGE */}
+        {/* 3. MODERN ANIMATED HERO LIVE OPERATIONS & WHATSAPP AI GRAPHIC */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="pt-6 sm:pt-8 max-w-4xl mx-auto w-full relative"
+          className="pt-6 sm:pt-8 max-w-5xl mx-auto w-full relative"
         >
-          {/* Outer Browser Window Frame */}
-          <div className="relative rounded-2xl bg-white border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.08)] overflow-hidden">
-            {/* macOS Browser Header */}
-            <div className="bg-slate-50/90 px-4 py-3 border-b border-slate-200 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-rose-400" />
-                <div className="w-3 h-3 rounded-full bg-amber-400" />
-                <div className="w-3 h-3 rounded-full bg-emerald-400" />
-              </div>
-              <div className="hidden sm:flex items-center gap-2 px-4 py-1 rounded-md bg-white border border-slate-200 text-xs font-mono text-slate-500">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>codube.com/live-production-platform</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Active 99.9%</span>
-              </div>
-            </div>
-
-            {/* Dashboard Screenshot Graphic */}
-            <div className="relative w-full h-[220px] sm:h-[340px] md:h-[420px] bg-slate-100 overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
-                alt="Codube High-Performance Platform Analytics & Real-Time AI Automation Dashboard"
-                fill
-                priority
-                className="object-cover object-top"
-                sizes="(max-width: 768px) 100vw, 1000px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent" />
-
-              {/* Floating Feature Badges over Screenshot */}
-              <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex flex-wrap gap-2 sm:gap-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 text-xs sm:text-sm font-bold text-slate-900 shadow-md">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Sub-Second 0.2s LCP Edge Speed</span>
-                </div>
-                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 text-xs sm:text-sm font-bold text-slate-900 shadow-md">
-                  <Bot className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Auto-Sync to Google Sheets &amp; CRM</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <HeroLiveGraphic />
         </motion.div>
 
         {/* Scroll Indicator */}

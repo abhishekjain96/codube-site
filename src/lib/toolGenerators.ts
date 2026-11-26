@@ -9,30 +9,38 @@ export function executeTool(toolId: string, values: Record<string, any>): {
   switch (toolId) {
     // 1. AI GEO Generator
     case "ai-geo-generator": {
-      const brand = values.brandName || "Dr. Joy Dental Clinic";
-      const domain = values.websiteUrl || "https://drjoydental.com";
-      const industry = values.industry || "Healthcare & Clinics";
-      const services = values.services || "Dental Implants, Invisalign, Emergency Dentistry";
-      const loc = values.location || "Dubai & Abu Dhabi";
+      const brand = (values.brandName || "").trim() || "Your Business";
+      const rawDomain = (values.websiteUrl || "").trim();
+      const domain = rawDomain ? (rawDomain.startsWith("http") ? rawDomain : `https://${rawDomain}`) : "https://yourwebsite.com";
+      const industry = values.industry || "General Industry";
+      const services = (values.services || "").trim();
+      const loc = (values.location || "").trim();
 
-      let score = 72;
-      if (domain.startsWith("https://")) score += 8;
-      if (services.length > 30) score += 10;
-      if (loc.length > 5) score += 5;
+      let score = 42;
+      const isHttps = domain.toLowerCase().startsWith("https://");
+      const hasValidTLD = /\.[a-z]{2,}/i.test(domain);
+
+      if (isHttps) score += 12;
+      if (hasValidTLD) score += 10;
+      if (services.length > 50) score += 16;
+      else if (services.length > 20) score += 8;
+      if (loc.length > 3) score += 10;
+
+      score = Math.max(30, Math.min(95, score));
 
       const breakdown = [
-        { label: "Crawlable Plain-Text Services & Pricing", passed: true, tip: "Services explicitly listed in raw HTML for LLM parsing." },
-        { label: "Standardized /llms.txt Context Endpoint", passed: false, tip: "Missing /llms.txt file on root domain. AI crawlers must parse heavy JS." },
-        { label: "Schema.org Physician / LocalBusiness JSON-LD", passed: domain.includes("."), tip: "Ensure geo coordinates and telephone are declared in JSON-LD." },
-        { label: "Instant 24/7 Conversational Lead Capture", passed: false, tip: "No instant WhatsApp AI agent detected; visitors encounter static forms." },
+        { label: "Crawlable Plain-Text Services & Offerings", passed: services.length > 25, tip: services.length > 25 ? "Services explicitly declared for LLM ingestion." : "Describe at least 3 specific services to allow AI engines to map your capabilities." },
+        { label: "Canonical HTTPS Domain Architecture", passed: isHttps && hasValidTLD, tip: isHttps ? "Valid SSL and domain format verified." : "Ensure your URL begins with https:// for AI crawler indexing." },
+        { label: "Local Geotargeting & Address Footprint", passed: loc.length > 3, tip: loc.length > 3 ? `Target region registered: ${loc}.` : "Specify your primary cities/regions for Local GEO visibility." },
+        { label: "Standardized /llms.txt Context Endpoint", passed: false, tip: "Missing /llms.txt on root domain. AI scrapers must parse raw HTML." },
       ];
 
       const report = `# Generative Engine Optimization (GEO) Audit Report
 **Brand**: ${brand}
 **Domain**: ${domain}
 **Industry**: ${industry}
-**Target Region**: ${loc}
-**Overall AI Search Visibility Score**: ${score} / 100 (${score >= 80 ? "STRONG" : "NEEDS OPTIMIZATION"})
+**Target Region**: ${loc || "Not specified"}
+**AI Search Visibility Score**: ${score} / 100 (${score >= 80 ? "STRONG" : score >= 60 ? "MODERATE (OPTIMIZATION RECOMMENDED)" : "LOW VISIBILITY"})
 
 ---
 
@@ -44,15 +52,15 @@ export function executeTool(toolId: string, values: Record<string, any>): {
 
 ### Recommended /llms.txt Snippet:
 # ${brand}
-> ${industry} leader serving ${loc}.
-- **Core Offerings**: ${services}
+> ${industry} leader serving ${loc || "Primary Markets"}.
+- **Core Offerings**: ${services || "Full-suite software and automation services"}
 - **Website**: ${domain}
 - **Direct WhatsApp Inquiries**: https://wa.me/919672660338`;
 
       return {
         result: report,
         score,
-        scoreRating: score >= 85 ? "EXCELLENT" : score >= 70 ? "MODERATE (ACTION REQUIRED)" : "LOW VISIBILITY",
+        scoreRating: score >= 80 ? "STRONG" : score >= 60 ? "MODERATE (ACTION REQUIRED)" : "LOW VISIBILITY",
         scoreBreakdown: breakdown,
       };
     }
@@ -101,32 +109,43 @@ ${productsList}
 
     // 3. ChatGPT Search Readiness Checker
     case "chatgpt-search-readiness-checker": {
-      const url = values.url || "https://example.com";
+      const rawUrl = (values.url || "").trim();
+      const url = rawUrl ? (rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`) : "https://yourwebsite.com";
       const fw = values.framework || "Next.js / SSR React";
-      const schema = values.hasSchema || "Yes, fully implemented";
+      const schema = values.hasSchema || "No / Not sure";
       const robots = values.robotsAccess || "Default / Not mentioned";
 
-      let score = 50;
-      if (fw.includes("Next.js")) score += 30;
-      else if (fw.includes("WordPress")) score -= 10;
-      if (schema.includes("Yes")) score += 15;
-      if (robots.includes("Allow Both")) score += 10;
+      let score = 38;
+      const isNext = fw.includes("Next.js") || fw.includes("Astro") || fw.includes("Remix");
+      const isWp = fw.includes("WordPress") || fw.includes("PHP");
+      const hasSchema = schema.includes("Yes");
+      const allowsBot = !robots.includes("Blocked");
+
+      if (isNext) score += 28;
+      else if (isWp) score += 8;
+      else score += 14;
+
+      if (hasSchema) score += 18;
+      if (allowsBot) score += 12;
+      if (url.startsWith("https://")) score += 6;
+
+      score = Math.max(32, Math.min(94, score));
 
       const breakdown = [
-        { label: "Server-Side Rendered HTML (Fast SSR)", passed: fw.includes("Next.js"), tip: fw.includes("Next.js") ? "Clean static HTML available instantly." : "Client-rendered or heavy PHP themes risk crawler timeouts." },
-        { label: "Schema.org Knowledge Graph", passed: schema.includes("Yes"), tip: "Feeds entity relationships to OpenAI search algorithms." },
-        { label: "OAI-SearchBot Allowed in robots.txt", passed: !robots.includes("Blocked"), tip: "Ensure robots.txt does not block OpenAI user-agents." },
-        { label: "Sub-Second First Load (<1.2s)", passed: fw.includes("Next.js"), tip: "Fast page speed is a primary ranking filter for SearchGPT." },
+        { label: "Server-Side Rendered HTML (Fast SSR)", passed: isNext, tip: isNext ? "Clean static HTML available instantly." : "Client-rendered or heavy PHP themes risk crawler timeouts." },
+        { label: "Schema.org Knowledge Graph", passed: hasSchema, tip: hasSchema ? "Feeds structured entity relationships to OpenAI search algorithms." : "Missing JSON-LD entity schema. SearchGPT requires structured data." },
+        { label: "OAI-SearchBot Allowed in robots.txt", passed: allowsBot, tip: allowsBot ? "Robots.txt does not block OpenAI user-agents." : "OAI-SearchBot is blocked or restricted in your robots file." },
+        { label: "Sub-Second First Load (<1.2s)", passed: isNext, tip: isNext ? "Sub-second server response benchmark met." : "Fast page speed (<1.2s) is a primary ranking filter for SearchGPT." },
       ];
 
       const report = `# ChatGPT Search Readiness Diagnostic
 **Target URL**: ${url}
 **Architecture**: ${fw}
-**Readiness Index**: ${score} / 100 (${score >= 80 ? "READY FOR SEARCHGPT" : "HIGH RISK OF CRAWLER TIMEOUT"})
+**Readiness Index**: ${score} / 100 (${score >= 80 ? "READY FOR SEARCHGPT" : score >= 60 ? "MODERATE READINESS" : "HIGH RISK OF CRAWLER TIMEOUT"})
 
 ### Executive Summary:
 OpenAI's SearchGPT prioritizes websites with sub-second response times, zero blocking CAPTCHAs, and clear entity Schema.
-${fw.includes("Next.js") ? "✅ Your Next.js architecture delivers clean server-rendered HTML that OAI-SearchBot can parse effortlessly." : "⚠️ Your platform requires heavy client-side JavaScript execution or slow database lookups, which frequently causes SearchGPT crawlers to select faster competitor pages."}
+${isNext ? "✅ Your Next.js architecture delivers clean server-rendered HTML that OAI-SearchBot can parse effortlessly." : "⚠️ Your platform requires client-side JavaScript execution or slow database lookups, which frequently causes SearchGPT crawlers to select faster competitor pages."}
 
 ### Action Items for #1 Ranking in ChatGPT Search:
 1. Ensure your robots.txt explicitly permits \`User-agent: OAI-SearchBot\` and \`User-agent: ChatGPT-User\`.
@@ -136,46 +155,109 @@ ${fw.includes("Next.js") ? "✅ Your Next.js architecture delivers clean server-
       return {
         result: report,
         score,
-        scoreRating: score >= 80 ? "HIGH READINESS" : "MODERATE RISK",
+        scoreRating: score >= 80 ? "HIGH READINESS" : score >= 60 ? "MODERATE READINESS" : "HIGH RISK",
         scoreBreakdown: breakdown,
       };
     }
 
     // 4. Perplexity AI Citation Auditor
     case "perplexity-citation-audit": {
-      const brand = values.brandName || "MedLearnings";
-      const url = values.websiteUrl || "https://medlearnings.org";
-      const type = values.contentType || "Clinical / Healthcare Case Studies";
-      const hasCitations = values.hasCitations || "Yes, primary verified sources";
+      const brand = (values.brandName || "").trim() || "Your Brand / Platform";
+      const rawUrl = (values.websiteUrl || "").trim();
+      const url = rawUrl ? (rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`) : "https://yourwebsite.com";
+      const type = values.contentType || "General Business & Services";
+      const citations = values.hasCitations || "No verifiable citations yet";
 
-      let score = 65;
-      if (hasCitations.includes("Yes")) score += 25;
-      if (type.includes("Clinical") || type.includes("SaaS")) score += 10;
+      let score = 38;
+      const isHttps = url.toLowerCase().startsWith("https://");
+      const hasValidTLD = /\.[a-z]{2,}/i.test(url);
+      const isDeepPath = url.replace(/^https?:\/\//i, "").includes("/");
+
+      if (isHttps) score += 14;
+      else score += 4;
+
+      if (hasValidTLD) score += 12;
+
+      if (isDeepPath) score += 8;
+
+      let citationPassed = false;
+      const citLower = citations.toLowerCase();
+      if (citLower.includes("yes") || citLower.includes("primary") || citLower.includes("academic") || citLower.includes("verified")) {
+        score += 22;
+        citationPassed = true;
+      } else if (citLower.includes("some") || citLower.includes("secondary") || citLower.includes("case study")) {
+        score += 12;
+        citationPassed = true;
+      } else {
+        score -= 6;
+      }
+
+      const typeLower = type.toLowerCase();
+      if (typeLower.includes("clinical") || typeLower.includes("healthcare") || typeLower.includes("saas") || typeLower.includes("research") || typeLower.includes("technical")) {
+        score += 10;
+      } else {
+        score += 4;
+      }
+
+      // Bound score between 28 and 94
+      score = Math.max(28, Math.min(94, score));
 
       const breakdown = [
-        { label: "Verifiable Primary Source Citations", passed: hasCitations.includes("Yes"), tip: "Include DOI, clinical studies, or verified benchmark metrics." },
-        { label: "Information-Dense Hierarchy (H1 -> H2 -> Tables)", passed: true, tip: "Structured bullet points and tables are cited 4.8x more often." },
-        { label: "Fast DNS & SSL Certificate Validity", passed: true, tip: "Perplexity drops domains with SSL negotiation delays." },
+        { 
+          label: "Primary Verifiable Sources & Citations", 
+          passed: citationPassed, 
+          tip: citationPassed 
+            ? "Strong citation foundation. Primary sources and metrics enable Perplexity to quote your content directly." 
+            : "Missing primary sources. Add clinical references, benchmark data, or DOI links under each key claim." 
+        },
+        { 
+          label: "SSL / HTTPS Domain Security", 
+          passed: isHttps, 
+          tip: isHttps ? "Valid SSL negotiated. Perplexity crawler will not reject connection." : "Insecure HTTP connection detected. Perplexity drops non-SSL links." 
+        },
+        { 
+          label: "Hierarchical Answer Architecture", 
+          passed: isDeepPath, 
+          tip: isDeepPath ? "Deep content path detected. Information-rich pages yield 4.8x higher citation odds." : "Only root domain provided. Perplexity prefers deep canonical URLs (/services or /insights) with clear H2/H3 answers." 
+        },
+        { 
+          label: "Structured Entity Graph (Organization Schema)", 
+          passed: hasValidTLD, 
+          tip: hasValidTLD ? "Canonical domain registered. Verify with Organization JSON-LD." : "Enter a valid website URL with domain extension (e.g., yoursite.com)." 
+        },
       ];
 
-      const result = `# Perplexity AI Citation Audit
-**Entity Analyzed**: ${brand} (${url})
-**Content Classification**: ${type}
-**Authority & Citation Score**: ${score} / 100
+      const rating = score >= 85 ? "HIGH AUTHORITY (FREQUENTLY CITED)" : score >= 65 ? "MODERATE (NEEDS CITATION EXPANSION)" : "LOW PROBABILITY OF CITATION";
 
-### Findings:
-Perplexity AI operates as an answer engine that synthesizes information from top-ranking, highly structured pages.
-${hasCitations.includes("Yes") ? "✅ Strong authority signals detected. Your citations give Perplexity high confidence to include your domain in source pills." : "⚠️ Low citation density. Add exact numerical metrics, data tables, and expert author bios to boost citation frequency."}
+      const result = `# Perplexity AI Citation & Authority Audit
 
-### Protocol for Maximum Perplexity Citations:
-- Answer the user's core search query in the first 50-60 words under each H2 header.
-- Provide a summary comparison table with concrete numbers.
-- Embed Organization and MedicalWebPage schema markup.`;
+### Target Entity: ${brand}
+- **Website Analyzed**: ${url}
+- **Content Classification**: ${type}
+- **Current Citation Profile**: ${citations}
+- **Perplexity Citation Readiness Score**: **${score} / 100** (${rating})
+
+---
+
+### Diagnostic Summary:
+Perplexity AI is a synthesis answer engine. It does not rank keywords; it extracts factual statements supported by reliable citations and embeds them as numbered source pills.
+
+${citationPassed 
+  ? "✅ **Authority Signal Detected**: Your content includes verifiable reference points. This provides the confidence threshold Perplexity's semantic reranker needs to cite your domain as an authoritative source." 
+  : "⚠️ **Citation Deficit Alert**: Perplexity rarely cites unsubstantiated claims or plain sales copy. To appear in Perplexity search pills, your pages must cite concrete benchmarks, clinical outcomes, or industry data."}
+
+---
+
+### Step-by-Step Action Plan to Win Perplexity Citations:
+1. **Answer First (Inverted Pyramid)**: State the direct, factual answer within the first 60 words under each H2 header before elaborating.
+2. **Add Data Tables & Exact Numbers**: Perplexity models favor structured comparisons (e.g. '| Metric | Before | After |').
+3. **Embed Schema.org Knowledge Graph**: Add \`MedicalWebPage\` or \`TechArticle\` schema with explicit \`author\` and \`citation\` arrays.
+4. **Deploy Server-Side Rendering**: Ensure pages load in under 400ms without JavaScript gating so Perplexity's real-time parser doesn't timeout.`;
 
       return {
         result,
         score,
-        scoreRating: score >= 80 ? "STRONG AUTHORITY" : "AVERAGE (OPTIMIZATION RECOMMENDED)",
+        scoreRating: rating,
         scoreBreakdown: breakdown,
       };
     }
@@ -1632,10 +1714,12 @@ ${desc}
 ### The Codube Growth Kit:
 At a one-time price of **$999**, gaining just **3 patients** covers 100% of the entire investment for life.`;
 
+      const healthScore = Math.max(68, Math.min(98, Math.round(70 + (annualLift / 60000) * 12)));
+
       return {
         result: report,
-        score: 94,
-        scoreRating: "MASSIVE HEALTHCARE UPSIDE",
+        score: healthScore,
+        scoreRating: annualLift > 100000 ? "MASSIVE HEALTHCARE RECOVERY" : "SOLID HEALTHCARE UPSIDE",
       };
     }
 
@@ -1648,6 +1732,7 @@ At a one-time price of **$999**, gaining just **3 patients** covers 100% of the 
       const commPerDeal = price * commRate;
       const incrementalDealsPerYear = 4;
       const annualLift = incrementalDealsPerYear * commPerDeal;
+      const reScore = Math.max(65, Math.min(99, Math.round(72 + (annualLift / 80000) * 14)));
 
       const report = `# Real Estate Brokerage Lead Velocity & Commission Forecast
 **Monthly Ad Inquiries**: ${leads} buyer leads
@@ -1667,8 +1752,8 @@ At a one-time price of **$999**, gaining just **3 patients** covers 100% of the 
 
       return {
         result: report,
-        score: 96,
-        scoreRating: "HIGH VELOCITY DEAL FLOW",
+        score: reScore,
+        scoreRating: annualLift > 150000 ? "HIGH VELOCITY DEAL FLOW" : "STEADY COMMISSION LIFT",
       };
     }
 
@@ -1686,6 +1771,7 @@ At a one-time price of **$999**, gaining just **3 patients** covers 100% of the 
       const nextJs3Year = nextJsSetup + nextJsHosting;
 
       const savings = wp3Year - nextJs3Year;
+      const savingsScore = Math.max(60, Math.min(98, Math.round(62 + (savings / 3500) * 14)));
 
       const report = `# 3-Year Website Total Cost of Ownership (TCO) Analysis
 
@@ -1710,8 +1796,8 @@ Plus: 10x faster page speed, zero hacked WordPress database vulnerabilities, and
 
       return {
         result: report,
-        score: 92,
-        scoreRating: "SUBSTANTIAL SAVINGS",
+        score: savingsScore,
+        scoreRating: savings > 5000 ? "MASSIVE 3-YEAR SAVINGS" : "SUBSTANTIAL SAVINGS",
       };
     }
 
