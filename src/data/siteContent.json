@@ -6,7 +6,7 @@
     "notificationEmail": "hello@codube.com",
     "phone": "+91 96726 60338",
     "whatsappNumber": "9672660338",
-    "customLogo": "/uploads/1793900682262_codube-icon-80px.png",
+    "customLogo": null,
     "logoDisplayMode": "full",
     "marqueeText": [
       {

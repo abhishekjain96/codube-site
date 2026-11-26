@@ -31,13 +31,23 @@ export default function CodubeLogo({
 
   const currentSize = sizeMap[size];
 
+  // Prevent old legacy black logo from overriding official brand logo
+  const isLegacyBlackLogo =
+    typeof customLogo === "string" &&
+    (customLogo.includes("1793900682262") ||
+      customLogo.includes("codube-icon-80px") ||
+      customLogo.includes("codube-icon-40px") ||
+      customLogo.includes("test_logo"));
+
+  const activeCustomLogo = isLegacyBlackLogo ? null : customLogo;
+
   const content = (
     <div className={`flex items-center gap-2.5 group cursor-pointer select-none ${className}`}>
       {/* If custom logo image is uploaded from admin */}
-      {customLogo ? (
+      {activeCustomLogo ? (
         <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
           <Image
-            src={customLogo}
+            src={activeCustomLogo}
             alt={siteName || "Brand Logo"}
             width={240}
             height={currentSize.imgH}

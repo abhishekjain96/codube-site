@@ -22,10 +22,10 @@ interface HeroSectionProps {
 }
 
 const typewriterPhrases = [
-  "High-Speed Web Platforms That 10x Conversions.",
-  "24/7 Automated WhatsApp AI Receptionists.",
-  "Turnkey Digital Systems Delivered in 7 Days.",
-  "Custom Software & SaaS With 100% IP Ownership.",
+  "High-Speed Web Platforms.",
+  "24/7 WhatsApp AI Agents.",
+  "Turnkey Launch in 7 Days.",
+  "Custom Enterprise Software.",
 ];
 
 function useTypewriter(words: string[], typingSpeed = 45, deletingSpeed = 25, pauseDuration = 2400) {
@@ -135,9 +135,9 @@ export default function HeroSection({ content }: HeroSectionProps) {
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-3"
         >
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight text-slate-950 leading-[1.25] sm:leading-[1.14] break-words">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-black tracking-tight text-slate-950 leading-[1.25] sm:leading-[1.14]">
             <span className="block text-slate-900">Turn Visitors Into Paying Customers with</span>
-            <span className="relative inline-flex items-center justify-center mt-1.5 min-h-[52px] sm:min-h-[78px] md:min-h-[88px] text-center max-w-full px-1">
+            <span className="block mt-1 sm:mt-2 h-[72px] sm:h-[84px] md:h-[96px] lg:h-[120px] flex items-center justify-center text-center max-w-full px-1 overflow-hidden">
               <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 bg-clip-text text-transparent break-words text-center">
                 {typedHeadline}
               </span>

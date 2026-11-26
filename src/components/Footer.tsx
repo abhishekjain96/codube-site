@@ -14,8 +14,14 @@ export default function Footer() {
     fetch("/api/admin/content")
       .then((res) => res.json())
       .then((data) => {
-        if (data.content?.general?.customLogo) {
-          setCustomLogo(data.content.general.customLogo);
+        const logo = data.content?.general?.customLogo;
+        if (
+          logo &&
+          !logo.includes("1793900682262") &&
+          !logo.includes("codube-icon-80px") &&
+          !logo.includes("codube-icon-40px")
+        ) {
+          setCustomLogo(logo);
         }
       })
       .catch(() => {});

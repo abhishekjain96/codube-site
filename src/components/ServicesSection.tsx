@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Monitor,
@@ -15,10 +16,7 @@ import {
 } from "lucide-react";
 import WebPlatformGraphic from "./services/WebPlatformGraphic";
 import WhatsAppAIGraphic from "./services/WhatsAppAIGraphic";
-import ClinicSuiteGraphic from "./services/ClinicSuiteGraphic";
-import ErpCrmGraphic from "./services/ErpCrmGraphic";
 import SaasOrchestratorGraphic from "./services/SaasOrchestratorGraphic";
-import EnterpriseRagGraphic from "./services/EnterpriseRagGraphic";
 
 interface ServicesSectionProps {
   content?: any;
@@ -66,7 +64,7 @@ export default function ServicesSection({
       icon: Activity,
       category: "MISSION-CRITICAL HEALTHCARE",
       tagline: "Specialized platforms for dental, diagnostic centers, and hospital chains like ScanTaker.",
-      Graphic: ClinicSuiteGraphic,
+      image: "/images/services/clinic-systems.jpg",
       features: [
         "Online Token Generation & Doctor Scheduling",
         "WhatsApp Diagnostic Report Delivery",
@@ -81,7 +79,7 @@ export default function ServicesSection({
       icon: Layers,
       category: "ENTERPRISE WORKFLOWS",
       tagline: "Tailor-made internal business operating systems that eliminate manual spreadsheets.",
-      Graphic: ErpCrmGraphic,
+      image: "/images/services/custom-software.jpg",
       features: [
         "Encrypted Cloud Security (AES-256)",
         "Automated Invoicing & Stripe / UPI Gateways",
@@ -111,7 +109,7 @@ export default function ServicesSection({
       icon: Sparkles,
       category: "GEMINI & LLM PIPELINES",
       tagline: "Domain-specific AI copilots and document OCR extraction pipelines on your proprietary data.",
-      Graphic: EnterpriseRagGraphic,
+      image: "/images/services/ai-development.jpg",
       features: [
         "Custom Vector Knowledge Embeddings",
         "Automated Document OCR & Entity Extraction",
@@ -159,27 +157,39 @@ export default function ServicesSection({
           </Link>
         </div>
 
-        {/* CLEAN 6-CARD SERVICES GRID WITH DEDICATED VECTOR GRAPHICS */}
+        {/* CLEAN 6-CARD SERVICES GRID WITH CRISP 16:9 GRAPHICS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesList.map((srv) => {
             const Icon = srv.icon;
-            const GraphicComponent = srv.Graphic;
+            const GraphicComponent = (srv as any).Graphic;
             return (
               <div
                 key={srv.id}
                 className="group rounded-3xl bg-white border border-slate-200/90 hover:border-emerald-500/50 transition-all duration-300 overflow-hidden shadow-[0_4px_25px_rgba(15,23,42,0.04)] hover:shadow-[0_16px_40px_rgba(15,23,42,0.08)] hover:-translate-y-1 flex flex-col justify-between text-left"
               >
                 <div>
-                  {/* Service Card Vector Graphic Header */}
-                  <div className="relative w-full h-52 bg-slate-50 border-b border-slate-100 overflow-hidden">
-                    <GraphicComponent />
+                  {/* Service Card Visual Header (Crisp 16:9 Aspect Ratio - Fully Visible & Never Cut Off) */}
+                  <div className="relative w-full aspect-[16/9] bg-slate-50 border-b border-slate-100 overflow-hidden flex items-center justify-center">
+                    {srv.image ? (
+                      <Image
+                        src={srv.image}
+                        alt={srv.title}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : GraphicComponent ? (
+                      <div className="w-full h-full">
+                        <GraphicComponent />
+                      </div>
+                    ) : null}
 
-                    <div className="absolute top-2.5 right-2.5 w-8 h-8 rounded-lg bg-white/90 backdrop-blur-md border border-slate-200/80 flex items-center justify-center text-slate-800 shadow-2xs group-hover:bg-emerald-600 group-hover:text-white transition-colors z-20">
+                    <div className="absolute top-2.5 right-2.5 w-8 h-8 rounded-lg bg-white/95 backdrop-blur-md border border-slate-200/80 flex items-center justify-center text-slate-800 shadow-2xs group-hover:bg-emerald-600 group-hover:text-white transition-colors z-20">
                       <Icon className="w-4 h-4" />
                     </div>
 
-                    <div className="absolute bottom-2.5 left-3 z-20">
-                      <span className="text-[9px] font-mono font-bold tracking-wider text-emerald-800 uppercase px-2 py-0.5 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200/80 shadow-2xs">
+                    <div className="absolute bottom-2.5 left-3 z-20 pointer-events-none">
+                      <span className="text-[9px] font-mono font-bold tracking-wider text-emerald-800 uppercase px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200/80 shadow-2xs">
                         {srv.category}
                       </span>
                     </div>
