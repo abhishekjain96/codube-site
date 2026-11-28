@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import MouseGlow from "@/components/MouseGlow";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import SmoothScroll from "@/components/SmoothScroll";
+import DynamicTabTitle from "@/components/DynamicTabTitle";
 import "./globals.css";
 
 const BASE = "https://www.codube.com";
@@ -82,12 +83,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-    shortcut: "/favicon.ico",
+    shortcut: "/icon.svg",
   },
 };
 
@@ -131,6 +132,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#FAFAFA] text-slate-900 selection:bg-emerald-500 selection:text-white min-h-screen flex flex-col antialiased overflow-x-hidden font-sans">
+        <DynamicTabTitle />
         <SmoothScroll>
           <MouseGlow />
           <Navbar />
