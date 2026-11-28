@@ -74,8 +74,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
     offset: ["start start", "end start"],
   });
 
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -35]);
 
   const scrollToSection = (sectionId: string) => {
     const el = document.getElementById(sectionId);
@@ -107,9 +106,9 @@ export default function HeroSection({ content }: HeroSectionProps) {
         />
       </div>
 
-      {/* 2. FOREGROUND CONTENT */}
+      {/* 2. FOREGROUND CONTENT (Solid 100% Opacity - Never Dims on Scroll) */}
       <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
+        style={{ y: contentY }}
         className="relative z-10 max-w-5xl mx-auto px-2 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-8 max-w-full overflow-hidden"
       >
         {/* Target Audience Badge */}
@@ -221,13 +220,15 @@ export default function HeroSection({ content }: HeroSectionProps) {
           </div>
         </motion.div>
 
-        {/* 3. MODERN ANIMATED HERO LIVE OPERATIONS & WHATSAPP AI GRAPHIC */}
+        {/* 3. HIGH-VISIBILITY LIVE DASHBOARD & 24/7 WHATSAPP AI GRAPHIC */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="pt-6 sm:pt-8 max-w-5xl mx-auto w-full relative"
+          className="pt-6 sm:pt-8 max-w-5xl mx-auto w-full relative z-20"
         >
+          {/* Ambient Glow Backdrop for High Visibility & 3D Contrast */}
+          <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-emerald-500/15 via-teal-500/20 to-emerald-500/15 blur-2xl sm:blur-3xl -z-10 rounded-3xl opacity-80" />
           <HeroLiveGraphic />
         </motion.div>
 
