@@ -7,18 +7,13 @@ import {
   ArrowLeft,
   ArrowUpRight,
   CheckCircle2,
-  Calendar,
-  Layers,
-  Sparkles,
-  ExternalLink,
-  ShieldCheck,
-  TrendingUp,
-  Cpu,
 } from "lucide-react";
 import CtaBanner from "@/components/CtaBanner";
 import { getSiteContent } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
+
+const BASE = "https://www.codube.com";
 
 interface ProjectDetailProps {
   params: {
@@ -37,12 +32,35 @@ export async function generateMetadata({
   if (!project) {
     return {
       title: "Case Study — CODUBE Portfolio",
+      robots: { index: false, follow: false },
     };
   }
 
+  const title = `${project.name || project.title} Case Study — CODUBE`;
+  const description = project.description || project.tagline;
+  const pageUrl = `${BASE}/work/${params.slug}`;
+
   return {
-    title: `${project.name || project.title} Case Study — CODUBE`,
-    description: project.description || project.tagline,
+    title,
+    description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: pageUrl,
+      siteName: "CODUBE",
+      type: "article",
+      images: [
+        {
+          url: project.image || "/images/scantaker-mockup.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
   };
 }
 

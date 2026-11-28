@@ -1,12 +1,15 @@
+// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Caveat } from "next/font/google";
-import Script from "next/script";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MouseGlow from "@/components/MouseGlow";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
+
+const BASE = "https://www.codube.com";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -22,33 +25,32 @@ const caveat = Caveat({
   display: "swap",
 });
 
+// Zoom allow kiya hai (accessibility + mobile usability)
 export const viewport: Viewport = {
   themeColor: "#FFFFFF",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://codube.com"),
-  title: "CODUBE — Premium Software Development & AI Automation Agency",
+  metadataBase: new URL(BASE),
+  alternates: {
+    canonical: "./",
+  },
+  title: {
+    default: "CODUBE — Software Development & AI Automation Agency",
+    template: "%s | CODUBE",
+  },
   description:
-    "We Build Digital Products That Move Business Forward. Custom software, scalable SaaS platforms, and intelligent AI automation for modern enterprises.",
-  keywords: [
-    "Codube",
-    "Software Development Agency",
-    "AI Automation",
-    "SaaS Product Development",
-    "Web Application Development",
-    "Custom Software Engineering",
-    "Next.js Enterprise Studio",
-  ],
-  authors: [{ name: "CODUBE Team", url: "https://codube.com" }],
+    "We build digital products that move business forward. Custom software, scalable SaaS platforms, websites and WhatsApp AI automation for modern businesses.",
+  applicationName: "CODUBE",
+  authors: [{ name: "CODUBE Team", url: BASE }],
+  creator: "CODUBE",
+  publisher: "CODUBE",
   openGraph: {
-    title: "CODUBE — SOFTWARE. AI. AUTOMATION.",
-    description: "We Build Digital Products That Move Business Forward.",
-    url: "https://codube.com",
+    title: "CODUBE — Software. AI. Automation.",
+    description: "We build digital products that move business forward.",
+    url: BASE,
     siteName: "CODUBE",
     images: [
       {
@@ -63,13 +65,20 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CODUBE — SOFTWARE. AI. AUTOMATION.",
-    description: "We Build Digital Products That Move Business Forward.",
+    title: "CODUBE — Software. AI. Automation.",
+    description: "We build digital products that move business forward.",
     images: ["/images/hero-laptop.png"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   icons: {
     icon: [
@@ -77,11 +86,33 @@ export const metadata: Metadata = {
       { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/icon.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon.ico",
   },
+};
+
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${BASE}/#organization`,
+      name: "CODUBE",
+      url: BASE,
+      logo: `${BASE}/icon.png`,
+      telephone: "+919672660338",
+      founder: { "@type": "Person", name: "Abhishek Jain" },
+      sameAs: [],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${BASE}/#website`,
+      url: BASE,
+      name: "CODUBE",
+      publisher: { "@id": `${BASE}/#organization` },
+      inLanguage: "en",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -92,37 +123,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} ${caveat.variable}`}>
       <head>
-        {/* Google Analytics 4 (GA4) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-4TR0X39EKM"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-4TR0X39EKM');
-          `}
-        </Script>
-
-        {/* Google Tag Manager (GTM) */}
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-K3CN3XFQ"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(siteJsonLd).replace(/</g, "\\u003c"),
+          }}
         />
       </head>
       <body className="bg-[#FAFAFA] text-slate-900 selection:bg-emerald-500 selection:text-white min-h-screen flex flex-col antialiased overflow-x-hidden font-sans">
-        {/* Google Tag Manager (noscript fallback) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-K3CN3XFQ"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
         <SmoothScroll>
           <MouseGlow />
           <Navbar />
@@ -131,6 +139,9 @@ export default function RootLayout({
           <FloatingWhatsApp />
         </SmoothScroll>
       </body>
+
+      <GoogleTagManager gtmId="GTM-K3CN3XFQ" />
+      <GoogleAnalytics gaId="G-4TR0X39EKM" />
     </html>
   );
 }
