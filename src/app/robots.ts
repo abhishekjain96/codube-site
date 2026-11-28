@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/admin/"],
     },
-    sitemap: "https://codube.com/sitemap.xml",
+    sitemap: "https://www.codube.com/sitemap.xml",
   };
 }
